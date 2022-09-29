@@ -1,5 +1,5 @@
 # ZOM-BVP
-" Záznam O Měřeníl - Budoucí Vývojový Plán "
+" Záznam O Měření - Budoucí Vývojový Plán "
 
 ---
 

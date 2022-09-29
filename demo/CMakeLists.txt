@@ -9,4 +9,4 @@ target_include_directories(demo PUBLIC
 target_link_libraries(demo "ZOM")
 
 # install script
-install(TARGETS demo DESTINATION "${CMAKE_SOURCE_DIR}/out/install/bin")
+install(TARGETS demo)

@@ -65,11 +65,11 @@ add_subdirectory("vendor/spdlog")
 target_link_libraries(ZOM "spdlog")
 
 # install
-install(TARGETS spdlog DESTINATION "${CMAKE_SOURCE_DIR}/out/install/lib")
+install(TARGETS spdlog)
 
 ###################################
 #        install scripts          #
 ###################################
-install(TARGETS ZOM DESTINATION "${CMAKE_SOURCE_DIR}/out/install/lib")
+install(TARGETS ZOM)
 
 

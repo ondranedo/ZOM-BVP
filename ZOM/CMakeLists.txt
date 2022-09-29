@@ -36,13 +36,14 @@ endif(UNIX)
 
 
 # target
-add_library(ZOM STATIC "src/Application.cpp" "src/Application.h" "src/Logger.cpp" "src/Entrypoint.cpp")
+add_library(ZOM STATIC "src/Application.cpp" "src/Application.h" "src/Logger.cpp" "src/Entrypoint.cpp" "src/events/WindowEvents.h" "src/events/KeyEvents.h" "src/events/MouseEvents.h" "src/Window.h" "src/platform/Windows/WWindow.h" "src/platform/Windows/WWindows.cpp")
 
 # precimpiled headers
 target_precompile_headers(ZOM PUBLIC
 	"src/Core.h"
 	"src/Logger.h"
 	"src/pch.h"
+	"src/events/Event.h"
 )
 
 ###################################
@@ -59,15 +60,28 @@ target_include_directories(ZOM PUBLIC
 
 # settings
 set(SPDLOG_BUILD_EXAMPLE OFF)
+set(GLFW_INSTALL OFF)
+set(GLFW_BUILD_EXAMPLES OFF)
+set(GLFW_BUILD_TESTS OFF)
+set(GLFW_BUILD_DOCS OFF)
 
 # projects
 add_subdirectory("vendor/spdlog")
+add_subdirectory("vendor/glfw")
 
 # vendor links
 target_link_libraries(ZOM "spdlog")
+target_link_libraries(ZOM "glfw")
+
+# include dirs
+target_include_directories(ZOM PUBLIC
+"${CMAKE_SOURCE_DIR}/ZOM/vendor/spdlog/include"
+"${CMAKE_SOURCE_DIR}/ZOM/vendor/glfw/include"
+)
 
 # install
 install(TARGETS spdlog)
+install(TARGETS glfw)
 
 ###################################
 #        install scripts          #

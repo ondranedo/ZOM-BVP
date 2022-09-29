@@ -9,5 +9,3 @@ Jak by mohl vypadat [ZOM](https://www.github.com/ondranedo/ZOM) v budoucnu,
 
 
 
-
-

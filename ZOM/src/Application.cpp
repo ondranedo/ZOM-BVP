@@ -1,23 +1,29 @@
 ﻿#include "Application.h"
 
-#include <iostream>
-
-
 namespace ZOM {
-	Application::Application()
+	ZOMGameEngine::ZOMGameEngine():
+		m_Running(false)
 	{
-#if   ZOM_DEBUG
-		std::cout << "Application debug created" << std::endl;
-#elif ZOM_RELEASE
-		std::cout << "Application release created" << std::endl;
-#elif ZOM_DISTRIBUTE
-		std::cout << "Application distribute created" << std::endl;
-#endif
+		Log::init();
 	}
 
-	Application::~Application()
+	void ZOMGameEngine::run()
 	{
-		std::cout << "Application destroyed" << std::endl;
+		m_Running = true;
+
+		while (m_Running)
+		{
+
+		}
+	}
+
+	void ZOMGameEngine::close()
+	{
+		m_Running = false;
+	}
+
+	ZOMGameEngine::~ZOMGameEngine()
+	{
 	}
 }
 

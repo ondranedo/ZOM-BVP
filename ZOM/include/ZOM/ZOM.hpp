@@ -6,7 +6,13 @@
 	License: https://github.com/ondranedo/ZOM/blob/main/LICENSE
 */
 
-///////////////////////////
-//     Header files      //
-///////////////////////////
+////////////////////////////
+//     Header files       //
+////////////////////////////
 #include "./../../src/Application.h"
+
+
+////////////////////////////
+//      Game creation     //
+////////////////////////////
+#define ZOM_CREATE_GAME(x) ZOM::ZOMGameEngine* createApp() { return new x; }

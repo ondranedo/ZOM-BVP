@@ -36,11 +36,13 @@ endif(UNIX)
 
 
 # target
-add_library(ZOM STATIC "src/Application.cpp" "src/Application.h" "src/Core.h"  "src/Logger.h")
+add_library(ZOM STATIC "src/Application.cpp" "src/Application.h" "src/Logger.cpp" "src/Entrypoint.cpp")
 
 # precimpiled headers
 target_precompile_headers(ZOM PUBLIC
 	"src/Core.h"
+	"src/Logger.h"
+	"src/pch.h"
 )
 
 ###################################

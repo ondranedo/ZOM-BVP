@@ -28,11 +28,11 @@ endif(UNIX)
 
 
 # target
-add_library(ZOM STATIC "Application.cpp" "Application.h" "Core.h" )
+add_library(ZOM STATIC "src/Application.cpp" "src/Application.h" "src/Core.h" )
 
 # precimpiled headers
 target_precompile_headers(ZOM PUBLIC
-	"Core.h"
+	"src/Core.h"
 )
 
 ###################################
@@ -42,6 +42,22 @@ target_precompile_headers(ZOM PUBLIC
 target_include_directories(ZOM PUBLIC
 "${CMAKE_SOURCE_DIR}/ZOM/src"
 )
+
+###################################
+#         Vendor projects         #
+###################################
+
+# settings
+set(SPDLOG_BUILD_EXAMPLE OFF)
+
+# projects
+add_subdirectory("vendor/spdlog")
+
+# vendor links
+target_link_libraries(ZOM "spdlog")
+
+# install
+install(TARGETS spdlog DESTINATION "${CMAKE_SOURCE_DIR}/out/install/lib")
 
 ###################################
 #        install scripts          #

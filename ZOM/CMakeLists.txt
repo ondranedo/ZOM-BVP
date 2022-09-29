@@ -4,22 +4,30 @@
 #       compile definitions       #
 ###################################
 
+# build
+if(CMAKE_BUILD_TYPE  STREQUAL "Debug")
+	add_compile_definitions(ZOM_DEBUG)
+endif(CMAKE_BUILD_TYPE  STREQUAL "Debug")
+
+if(CMAKE_BUILD_TYPE  STREQUAL "RelWithDebInfo")
+	add_compile_definitions(ZOM_RELEASE)
+endif(CMAKE_BUILD_TYPE  STREQUAL "RelWithDebInfo")
+
+if(CMAKE_BUILD_TYPE  STREQUAL "MinSizeRel")
+	add_compile_definitions(ZOM_DISTRIBUTE)
+endif(CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
+
+# platforms
 if(WIN32)
-	add_compile_definitions(
-		ZOM_PLATFORM_WINDOWS
-	)
+	add_compile_definitions(ZOM_WINDOWS) 
 endif(WIN32)
 	
 if(UNIX AND NOT APPLE)
-	add_compile_definitions(
-		ZOM_PLATFORM_LINUX
-	)
-endif(UNIX)
+	add_compile_definitions(ZOM_LINUX)
+endif(UNIX) 
 
 if(APPLE)
-	add_compile_definitions(
-		ZOM_PLATFORM_MACOS
-	)
+	add_compile_definitions(ZOM_MACOS)
 endif(UNIX)
 
 ###################################

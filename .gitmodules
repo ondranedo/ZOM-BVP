@@ -1,0 +1,3 @@
+[submodule "ZOM/vendor/spdlog"]
+	path = ZOM/vendor/spdlog
+	url = https://github.com/gabime/spdlog

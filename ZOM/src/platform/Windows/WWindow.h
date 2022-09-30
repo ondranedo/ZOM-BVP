@@ -16,7 +16,7 @@ namespace ZOM {
 			param(_param),
 			windowPtr(nullptr),
 			isVsync(true),
-			ecf([](Event&) { ZOM_ERROR("None event callback function!"); })
+			ecf([](Event*) { ZOM_ERROR("None event callback function!"); })
 		{}
 	};
 

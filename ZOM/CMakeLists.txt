@@ -49,11 +49,18 @@ add_library(ZOM STATIC
 "src/events/WindowEvents.h"
 "src/events/KeyEvents.h"
 "src/events/MouseEvents.h"
+"src/events/EventQueue.h"
+"src/events/EventQueue.cpp"
 "src/Window.h"
 "src/platform/Windows/WWindow.h"
 "src/platform/Windows/WWindows.cpp"
 "src/codes/Keycodes.h"
-"src/codes/Mousecodes.h" "src/codes/Keycodes.cpp" "src/codes/Mousecodes.cpp")
+"src/codes/Keycodes.cpp"
+"src/codes/Mousecodes.h"
+"src/codes/Mousecodes.cpp"
+"src/layers/Layer.h"
+"src/layers/LayerManager.cpp"
+ "src/layers/LayerManager.h")
 
 # precimpiled headers
 target_precompile_headers(ZOM PUBLIC

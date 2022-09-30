@@ -1,3 +1,5 @@
+#pragma once
+
 #include "codes/Keycodes.h"
 
 namespace ZOM {

@@ -15,5 +15,5 @@
 namespace ZOM {
 	extern int glfwToZOMMouseCode(int code);
 
-	extern std::string ZOMMouseCodeToString(int code);
+	extern std::string ZOM_API ZOMMouseCodeToString(int code);
 }

@@ -1,28 +1,15 @@
 ﻿#include "Application.h"
 
-#include "events/Event.h"
-#include "events/MouseEvents.h"
-#include "events/KeyEvents.h"
-
 namespace ZOM {
 	ZOMGameEngine::ZOMGameEngine():
 		m_Running(false),
 		m_Window(nullptr)
 	{
-		ZOM_ASSERT(Log::init(),"Can't init. logger");
-
 		m_Window = Window::createWindow();
-		//ZOM_INFO("Window \"{}\" has been created", m_Window->name());
 
-#ifdef ZOM_DEBUG
-    ZOM_CLIENT_ERROR("Debug build");
-#elif  ZOM_RELEASE
-    ZOM_CLIENT_WARNING("Release build");
-#elif ZOM_DISTRIBUTE
-    ZOM_CLIENT_INFO("Distribute build");
-#endif
+		ZOM_TRACE("Window \"{}\" has been created", m_Window->name());
 
-		m_Window->setEventCallbackFn(std::bind(&ZOMGameEngine::onEvent, this, std::placeholders::_1)); 
+		m_Window->setEventCallbackFn(m_EventQueue.getEventCallBack());
 	}
 
 	void ZOMGameEngine::run()
@@ -37,23 +24,23 @@ namespace ZOM {
 		ZOM_TRACE("Ending main loop");
 	}
 
-	void ZOMGameEngine::onFrame()
+	void ZOMGameEngine::addLayer(Layer* layer)
 	{
-
-
-		m_Window->update();
+		m_LayerManager.addLayerOnTop(layer);
 	}
 
-	void ZOMGameEngine::onEvent(Event& event)
+	void ZOMGameEngine::close()
 	{
-		ZOM_TRACE(event.toString());
+		m_Running = false;
+	}
 
-		if (event.type() == EventTypes::WINDOW_CLOSE)
-		{
-			ZOM_WARNING("Window close event happend");
-			ZOM_WARNING(event.toString());
-			m_Running = false;
-		}
+	void ZOMGameEngine::onFrame()
+	{
+		m_LayerManager.handleEvents(&m_EventQueue);
+
+		m_LayerManager.updateLayers();
+
+		m_Window->update();
 	}
 
 	ZOMGameEngine::~ZOMGameEngine()

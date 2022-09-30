@@ -63,7 +63,7 @@ namespace ZOM {
 		glfwSetWindowCloseCallback(m_WindowData.windowPtr, [](GLFWwindow* window)
 		{
 			WWindowData* data = (WWindowData*)glfwGetWindowUserPointer(window);
-			WindowCloseEvent event;
+			WindowCloseEvent* event = new WindowCloseEvent;
 		
 			data->ecf(event);
 		});
@@ -71,7 +71,7 @@ namespace ZOM {
 		glfwSetWindowSizeCallback(m_WindowData.windowPtr, [](GLFWwindow* window,int w, int h)
 		{
 			WWindowData* data = (WWindowData*)glfwGetWindowUserPointer(window);
-			WindowResizeEvent event(w, h);
+			WindowResizeEvent* event = new WindowResizeEvent(w, h);
 
 			data->ecf(event);
 		});
@@ -85,15 +85,15 @@ namespace ZOM {
 			switch (action)
 			{
 			case GLFW_PRESS: {
-				KeyPressedEvent event(key, 0);
+				KeyPressedEvent* event = new KeyPressedEvent(key, 0);
 				data->ecf(event); }
 			break;
 			case GLFW_REPEAT: {
-				KeyPressedEvent event(key, 1);
+				KeyPressedEvent* event = new KeyPressedEvent(key, 1);
 				data->ecf(event); }
 			break;
 			case GLFW_RELEASE: {
-				KeyReleasedEvent event(key);
+				KeyReleasedEvent* event = new KeyReleasedEvent(key);
 				data->ecf(event); }
 				break;
 			}
@@ -102,14 +102,14 @@ namespace ZOM {
 		glfwSetCursorPosCallback(m_WindowData.windowPtr, [](GLFWwindow* window, double x, double y)
 		{
 			WWindowData* data = (WWindowData*)glfwGetWindowUserPointer(window);
-			MouseMovedEvent event(x, y);
+			MouseMovedEvent* event = new MouseMovedEvent(x, y);
 			data->ecf(event);
 		});
 
 		glfwSetScrollCallback(m_WindowData.windowPtr, [](GLFWwindow* window, double x, double y)
 		{
 			WWindowData* data = (WWindowData*)glfwGetWindowUserPointer(window);
-			MouseScrollEvent event(x, y);
+			MouseScrollEvent* event = new MouseScrollEvent(x, y);
 			data->ecf(event);
 		});
 
@@ -124,13 +124,13 @@ namespace ZOM {
 			{
 			case GLFW_PRESS:
 			{
-				MouseButtonPressedEvent event(button);
+				MouseButtonPressedEvent* event = new MouseButtonPressedEvent(button);
 				data->ecf(event);
 			}
 			break;
 			case GLFW_RELEASE:
 			{
-				MouseButtonReleasedEvent event(button);
+				MouseButtonReleasedEvent* event = new MouseButtonReleasedEvent(button);
 				data->ecf(event);
 			}
 			break;

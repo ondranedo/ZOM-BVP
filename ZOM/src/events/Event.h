@@ -15,6 +15,8 @@ namespace ZOM {
 	public:
 		virtual ~Event() {}
 		virtual EventTypes type() = 0;
+		inline bool isHandled() const { return m_Handled; }
+		void handled() { m_Handled = true; }
 
 #ifdef ZOM_DEBUG
 		virtual std::string toString() = 0;
@@ -24,5 +26,26 @@ namespace ZOM {
 
 	protected:
 		bool m_Handled = false;
+	};
+
+	typedef std::function<void(Event*)> eventCallbackFn;
+
+	class ZOM_API EventDispatcher {
+	public:
+		EventDispatcher(Event& event):
+			m_Event(event)
+		{}
+
+		template<class T>
+		void dispatchEvent(const std::function<bool(T&)>& fun)
+		{
+			if (T::getStaticType() == m_Event.type())
+				if (!m_Event.isHandled())
+					if (fun((T&)m_Event))
+						m_Event.handled();
+		}
+
+	private:
+		Event& m_Event;
 	};
 }

@@ -124,5 +124,5 @@ namespace ZOM {
 
 	extern int glfwToZOMKeyCode(int code);
 
-	extern std::string ZOMKeyCodeToString(int code);
+	extern std::string ZOM_API ZOMKeyCodeToString(int code);
 }

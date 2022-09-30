@@ -1,5 +1,7 @@
+#pragma once
+
 namespace ZOM {
-	typedef std::function<void(Event&)> eventCallbackFn;
+	#include "events/Event.h"
 
 	struct ZOM_API WindowParam {
 		std::string name;

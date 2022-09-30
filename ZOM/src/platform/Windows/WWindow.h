@@ -38,7 +38,7 @@ namespace ZOM {
 
 	private:
 		void init();
-		void terminate();
+		void terminate() const;
 		void setCallBacks();
 
 	private:

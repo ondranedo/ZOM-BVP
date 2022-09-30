@@ -20,7 +20,7 @@ namespace ZOM {
             s_Core->set_level(spdlog::level::trace);
             s_Client->set_level(spdlog::level::trace);
         #elif ZOM_RELEASE
-            s_Core->set_level(spdlog::level::error);
+            s_Core->set_level(spdlog::level::warn);
             s_Client->set_level(spdlog::level::trace);
         #elif ZOM_DISTRIBUTE
             s_Core->set_level(spdlog::level::none);

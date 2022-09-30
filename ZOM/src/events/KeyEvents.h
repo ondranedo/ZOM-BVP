@@ -9,6 +9,7 @@ namespace ZOM {
 		int getKeyCode() const { return m_KeyCode; }
 		int getRepeatcount() const { return m_RepeatCount; }
 
+#ifdef ZOM_DEBUG
 		std::string toString() override
 		{
 			std::string ret = "";
@@ -19,7 +20,8 @@ namespace ZOM {
 			ret += " times";
 			return ret;
 		}
-		
+#endif
+
 		ZOM_EVENT_IMPLEMENTATION(KEY_PRESSED);
 	private:
 		int m_KeyCode;
@@ -34,6 +36,7 @@ namespace ZOM {
 
 		int getKeyCode() const { return m_KeyCode; }
 
+#ifdef ZOM_DEBUG
 		std::string toString() override
 		{
 			std::string ret = "";
@@ -42,6 +45,7 @@ namespace ZOM {
 			ret += " released";
 			return ret;
 		}
+#endif
 
 		ZOM_EVENT_IMPLEMENTATION(KEY_RELEASED);
 	private:

@@ -4,9 +4,11 @@ namespace ZOM {
 	class ZOM_API MouseMovedEvent: public Event {
 	public:
 		MouseMovedEvent(double x, double y) : m_X(x), m_Y(y) {};
-		std::pair<double, double> getCoords() const { return { m_X, m_Y }; }
 		~MouseMovedEvent() {};
-	
+		
+		std::pair<double, double> getCoords() const { return { m_X, m_Y }; }
+
+#ifdef ZOM_DEBUG	
 		std::string toString() override
 		{
 			std::string ret = "";
@@ -16,6 +18,7 @@ namespace ZOM {
 			ret += std::to_string(m_Y);
 			return ret;
 		}
+#endif
 		ZOM_EVENT_IMPLEMENTATION(MOUSE_MOVED);
 	private:
 		double m_X, m_Y;
@@ -25,8 +28,10 @@ namespace ZOM {
 	public:
 		MouseButtonPressedEvent(int button) : m_Button(button) {};
 		~MouseButtonPressedEvent(){}
+
 		int getButton() const { return m_Button; }
 
+#ifdef ZOM_DEBUG
 		std::string toString() override
 		{
 			std::string ret = "";
@@ -35,6 +40,8 @@ namespace ZOM {
 			ret += " pressed";
 			return ret;
 		}
+#endif
+
 		ZOM_EVENT_IMPLEMENTATION(MOUSE_BUTTON_PRESSED);
 	private:
 		int m_Button;
@@ -44,8 +51,10 @@ namespace ZOM {
 	public:
 		MouseButtonReleasedEvent(int button) : m_Button(button) {};
 		~MouseButtonReleasedEvent() {}
+
 		int getButton() const { return m_Button; }
 
+#ifdef ZOM_DEBUG
 		std::string toString() override
 		{
 			std::string ret = "";
@@ -54,6 +63,8 @@ namespace ZOM {
 			ret += " released";
 			return ret;
 		}
+#endif
+
 		ZOM_EVENT_IMPLEMENTATION(MOUSE_BUTTON_RELEASED);
 	private:
 		int m_Button;
@@ -62,9 +73,11 @@ namespace ZOM {
 	class ZOM_API MouseScrollEvent : public Event {
 	public:
 		MouseScrollEvent(double x_offset, double y_offst) : m_X(x_offset), m_Y(y_offst) {};
-		std::pair<double, double> getOffset() const { return { m_X, m_Y }; }
 		~MouseScrollEvent(){}
 
+		std::pair<double, double> getOffset() const { return { m_X, m_Y }; }
+
+#ifdef ZOM_DEBUG
 		std::string toString() override
 		{
 			std::string ret;
@@ -74,6 +87,8 @@ namespace ZOM {
 			ret += std::to_string(m_Y);
 			return ret;
 		}
+#endif
+
 		ZOM_EVENT_IMPLEMENTATION(MOUSE_SCROLL);
 	private:
 		double m_X, m_Y;

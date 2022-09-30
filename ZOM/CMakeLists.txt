@@ -36,7 +36,22 @@ endif(UNIX)
 
 
 # target
-add_library(ZOM STATIC "src/Application.cpp" "src/Application.h" "src/Logger.cpp" "src/Entrypoint.cpp" "src/events/WindowEvents.h" "src/events/KeyEvents.h" "src/events/MouseEvents.h" "src/Window.h" "src/platform/Windows/WWindow.h" "src/platform/Windows/WWindows.cpp")
+add_library(ZOM STATIC
+"src/Application.cpp"
+"src/Application.h"
+"src/Logger.cpp"
+"src/Logger.h"
+"src/Core.h"
+"src/Logger.h"
+"src/pch.h"
+"src/Entrypoint.cpp"
+"src/events/Event.h"
+"src/events/WindowEvents.h"
+"src/events/KeyEvents.h"
+"src/events/MouseEvents.h"
+"src/Window.h"
+"src/platform/Windows/WWindow.h"
+"src/platform/Windows/WWindows.cpp")
 
 # precimpiled headers
 target_precompile_headers(ZOM PUBLIC

@@ -5,6 +5,9 @@
 #include "events/MouseEvents.h"
 #include "events/WindowEvents.h"
 
+#include "codes/Keycodes.h"
+#include "codes/Mousecodes.h"
+
 namespace ZOM {
 	WWindow::WWindow(const WindowParam& param) : 
 		m_WindowData(WWindowData(param))
@@ -76,7 +79,9 @@ namespace ZOM {
 		glfwSetKeyCallback(m_WindowData.windowPtr, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
 			WWindowData* data = (WWindowData*)glfwGetWindowUserPointer(window);
-			
+
+			key = glfwToZOMKeyCode(key);
+
 			switch (action)
 			{
 			case GLFW_PRESS: {
@@ -84,11 +89,11 @@ namespace ZOM {
 				data->ecf(event); }
 			break;
 			case GLFW_REPEAT: {
-				KeyPressedEvent event(key, 1); 
+				KeyPressedEvent event(key, 1);
 				data->ecf(event); }
 			break;
 			case GLFW_RELEASE: {
-				KeyReleasedEvent event(key);   
+				KeyReleasedEvent event(key);
 				data->ecf(event); }
 				break;
 			}
@@ -112,6 +117,8 @@ namespace ZOM {
 		glfwSetMouseButtonCallback(m_WindowData.windowPtr, [](GLFWwindow* window, int button, int action, int mods)
 		{
 			WWindowData* data = (WWindowData*)glfwGetWindowUserPointer(window);
+			
+			button = glfwToZOMMouseCode(button);
 
 			switch (action)
 			{

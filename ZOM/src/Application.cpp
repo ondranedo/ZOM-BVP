@@ -38,6 +38,8 @@ namespace ZOM {
 
 	void ZOMGameEngine::onEvent(Event& event)
 	{
+		ZOM_TRACE(event.toString());
+
 		if (event.type() == EventTypes::WINDOW_CLOSE)
 		{
 			ZOM_WARNING("Window close event happend");

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "codes/Mousecodes.h"
+
 namespace ZOM {
 	class ZOM_API MouseMovedEvent: public Event {
 	public:
@@ -36,7 +38,7 @@ namespace ZOM {
 		{
 			std::string ret = "";
 			ret += "Mouse button ";
-			ret += std::to_string(m_Button);
+			ret += ZOMMouseCodeToString(m_Button);
 			ret += " pressed";
 			return ret;
 		}
@@ -59,7 +61,7 @@ namespace ZOM {
 		{
 			std::string ret = "";
 			ret += "Mouse button ";
-			ret += std::to_string(m_Button);
+			ret += ZOMMouseCodeToString(m_Button);
 			ret += " released";
 			return ret;
 		}

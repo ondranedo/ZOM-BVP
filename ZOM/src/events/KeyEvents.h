@@ -1,3 +1,5 @@
+#include "codes/Keycodes.h"
+
 namespace ZOM {
 	class ZOM_API KeyPressedEvent : public Event {
 	public:
@@ -14,7 +16,7 @@ namespace ZOM {
 		{
 			std::string ret = "";
 			ret += "Key ";
-			ret += std::to_string(m_KeyCode);
+			ret += ZOMKeyCodeToString(m_KeyCode);
 			ret += " pressed ";
 			ret += std::to_string(m_RepeatCount);
 			ret += " times";
@@ -41,7 +43,7 @@ namespace ZOM {
 		{
 			std::string ret = "";
 			ret += "Key ";
-			ret += std::to_string(m_KeyCode);
+			ret += ZOMKeyCodeToString(m_KeyCode);
 			ret += " released";
 			return ret;
 		}

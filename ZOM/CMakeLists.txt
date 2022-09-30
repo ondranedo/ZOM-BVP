@@ -51,7 +51,9 @@ add_library(ZOM STATIC
 "src/events/MouseEvents.h"
 "src/Window.h"
 "src/platform/Windows/WWindow.h"
-"src/platform/Windows/WWindows.cpp")
+"src/platform/Windows/WWindows.cpp"
+"src/codes/Keycodes.h"
+"src/codes/Mousecodes.h" "src/codes/Keycodes.cpp" "src/codes/Mousecodes.cpp")
 
 # precimpiled headers
 target_precompile_headers(ZOM PUBLIC

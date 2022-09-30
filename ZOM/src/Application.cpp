@@ -12,7 +12,15 @@ namespace ZOM {
 		ZOM_ASSERT(Log::init(),"Can't init. logger");
 
 		m_Window = Window::createWindow();
-		ZOM_INFO("Window \"{}\" has been created", m_Window->name());
+		//ZOM_INFO("Window \"{}\" has been created", m_Window->name());
+
+#ifdef ZOM_DEBUG
+    ZOM_CLIENT_ERROR("Debug build");
+#elif  ZOM_RELEASE
+    ZOM_CLIENT_WARNING("Release build");
+#elif ZOM_DISTRIBUTE
+    ZOM_CLIENT_INFO("Distribute build");
+#endif
 
 		m_Window->setEventCallbackFn(std::bind(&ZOMGameEngine::onEvent, this, std::placeholders::_1)); 
 	}

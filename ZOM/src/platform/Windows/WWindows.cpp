@@ -12,7 +12,7 @@ namespace ZOM {
 	WWindow::WWindow(const WindowParam& param) : 
 		m_WindowData(WWindowData(param))
 	{ init(); }
-	WWindow::~WWindow() {  }
+	WWindow::~WWindow() { terminate(); }
 
 	inline std::string WWindow::name() const { return m_WindowData.param.name; }
 	inline std::pair<int,int> WWindow::dime() const { return m_WindowData.param.dimensions; }
@@ -42,7 +42,7 @@ namespace ZOM {
 		m_WindowData.windowPtr = glfwCreateWindow(m_WindowData.param.dimensions.first,
 			                                      m_WindowData.param.dimensions.second,
 			                                      m_WindowData.param.name.c_str(),
-									              NULL, NULL);
+									              nullptr, nullptr);
 
 		glfwMakeContextCurrent(m_WindowData.windowPtr);
 
@@ -51,9 +51,9 @@ namespace ZOM {
 		setCallBacks();
 	}
 
-	void WWindow::terminate()
+	void WWindow::terminate() const
 	{
-		ZOM_TRACE("Destroying \"{}\ window", name());
+		//ZOM_TRACE("Destroying \"{}\ window", name());
 
 		glfwDestroyWindow(m_WindowData.windowPtr);
 	}

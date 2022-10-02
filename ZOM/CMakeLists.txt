@@ -65,7 +65,6 @@ add_library(ZOM STATIC
 # precimpiled headers
 target_precompile_headers(ZOM PUBLIC
 	"src/Core.h"
-	"src/Logger.h"
 	"src/pch.h"
 	"src/events/Event.h"
 )

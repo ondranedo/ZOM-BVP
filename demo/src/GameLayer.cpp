@@ -18,15 +18,17 @@ void GameLayer::onEvent(ZOM::Event& event)
 
 bool GameLayer::onCloseEvent(ZOM::WindowCloseEvent& wce)
 {
-	std::cout << "Window close fun" << std::endl;
+	ZOM_WARNING("Window shloud close");
 
 	return true;
 }
-
+	
 bool GameLayer::onKey(ZOM::KeyPressedEvent& kpe)
 {
-	if(kpe.getRepeatcount() == 0)
-		std::cout << ZOM::ZOMKeyCodeToString(kpe.getKeyCode());
+	if (kpe.getRepeatcount() == 0)
+	{
+		ZOM_TRACE("Event: {}", ZOM::ZOMKeyCodeToString(kpe.getKeyCode()));
+	}
 
 	return true;
 }

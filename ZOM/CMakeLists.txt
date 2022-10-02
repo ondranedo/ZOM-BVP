@@ -21,14 +21,14 @@ endif(CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
 if(WIN32)
 	add_compile_definitions(ZOM_WINDOWS) 
 endif(WIN32)
-	
+
 if(UNIX AND NOT APPLE)
 	add_compile_definitions(ZOM_LINUX)
-endif(UNIX) 
+endif(UNIX AND NOT APPLE) 
 
 if(APPLE)
 	add_compile_definitions(ZOM_MACOS)
-endif(UNIX)
+endif(APPLE)
 
 ###################################
 #          source files           #

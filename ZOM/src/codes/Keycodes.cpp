@@ -131,5 +131,6 @@ namespace ZOM {
 		}
 
 		ZOM_ASSERT(false, "None specified  button");
+		return "ZOMKeyCodeToString ERROR";
 	}
 }

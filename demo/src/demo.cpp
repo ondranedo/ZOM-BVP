@@ -6,16 +6,14 @@ class Game : public ZOM::ZOMGameEngine {
 public:
 	Game()
 	{
-		addLayer(new GameLayer("Obloha"));
-		addLayer(new GameLayer("Hory"));
-		addLayer(new GameLayer("Pole"));
-		addLayer(new GameLayer("Ruce"));
+		addLayer(m_GameLayer = new GameLayer("Game layer"));
 	}
 	~Game()
 	{
 
 	}
-
+private:
+	GameLayer* m_GameLayer;
 };
 
 ZOM_CREATE_GAME(Game);

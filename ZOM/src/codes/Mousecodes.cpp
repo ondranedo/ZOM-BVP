@@ -21,5 +21,7 @@ namespace ZOM {
 		}
 
 		ZOM_ASSERT(false, "None specified mouse button");
+
+		return "Error ZOMMouseCodeToString";
 	}
 }

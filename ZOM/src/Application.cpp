@@ -1,5 +1,7 @@
 ﻿#include "Application.h"
 
+#include <glad/gl.h>
+
 namespace ZOM {
 	ZOMGameEngine::ZOMGameEngine():
 		m_Running(false),
@@ -36,6 +38,8 @@ namespace ZOM {
 
 	void ZOMGameEngine::onFrame()
 	{
+		glClear(GL_COLOR_BUFFER_BIT);
+
 		m_LayerManager.handleEvents(&m_EventQueue);
 
 		m_LayerManager.updateLayers();

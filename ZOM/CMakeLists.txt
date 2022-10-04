@@ -21,14 +21,14 @@ endif(CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
 if(WIN32)
 	add_compile_definitions(ZOM_WINDOWS) 
 endif(WIN32)
-	
+
 if(UNIX AND NOT APPLE)
 	add_compile_definitions(ZOM_LINUX)
-endif(UNIX) 
+endif(UNIX AND NOT APPLE) 
 
 if(APPLE)
 	add_compile_definitions(ZOM_MACOS)
-endif(UNIX)
+endif(APPLE)
 
 ###################################
 #          source files           #
@@ -91,15 +91,18 @@ set(GLFW_BUILD_DOCS OFF)
 # projects
 add_subdirectory("vendor/spdlog")
 add_subdirectory("vendor/glfw")
+add_subdirectory("vendor/glad/gl_4.0_core_debug")
 
 # vendor links
 target_link_libraries(ZOM "spdlog")
 target_link_libraries(ZOM "glfw")
+target_link_libraries(ZOM "glad")
 
 # include dirs
 target_include_directories(ZOM PUBLIC
 "${CMAKE_SOURCE_DIR}/ZOM/vendor/spdlog/include"
 "${CMAKE_SOURCE_DIR}/ZOM/vendor/glfw/include"
+"${CMAKE_SOURCE_DIR}/ZOM/vendor/glad/gl_4.0_core_debug/include"
 )
 
 # install

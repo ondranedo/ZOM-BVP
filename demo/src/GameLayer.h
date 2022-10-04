@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ZOM/ZOM.hpp>
+#include "trinagle.h"
 
 class GameLayer : public ZOM::Layer {
 public:
@@ -12,4 +13,8 @@ public:
 protected:
 	bool onCloseEvent(ZOM::WindowCloseEvent& wce);
 	bool onKey(ZOM::KeyPressedEvent& kpe);
+	bool onKeyRelease(ZOM::KeyReleasedEvent& kpe);
+
+private:
+	TrinageMesh m_Triangle;
 };

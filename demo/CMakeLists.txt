@@ -1,5 +1,5 @@
 ﻿# game's build file
-add_executable(demo "src/demo.cpp"  "src/GameLayer.cpp" "src/GameLayer.h")
+add_executable(demo "src/demo.cpp"  "src/GameLayer.cpp" "src/GameLayer.h" "src/trinagle.h")
 
 target_include_directories(demo PUBLIC
 "${CMAKE_SOURCE_DIR}/ZOM/include"

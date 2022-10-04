@@ -3,7 +3,17 @@
 #pragma once
 #include "Window.h"
 
+#include <glad/gl.h>
+
 #include <GLFW/glfw3.h>
+
+#include "events/KeyEvents.h"
+#include "events/MouseEvents.h"
+#include "events/WindowEvents.h"
+
+#include "codes/Keycodes.h"
+#include "codes/Mousecodes.h"
+
 
 namespace ZOM {
 	struct ZOM_API WWindowData {

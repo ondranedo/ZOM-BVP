@@ -1,12 +1,6 @@
 #ifdef ZOM_WINDOWS
 
 #include "WWindow.h"
-#include "events/KeyEvents.h"
-#include "events/MouseEvents.h"
-#include "events/WindowEvents.h"
-
-#include "codes/Keycodes.h"
-#include "codes/Mousecodes.h"
 
 namespace ZOM {
 	WWindow::WWindow(const WindowParam& param) : 
@@ -48,6 +42,13 @@ namespace ZOM {
 
 		glfwSetWindowUserPointer(m_WindowData.windowPtr, (void*)&m_WindowData);
 
+
+		// TODO: in renderer
+		{
+			int error;
+			ZOM_ASSERT(error = gladLoadGL(glfwGetProcAddress), "glad error[{}] loaded unsuccesfuly", error);
+		}
+	
 		setCallBacks();
 	}
 

@@ -91,15 +91,18 @@ set(GLFW_BUILD_DOCS OFF)
 # projects
 add_subdirectory("vendor/spdlog")
 add_subdirectory("vendor/glfw")
+add_subdirectory("vendor/glad/gl_4.0_core_debug")
 
 # vendor links
 target_link_libraries(ZOM "spdlog")
 target_link_libraries(ZOM "glfw")
+target_link_libraries(ZOM "glad")
 
 # include dirs
 target_include_directories(ZOM PUBLIC
 "${CMAKE_SOURCE_DIR}/ZOM/vendor/spdlog/include"
 "${CMAKE_SOURCE_DIR}/ZOM/vendor/glfw/include"
+"${CMAKE_SOURCE_DIR}/ZOM/vendor/glad/gl_4.0_core_debug/include"
 )
 
 # install

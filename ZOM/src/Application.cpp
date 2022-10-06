@@ -38,13 +38,17 @@ namespace ZOM {
 
 	void ZOMGameEngine::onFrame()
 	{
+		//m_Renderer->clear();
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		m_Window->pollEvents();
 		m_LayerManager.handleEvents(&m_EventQueue);
 
 		m_LayerManager.updateLayers();
+		 
+		//m_Renderer->render();
 
-		m_Window->update();
+		m_Window->swapBuffers(); // in render loop
 	}
 
 	ZOMGameEngine::~ZOMGameEngine()

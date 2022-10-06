@@ -44,8 +44,8 @@ namespace ZOM {
 		virtual void resize(const std::pair<int, int>& dims) override;
 
 		// Runs every frame
-		virtual void update() override;
-
+		virtual void pollEvents() override;
+		virtual void swapBuffers() override;
 	private:
 		void init();
 		void terminate() const;

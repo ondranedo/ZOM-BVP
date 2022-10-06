@@ -25,8 +25,8 @@ namespace ZOM {
 		virtual void setVsync(bool state) = 0;
 		virtual void resize(const std::pair<int, int>& dims) = 0;
 
-		// Runs every frame
-		virtual void update() = 0;
+		virtual void pollEvents() = 0;
+		virtual void swapBuffers() = 0;
 
 		static Window* createWindow(const WindowParam& param = WindowParam());
 	};

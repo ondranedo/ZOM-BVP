@@ -24,9 +24,13 @@ namespace ZOM {
 		m_WindowData.param.dimensions = dims;
 	}
 	
-	// Runs every frame
-	void WWindow::update() {
+	void WWindow::pollEvents()
+	{
 		glfwPollEvents();
+	}
+
+	void WWindow::swapBuffers()
+	{
 		glfwSwapBuffers(m_WindowData.windowPtr);
 	}
 

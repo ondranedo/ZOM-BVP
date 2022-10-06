@@ -47,10 +47,11 @@ public:
 		vertexD[0] = -0.5f; vertexD[1] = -0.5f;
 		vertexD[2] = 0.0f; vertexD[3] = 0.5f;
 		vertexD[4] = 0.5f; vertexD[5] = -0.5f;
-		speed = 1;
+		speed = 0.2;
+		m_Dir = NONE;
 	}
 private:
-	size_t speed = 1;
+	float speed = 0.2;
 	float vertexD[6] = { -0.5f,-0.5f,0.0f, 0.5f,0.5f,-0.5f };
 	unsigned int indexD[3] = { 0,1,2 };
 

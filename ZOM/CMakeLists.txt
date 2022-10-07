@@ -61,8 +61,10 @@ add_library(ZOM STATIC
 "src/layers/Layer.h"
 "src/layers/LayerManager.cpp"
 "src/layers/LayerManager.h"
-"src/renderer/Renderer.cpp"
-"src/renderer/Rendrerer.h" "src/renderer/RendrererCommand.h")
+# "src/renderer/Renderer.cpp"
+# "src/renderer/Rendrerer.h" 
+# "src/renderer/RendrererCommand.h"
+)
 
 # precimpiled headers
 target_precompile_headers(ZOM PUBLIC

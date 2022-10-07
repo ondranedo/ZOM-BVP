@@ -7,3 +7,6 @@
 [submodule "ZOM/vendor/glad"]
 	path = ZOM/vendor/glad
 	url = https://github.com/ondranedo/glad
+[submodule "ZOM/vendor/glm"]
+	path = ZOM/vendor/glm
+	url = https://github.com/g-truc/glm

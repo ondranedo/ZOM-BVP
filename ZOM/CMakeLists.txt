@@ -107,6 +107,7 @@ target_include_directories(ZOM PUBLIC
 "${CMAKE_SOURCE_DIR}/ZOM/vendor/spdlog/include"
 "${CMAKE_SOURCE_DIR}/ZOM/vendor/glfw/include"
 "${CMAKE_SOURCE_DIR}/ZOM/vendor/glad/gl_4.0_core_debug/include"
+"${CMAKE_SOURCE_DIR}/ZOM/vendor/glm/"
 )
 
 # install

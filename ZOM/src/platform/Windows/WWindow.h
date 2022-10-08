@@ -17,8 +17,8 @@
 
 namespace ZOM {
 	struct ZOM_API WWindowData {
-		WindowParam param;
 		GLFWwindow* windowPtr;
+		WindowParam param;
 		bool isVsync;
 		eventCallbackFn ecf;
 		RenderContext* context;
@@ -27,6 +27,7 @@ namespace ZOM {
 			param(_param),
 			windowPtr(nullptr),
 			isVsync(true),
+			context(nullptr),
 			ecf([](Event*) { ZOM_ERROR("None event callback function!"); })
 		{}
 	};
@@ -39,7 +40,8 @@ namespace ZOM {
 		virtual inline std::string name() const override;
 		virtual inline std::pair<int, int> dime() const override;
 		virtual inline bool isVsync() const override;
-			
+		virtual inline void* getContextCreationAdr() override;
+
 		virtual void setEventCallbackFn(const eventCallbackFn& fun) override;
 		virtual void setVsync(bool state) override;
 		virtual void resize(const std::pair<int, int>& dims) override;

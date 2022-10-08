@@ -20,10 +20,12 @@ namespace ZOM {
 		virtual inline std::string name() const = 0;
 		virtual inline std::pair<int, int> dime() const = 0;
 		virtual inline bool isVsync() const = 0;
+		virtual inline void* getContextCreationAdr() = 0;
 
 		virtual void setEventCallbackFn(const eventCallbackFn& fun) = 0;
 		virtual void setVsync(bool state) = 0;
 		virtual void resize(const std::pair<int, int>& dims) = 0;
+		
 
 		virtual void pollEvents() = 0;
 		virtual void swapBuffers() = 0;

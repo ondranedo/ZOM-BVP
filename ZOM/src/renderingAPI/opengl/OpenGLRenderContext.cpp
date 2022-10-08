@@ -1,10 +1,8 @@
 #include "OpenGLRenderContext.h"
 
-#include <glad/gl.h>
-
 namespace ZOM {
 
-	OpengGLRenderContex::OpengGLRenderContex()
+	OpengGLRenderContex::OpengGLRenderContex(void* window_ptr):m_WindowPtr((GLFWwindow*)window_ptr)
 	{
 		ZOM_TRACE("New OpenGL context created");
 	}
@@ -14,15 +12,23 @@ namespace ZOM {
 		destroy();
 	}
 
-	void OpengGLRenderContex::init(ZOMProcFun procAddres)
+	void OpengGLRenderContex::init()
 	{
 		int error;
 
-		ZOM_ASSERT(error = gladLoadGL((GLADloadfunc)procAddres), "glad error[{}] loaded unsuccesfuly", error);
+		glfwMakeContextCurrent(m_WindowPtr);
+
+		ZOM_ASSERT(error = gladLoadGL(glfwGetProcAddress), "glad error[{}], loaded unsuccesfuly", error);
 	}
 
 	void OpengGLRenderContex::destroy()
 	{
 		ZOM_WARNING("OpenGL context destroyed");
 	}
+
+	void OpengGLRenderContex::swap()
+	{
+		glfwSwapBuffers(m_WindowPtr);
+	}
+
 }

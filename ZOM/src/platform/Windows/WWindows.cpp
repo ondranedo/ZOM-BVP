@@ -5,12 +5,19 @@
 namespace ZOM {
 	WWindow::WWindow(const WindowParam& param) : 
 		m_WindowData(WWindowData(param))
-	{ init(); }
+	{ 
+		init(); 
+	}
 	WWindow::~WWindow() { terminate(); }
 
 	inline std::string WWindow::name() const { return m_WindowData.param.name; }
 	inline std::pair<int,int> WWindow::dime() const { return m_WindowData.param.dimensions; }
 	inline bool WWindow::isVsync() const { return m_WindowData.isVsync; }
+
+	void* WWindow::getContextCreationAdr()
+	{
+		return (void*) m_WindowData.windowPtr;
+	}
 
 	void WWindow::setEventCallbackFn(const eventCallbackFn& fun) { m_WindowData.ecf = fun; }
 
@@ -31,7 +38,7 @@ namespace ZOM {
 
 	void WWindow::swapBuffers()
 	{
-		glfwSwapBuffers(m_WindowData.windowPtr);
+		m_WindowData.context->swap();
 	}
 
 	void WWindow::init()
@@ -42,13 +49,11 @@ namespace ZOM {
 			                                      m_WindowData.param.name.c_str(),
 									              nullptr, nullptr);
 
-		glfwMakeContextCurrent(m_WindowData.windowPtr);
-
 		glfwSetWindowUserPointer(m_WindowData.windowPtr, (void*)&m_WindowData);
 
-		m_WindowData.context = RenderContext::createContext();
+		m_WindowData.context = RenderContext::createContext(this);
 
-		m_WindowData.context->init(glfwGetProcAddress);
+		m_WindowData.context->init();
 
 		setCallBacks();
 	}

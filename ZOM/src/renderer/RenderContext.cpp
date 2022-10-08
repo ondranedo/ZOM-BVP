@@ -4,16 +4,15 @@
 
 
 namespace ZOM {
-	RenderContext* RenderContext::createContext()
+	RenderContext* RenderContext::createContext(Window* window)
 	{
 		switch (Renderer::getRenderingAPI())
 		{
 		case RenderingAPI::OPENGL:
-			return new OpengGLRenderContex;
-			break;
-
+			return new OpengGLRenderContex(window->getContextCreationAdr());
+			
 		default:
-				ZOM_WARNING("Unkown rendering api when creating render context");
+				ZOM_ERROR("Unkown rendering api when creating render context");
 			break;
 		}
 	}

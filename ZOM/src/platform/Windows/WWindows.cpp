@@ -46,19 +46,16 @@ namespace ZOM {
 
 		glfwSetWindowUserPointer(m_WindowData.windowPtr, (void*)&m_WindowData);
 
+		m_WindowData.context = RenderContext::createContext();
 
-		// TODO: in renderer
-		{
-			int error;
-			ZOM_ASSERT(error = gladLoadGL(glfwGetProcAddress), "glad error[{}] loaded unsuccesfuly", error);
-		}
-	
+		m_WindowData.context->init(glfwGetProcAddress);
+
 		setCallBacks();
 	}
 
 	void WWindow::terminate() const
 	{
-		//ZOM_TRACE("Destroying \"{}\ window", name());
+		ZOM_TRACE("Destroying \"{}\" window", name());
 
 		glfwDestroyWindow(m_WindowData.windowPtr);
 	}

@@ -4,7 +4,10 @@
 
 void GameLayer::onUpdate()
 {
-	//OpenGL test
+	// OpenGL test
+	// RendererCommand::startScene(SceneData);
+	// RendererCommand::addMesh(triangle);
+	// RendererCommand::addMesh(square);
 	{
 		m_Triangle.onUpdate();
 

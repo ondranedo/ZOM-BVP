@@ -3,7 +3,6 @@
 #pragma once
 #include "Window.h"
 
-#include <glad/gl.h>
 
 #include <GLFW/glfw3.h>
 
@@ -14,6 +13,7 @@
 #include "codes/Keycodes.h"
 #include "codes/Mousecodes.h"
 
+#include "renderer/RenderContext.h"
 
 namespace ZOM {
 	struct ZOM_API WWindowData {
@@ -21,6 +21,7 @@ namespace ZOM {
 		GLFWwindow* windowPtr;
 		bool isVsync;
 		eventCallbackFn ecf;
+		RenderContext* context;
 
 		WWindowData(const WindowParam& _param):
 			param(_param),
@@ -38,7 +39,7 @@ namespace ZOM {
 		virtual inline std::string name() const override;
 		virtual inline std::pair<int, int> dime() const override;
 		virtual inline bool isVsync() const override;
-
+			
 		virtual void setEventCallbackFn(const eventCallbackFn& fun) override;
 		virtual void setVsync(bool state) override;
 		virtual void resize(const std::pair<int, int>& dims) override;

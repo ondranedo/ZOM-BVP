@@ -17,14 +17,14 @@ namespace ZOM {
 		virtual ~ZOMGameEngine();
 
 		void run();
+		void close();
+		bool isRunning();
 
 	protected:
 		void addLayer(Layer* layer);
-		void close();
 
 	private:
 		void onFrame();
-
 
 	private:
 		bool m_Running;

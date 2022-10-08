@@ -37,8 +37,8 @@ endif(APPLE)
 
 # target
 add_library(ZOM STATIC
-"src/Application.cpp"
-"src/Application.h"
+"src/Engine.cpp"
+"src/Engine.h"
 "src/Logger.cpp"
 "src/Logger.h"
 "src/Core.h"
@@ -63,13 +63,17 @@ add_library(ZOM STATIC
 "src/layers/LayerManager.h"
 "src/renderer/Renderer.cpp"
 "src/renderer/Rendrerer.h" 
-#"src/renderer/RendrererCommand.h"
+"src/renderer/RenderContext.cpp"
+
  "src/renderingAPI/opengl/OpenGLRenderContext.h"
  "src/renderingAPI/opengl/OpenGLRenderContext.cpp"
- "src/renderer/RenderContext.cpp"
+#"src/renderingAPI/opengl/OpenGLRenderer.h"
+#"src/renderingAPI/opengl/OpenGLCore.h"
+"src/EngineCommand.h"
+"src/EngineCommand.cpp"
 )
 
-# precimpiled headers
+# precompiled headers
 target_precompile_headers(ZOM PUBLIC
 	"src/Core.h"
 	"src/pch.h"

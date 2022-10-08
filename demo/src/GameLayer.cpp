@@ -14,7 +14,8 @@ void GameLayer::onUpdate()
 		unsigned int id_ver;
 		unsigned int id_ind;
 		unsigned int id_varr;
-
+		
+		// Vertex Array
 		glGenVertexArrays(1, &id_varr);
 		glBindVertexArray(id_varr);
 
@@ -55,8 +56,7 @@ void GameLayer::onEvent(ZOM::Event& event)
 
 bool GameLayer::onCloseEvent(ZOM::WindowCloseEvent& wce)
 {
-	ZOM_WARNING("Window shloud close");
-	
+	ZOM::EngineCommand::close();
 
 	return true;
 }

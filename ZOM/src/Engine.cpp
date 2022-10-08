@@ -1,4 +1,4 @@
-﻿#include "Application.h"
+﻿#include "Engine.h"
 
 #include <glad/gl.h>
 
@@ -9,8 +9,6 @@ namespace ZOM {
 		m_LayerManager("./events.log")
 	{
 		m_Window = Window::createWindow();
-
-		ZOM_TRACE("Window \"{}\" has been created", m_Window->name());
 
 		m_Window->setEventCallbackFn(m_EventQueue.getEventCallBack());
 	}
@@ -34,7 +32,14 @@ namespace ZOM {
 
 	void ZOMGameEngine::close()
 	{
+		ZOM_WARNING("Engine close function has been called");
+
 		m_Running = false;
+	}
+
+	bool ZOMGameEngine::isRunning()
+	{
+		return m_Running;
 	}
 
 	void ZOMGameEngine::onFrame()
@@ -54,7 +59,7 @@ namespace ZOM {
 
 	ZOMGameEngine::~ZOMGameEngine()
 	{
-		ZOM_WARNING("Destroying engine");
+		ZOM_TRACE("Destroying engine");
 
 		delete m_Window;
 	}

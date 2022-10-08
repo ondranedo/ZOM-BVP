@@ -16,14 +16,24 @@ namespace ZOM {
 
 	void* WWindow::getContextCreationAdr()
 	{
+		ZOM_TRACE("Windows Window \"{}\" has been created", m_WindowData.param.name);
+
 		return (void*) m_WindowData.windowPtr;
 	}
 
 	void WWindow::setEventCallbackFn(const eventCallbackFn& fun) { m_WindowData.ecf = fun; }
 
 	void WWindow::setVsync(bool state) {
-		if (state) glfwSwapInterval(1);
-		else       glfwSwapInterval(0);
+		if (state)
+		{
+			glfwSwapInterval(1);
+			ZOM_CLIENT_TRACE("VSync enabled");
+		}
+		else
+		{
+			glfwSwapInterval(0);
+			ZOM_CLIENT_TRACE("VSync disabled");
+		}
 	}
 
 	void WWindow::resize(const std::pair<int, int>& dims) {
@@ -60,9 +70,9 @@ namespace ZOM {
 
 	void WWindow::terminate() const
 	{
-		ZOM_TRACE("Destroying \"{}\" window", name());
-		
 		delete m_WindowData.context;
+		
+		ZOM_TRACE("Destroying \"{}\" Windows Window", name());
 
 		glfwDestroyWindow(m_WindowData.windowPtr);
 	}

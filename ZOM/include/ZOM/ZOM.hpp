@@ -9,7 +9,9 @@
 ////////////////////////////
 //     Header files       //
 ////////////////////////////
-#include "./../../src/Application.h"
+#include "./../../src/Engine.h"
+#include "./../../src/EngineCommand.h"
+
 #include "./../../src/layers/Layer.h"
 
 #include "./../../src/events/Event.h"

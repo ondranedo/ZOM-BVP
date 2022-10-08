@@ -1,10 +1,14 @@
 #include "OpenGLRenderContext.h"
 
+#include "platform/Windows/WWindow.h"
+
 namespace ZOM {
 
 	OpengGLRenderContex::OpengGLRenderContex(void* window_ptr):m_WindowPtr((GLFWwindow*)window_ptr)
 	{
-		ZOM_TRACE("New OpenGL context created");
+		WWindowData* data = (WWindowData*)glfwGetWindowUserPointer(m_WindowPtr);
+
+		ZOM_TRACE("OpenGL context created for window: {}",data->param.name);
 	}
 
 	OpengGLRenderContex::~OpengGLRenderContex()
@@ -23,7 +27,9 @@ namespace ZOM {
 
 	void OpengGLRenderContex::destroy()
 	{
-		ZOM_WARNING("OpenGL context destroyed");
+		WWindowData* data = (WWindowData*)glfwGetWindowUserPointer(m_WindowPtr);
+
+		ZOM_TRACE("OpenGL context destroyed for window: {}", data->param.name);
 	}
 
 	void OpengGLRenderContex::swap()

@@ -34,10 +34,10 @@ namespace ZOM {
 
 	void LayerManager::deleteLayers()
 	{
-		ZOM_WARNING("All layers deleted");
-
 		for (Layer* layer : m_Layers)
 			delete layer;
+
+		ZOM_TRACE("All layers deleted");
 	}
 
 	void LayerManager::updateLayers()

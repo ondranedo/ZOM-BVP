@@ -1,6 +1,4 @@
-#include "Application.h"
-
-extern ZOM::ZOMGameEngine* createApp();
+#include "EngineCommand.h"
 
 int main(int argc, char** argv)
 {
@@ -30,12 +28,12 @@ int main(int argc, char** argv)
 	ZOM_CLIENT_CRITICAL("Building on unkonw device... quitting.");
 	return -1;
 #endif
+	
+	ZOM::EngineCommand::create();
 
-	ZOM::ZOMGameEngine* app = createApp();
+	ZOM::EngineCommand::run();
 
-	app->run();
-
-	delete app;
+	ZOM::EngineCommand::terminate();
 
 	return 0;
 }

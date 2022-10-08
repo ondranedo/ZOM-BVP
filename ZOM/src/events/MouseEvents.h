@@ -15,9 +15,9 @@ namespace ZOM {
 		{
 			std::string ret = "";
 			ret += "Mouse moved to: ";
-			ret += std::to_string(m_X);
+			ret += std::to_string((int)m_X);
 			ret += " ";
-			ret += std::to_string(m_Y);
+			ret += std::to_string((int)m_Y);
 			return ret;
 		}
 #endif

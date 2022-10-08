@@ -20,8 +20,8 @@ namespace ZOM {
 			ret += "Key ";
 			ret += ZOMKeyCodeToString(m_KeyCode);
 			ret += " pressed ";
-			ret += std::to_string(m_RepeatCount);
-			ret += " times";
+			if(m_RepeatCount != 0)
+				ret += "[repeat]";
 			return ret;
 		}
 #endif

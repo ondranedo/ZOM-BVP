@@ -2,9 +2,15 @@
 
 namespace ZOM {
 
-	LayerManager::LayerManager()
+	LayerManager::LayerManager(const std::string& path /* = "none" */): m_Path(path)
 	{
+#ifdef ZOM_DEBUG
+		FILE* fw = fopen(path.c_str(), "w");
+		ZOM_ASSERT(fw, "Cant create event log file");
 
+		fprintf(fw,"-------ZOM FILE EVENT LOG------\r\n");
+		fclose(fw);
+#endif
 	}
 
 	LayerManager::~LayerManager()
@@ -43,7 +49,7 @@ namespace ZOM {
 	}
 
 	void LayerManager::handleEvents(EventQueue* eventQueue)
-	{
+	{	
 		size_t nOfEvents = eventQueue->getEventCount();
 		
 		ZOM_ASSERT(nOfEvents < 200, "Number of queued events is way too hight");
@@ -57,8 +63,23 @@ namespace ZOM {
 				layer->onEvent(*event);
 			}
 
+			if (m_Path != "none")
+				storeEventToFile(event);
+
 			delete event;
 		}
 	}
+
+	void LayerManager::storeEventToFile(Event* event)
+	{
+#ifdef ZOM_DEBUG
+		FILE* fw = fopen(m_Path.c_str(), "a");
+		ZOM_ASSERT(fw, "Can't append event to the evenrt log file");
+
+		fprintf(fw, (event->toString()+"\r\n").c_str());
+		fclose(fw);
+#endif
+	}
+
 }
 

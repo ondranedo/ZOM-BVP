@@ -56,6 +56,8 @@ namespace ZOM {
 	void WWindow::terminate() const
 	{
 		ZOM_TRACE("Destroying \"{}\" window", name());
+		
+		delete m_WindowData.context;
 
 		glfwDestroyWindow(m_WindowData.windowPtr);
 	}

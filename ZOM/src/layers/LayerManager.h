@@ -6,7 +6,7 @@
 namespace ZOM {
 	class ZOM_API LayerManager {
 	public:
-		LayerManager();
+		LayerManager(const std::string& path = "none");
 		~LayerManager();
 		void addLayerOnTop(Layer* heap_layer_addr);
 		void addLayerToTheBack(Layer* heap_layer_addr);
@@ -14,6 +14,8 @@ namespace ZOM {
 		void deleteLayers();
 		void updateLayers();
 		void handleEvents(EventQueue* queue);
+
+		void storeEventToFile(Event* event);
 
 		void printLayerLayout()
 		{
@@ -31,5 +33,7 @@ namespace ZOM {
 		}
 	private:
 		std::vector<Layer*> m_Layers;
+		std::string m_Path;
+
 	};
 }

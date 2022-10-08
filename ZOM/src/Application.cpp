@@ -5,7 +5,8 @@
 namespace ZOM {
 	ZOMGameEngine::ZOMGameEngine():
 		m_Running(false),
-		m_Window(nullptr)
+		m_Window(nullptr),
+		m_LayerManager("./events.log")
 	{
 		m_Window = Window::createWindow();
 

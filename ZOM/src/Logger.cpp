@@ -4,11 +4,11 @@
 namespace ZOM {
 
 #ifndef ZOM_DISTRIBUTE
-	logPtr Log::s_Core;
+	logPtr Logger::s_Core;
 #endif
-	logPtr Log::s_Client;
+	logPtr Logger::s_Client;
 
-	bool Log::init()
+	void Logger::init()
 	{
 		// Core console setup
 #ifndef ZOM_DISTRIBUTE
@@ -36,6 +36,16 @@ namespace ZOM {
 		s_Client->set_level(spdlog::level::trace);
 #endif
 
-		return true; // Initialized successfully
+		ZOM_TRACE("Logger initialized");
+	}
+
+	void Logger::release()
+	{
+		ZOM_TRACE("Logger released");
+		s_Client.reset();
+
+#ifndef ZOM_DISTRIBUTE
+		s_Core.reset();
+#endif
 	}
 }

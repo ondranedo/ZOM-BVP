@@ -8,9 +8,11 @@
 namespace ZOM {
 	using logPtr = std::shared_ptr<spdlog::logger>;
 
-	class ZOM_API Log {
+	class ZOM_API Logger {
 	public:
-		static bool init();
+		static void init();
+		static void release();
+
 #ifndef ZOM_DISTRIBUTE
 		inline static const logPtr& getCore() { return s_Core; }
 #else

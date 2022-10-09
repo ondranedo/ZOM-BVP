@@ -2,10 +2,9 @@
 
 int main(int argc, char** argv)
 {
+/*
 	ZOM::Log::init();
-
 	ZOM_INFO("Logger initialized");
-
 #ifdef ZOM_DEBUG
 	ZOM_CLIENT_ERROR("Debug build");
 #elif  ZOM_RELEASE
@@ -28,12 +27,22 @@ int main(int argc, char** argv)
 	ZOM_CLIENT_CRITICAL("Building on unkonw device... quitting.");
 	return -1;
 #endif
-	
+*/
+		ZOM::Logger::init();
+	//	ZOM::Renderer::init();
+	//	ZOM::Engine::init();
+	//	ZOM::Window::init();
+
 	ZOM::EngineCommand::create();
 
 	ZOM::EngineCommand::run();
 
 	ZOM::EngineCommand::terminate();
+
+	//	ZOM::Renderer::release();
+	//	ZOM::Engine::release();
+	//	ZOM::Window::release();
+		ZOM::Logger::release();
 
 	return 0;
 }

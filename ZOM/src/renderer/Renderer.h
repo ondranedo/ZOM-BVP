@@ -8,12 +8,17 @@ namespace ZOM {
 	public:
 		static void create(RenderingAPI api);
 		static void terminate();
-
+		
+		// Context management
 		static void contextInitialize(Window*);
+
+		// Renderer commands
+		static RenderApplication* getRenderApplication();
 		static void renderLoop();
 
-		static void begin();
-		static void end();
+		// For scene
+		static void beginScene();
+		static void endScene();
 
 	private:
 		static RendererPack* s_RenderPack;

@@ -4,11 +4,7 @@
 
 void GameLayer::onUpdate()
 {
-	// OpenGL test
-	// RendererCommand::startScene(SceneData);
-	// RendererCommand::addMesh(triangle);
-	// RendererCommand::addMesh(square);
-	ZOM::Renderer::begin();
+	ZOM::Renderer::beginScene();
 
 	{
 		m_Triangle.onUpdate();
@@ -43,7 +39,7 @@ void GameLayer::onUpdate()
 		glDeleteVertexArrays(1, &id_varr);
 	}
 
-	ZOM::Renderer::end();
+	ZOM::Renderer::endScene();
 }
 
 

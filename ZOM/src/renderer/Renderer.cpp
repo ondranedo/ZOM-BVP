@@ -28,20 +28,25 @@ namespace ZOM {
 		s_RenderPack->contextInitialize(window);
 	}
 
+	RenderApplication* Renderer::getRenderApplication()
+	{
+		return s_RenderPack->getRenderApplication();
+	}
+
 	void Renderer::renderLoop()
 	{
 		s_RenderPack->renderLoop();
 	}
 
 
-	void Renderer::begin()
+	void Renderer::beginScene()
 	{
-		s_RenderPack->begin();
+		s_RenderPack->beginScene();
 	}
 
-	void Renderer::end()
+	void Renderer::endScene()
 	{
-		s_RenderPack->end();
+		s_RenderPack->endScene();
 	}
 
 	RendererPack* Renderer::s_RenderPack;

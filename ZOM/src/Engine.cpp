@@ -49,6 +49,8 @@ namespace ZOM {
 
 	void ZOMGameEngine::onFrame()
 	{
+		Renderer::getRenderApplication()->clear();
+
 		m_Window->pollEvents();
 		m_LayerManager.handleEvents(&m_EventQueue);
 

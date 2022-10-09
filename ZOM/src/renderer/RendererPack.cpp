@@ -30,9 +30,7 @@ namespace ZOM {
 
 	void RendererPack::renderLoop()
 	{
-		//m_RenderApplication->clear();
-
-		//m_Context->swap();
+		m_Context->swap();
 	}
 
 	void RendererPack::contextInitialize(Window* window)
@@ -40,15 +38,24 @@ namespace ZOM {
 		m_Context->init(window->getContextCreationAdr());
 	}
 
-	void RendererPack::begin()
+	RenderApplication* RendererPack::getRenderApplication()
 	{
-		m_RenderApplication->clear();
+		return m_RenderApplication;
 	}
 
-	void RendererPack::end()
+	void RendererPack::beginScene()
 	{
-		m_Context->swap();
 	}
+
+	void RendererPack::endScene()
+	{
+	}
+
+	void RendererPack::clear(const glm::vec4& color)
+	{
+		m_RenderApplication->clear(color);
+	}
+
 
 	RenderContext* RendererPack::getContext()
 	{

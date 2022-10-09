@@ -15,14 +15,18 @@ namespace ZOM {
 
 		void renderLoop();
 		void contextInitialize(Window* window);
+		RenderApplication* getRenderApplication();
 
-		void begin();
-		void end();
+		void beginScene();
+		void endScene();
+		void clear(const glm::vec4& color);
 
 		inline RenderContext* getContext();
 		inline RenderingAPI getRenderingAPI();
+
 	private:
 		RenderingAPI m_RenderAPI;
+
 		RenderContext* m_Context;
 		RenderApplication* m_RenderApplication;
 	};

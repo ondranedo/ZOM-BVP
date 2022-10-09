@@ -45,13 +45,15 @@ add_library(ZOM STATIC
 "src/Logger.h"
 "src/pch.h"
 "src/Entrypoint.cpp"
+"src/Window.h"
+"src/EngineCommand.h"
+"src/EngineCommand.cpp"
 "src/events/Event.h"
 "src/events/WindowEvents.h"
 "src/events/KeyEvents.h"
 "src/events/MouseEvents.h"
 "src/events/EventQueue.h"
 "src/events/EventQueue.cpp"
-"src/Window.h"
 "src/platform/Windows/WWindow.h"
 "src/platform/Windows/WWindows.cpp"
 "src/codes/Keycodes.h"
@@ -61,16 +63,17 @@ add_library(ZOM STATIC
 "src/layers/Layer.h"
 "src/layers/LayerManager.cpp"
 "src/layers/LayerManager.h"
+"src/renderer/RenderApplication.h" 
+"src/renderer/RenderContext.h" 
 "src/renderer/Renderer.cpp"
-"src/renderer/Rendrerer.h" 
-"src/renderer/RenderContext.cpp"
-
- "src/renderingAPI/opengl/OpenGLRenderContext.h"
- "src/renderingAPI/opengl/OpenGLRenderContext.cpp"
-#"src/renderingAPI/opengl/OpenGLRenderer.h"
-#"src/renderingAPI/opengl/OpenGLCore.h"
-"src/EngineCommand.h"
-"src/EngineCommand.cpp"
+"src/renderer/Renderer.h"
+"src/renderer/RendererPack.cpp"
+"src/renderer/RendererPack.h"
+"src/renderingAPI/opengl/OpenGLCore.h"
+"src/renderingAPI/opengl/OpenGLRenderApplication.cpp"
+"src/renderingAPI/opengl/OpenGLRenderApplication.h"
+"src/renderingAPI/opengl/OpenGLRenderContext.cpp"
+"src/renderingAPI/opengl/OpenGLRenderContext.h"
 )
 
 # precompiled headers
@@ -78,6 +81,8 @@ target_precompile_headers(ZOM PUBLIC
 	"src/Core.h"
 	"src/pch.h"
 	"src/events/Event.h"
+	"src/renderingAPI/opengl/OpenGLCore.h"
+	"src/renderer/renderer.h"
 )
 
 ###################################

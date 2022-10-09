@@ -8,9 +8,14 @@ namespace ZOM {
 		m_Window(nullptr),
 		m_LayerManager("./events.log")
 	{
+		Renderer::create(RenderingAPI::OPENGL);
+
 		m_Window = Window::createWindow();
 
+		m_Window->init();
+
 		m_Window->setEventCallbackFn(m_EventQueue.getEventCallBack());
+
 	}
 
 	void ZOMGameEngine::run()
@@ -44,22 +49,19 @@ namespace ZOM {
 
 	void ZOMGameEngine::onFrame()
 	{
-		//m_Renderer->clear();
-		glClear(GL_COLOR_BUFFER_BIT);
-
 		m_Window->pollEvents();
 		m_LayerManager.handleEvents(&m_EventQueue);
 
 		m_LayerManager.updateLayers();
-		 
-		//m_Renderer->render();
 
-		m_Window->swapBuffers(); // in render loop
+		Renderer::renderLoop();
 	}
 
 	ZOMGameEngine::~ZOMGameEngine()
 	{
 		ZOM_TRACE("Destroying engine");
+
+		Renderer::terminate();
 
 		delete m_Window;
 	}

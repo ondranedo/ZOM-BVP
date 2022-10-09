@@ -6,7 +6,7 @@ namespace ZOM {
 	WWindow::WWindow(const WindowParam& param) : 
 		m_WindowData(WWindowData(param))
 	{ 
-		init(); 
+		
 	}
 	WWindow::~WWindow() { terminate(); }
 
@@ -46,11 +46,6 @@ namespace ZOM {
 		glfwPollEvents();
 	}
 
-	void WWindow::swapBuffers()
-	{
-		m_WindowData.context->swap();
-	}
-
 	void WWindow::init()
 	{
 		glfwInit();
@@ -61,17 +56,13 @@ namespace ZOM {
 
 		glfwSetWindowUserPointer(m_WindowData.windowPtr, (void*)&m_WindowData);
 
-		m_WindowData.context = RenderContext::createContext(this);
-
-		m_WindowData.context->init();
+		Renderer::contextInitialize(this);
 
 		setCallBacks();
 	}
 
 	void WWindow::terminate() const
 	{
-		delete m_WindowData.context;
-		
 		ZOM_TRACE("Destroying \"{}\" Windows Window", name());
 
 		glfwDestroyWindow(m_WindowData.windowPtr);

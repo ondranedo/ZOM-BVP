@@ -6,10 +6,8 @@ namespace ZOM {
 	class ZOM_API RenderContext {
 	public:
 		virtual ~RenderContext() {};
-		virtual void init() = 0;
-		virtual void swap() = 0;
+		virtual void init(void* window_pointer) = 0;
+		virtual void swap() const = 0;
 		virtual void destroy() = 0;
-		
-		static RenderContext* createContext(Window* window);
 	};
 }

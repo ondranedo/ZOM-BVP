@@ -8,6 +8,8 @@ void GameLayer::onUpdate()
 	// RendererCommand::startScene(SceneData);
 	// RendererCommand::addMesh(triangle);
 	// RendererCommand::addMesh(square);
+	ZOM::Renderer::begin();
+
 	{
 		m_Triangle.onUpdate();
 
@@ -40,6 +42,8 @@ void GameLayer::onUpdate()
 		glDeleteBuffers(1, &id_ind);
 		glDeleteVertexArrays(1, &id_varr);
 	}
+
+	ZOM::Renderer::end();
 }
 
 

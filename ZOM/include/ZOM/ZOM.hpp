@@ -11,6 +11,7 @@
 ////////////////////////////
 #include "./../../src/Engine.h"
 #include "./../../src/EngineCommand.h"
+#include "./../../src/renderer/renderer.h"
 
 #include "./../../src/layers/Layer.h"
 

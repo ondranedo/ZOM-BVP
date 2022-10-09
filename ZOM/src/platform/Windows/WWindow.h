@@ -13,7 +13,7 @@
 #include "codes/Keycodes.h"
 #include "codes/Mousecodes.h"
 
-#include "renderer/RenderContext.h"
+#include "renderer/Renderer.h"
 
 namespace ZOM {
 	struct ZOM_API WWindowData {
@@ -21,13 +21,11 @@ namespace ZOM {
 		WindowParam param;
 		bool isVsync;
 		eventCallbackFn ecf;
-		RenderContext* context;
 
 		WWindowData(const WindowParam& _param):
 			param(_param),
 			windowPtr(nullptr),
 			isVsync(true),
-			context(nullptr),
 			ecf([](Event*) { ZOM_ERROR("None event callback function!"); })
 		{}
 	};
@@ -46,11 +44,9 @@ namespace ZOM {
 		virtual void setVsync(bool state) override;
 		virtual void resize(const std::pair<int, int>& dims) override;
 
-		// Runs every frame
 		virtual void pollEvents() override;
-		virtual void swapBuffers() override;
-	private:
-		void init();
+		virtual void init() override;
+private:
 		void terminate() const;
 		void setCallBacks();
 

@@ -10,31 +10,28 @@
 
 #include "layers/LayerManager.h"
 #include "renderer/RendererPack.h"
+#include "EngineGame.h"
 
 namespace ZOM {
-	class ZOM_API ZOMGameEngine {
+	class ZOM_API Engine {
 	public:
-		ZOMGameEngine();
-		virtual ~ZOMGameEngine();
+		static void init();
+		static void release();
 
-		void run();
-		void close();
-		bool isRunning();
+		static void run();
+		static void close();
+		static bool isRunning();
 
-	protected:
-		void addLayer(Layer* layer);
-
-	private:
-		void onFrame();
+		static void addLayer(Layer* layer);
 
 	private:
-		bool m_Running;
-		Window* m_Window;
+	    static void onFrame();
 
-		/*
-			Stores all layers, and all events
-		*/
-		EventQueue m_EventQueue;
-		LayerManager m_LayerManager;
+	private:
+		 static bool s_Running;
+		 static Window* s_Window;
+		 static Game* s_Game;
+		 static EventQueue s_EventQueue;
+		 static LayerManager s_LayerManager;
 	};
 }

@@ -2,18 +2,18 @@
 
 #include "GameLayer.h"
 
-class Game : public ZOM::ZOMGameEngine {
+class Demo: public ZOM::Game {
 public:
-	Game()
+	Demo()
 	{
-		addLayer(m_GameLayer = new GameLayer("Game layer"));
-	}
-	~Game()
-	{
+		ZOM_INFO("Game created");
 
+		ZOM::Engine::addLayer(new GameLayer("Game layer"));
 	}
-private:
-	GameLayer* m_GameLayer;
+	~Demo()
+	{
+		ZOM_INFO("Game destroyed");
+	}
 };
 
-ZOM_CREATE_GAME(Game);
+ZOM_CREATE_GAME(Demo);

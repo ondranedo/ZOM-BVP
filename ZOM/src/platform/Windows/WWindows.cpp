@@ -6,7 +6,7 @@ namespace ZOM {
 	WWindow::WWindow(const WindowParam& param) : 
 		m_WindowData(WWindowData(param))
 	{ 
-		
+		ZOM_TRACE("Windows Window \"{}\" has been created", m_WindowData.param.name);
 	}
 	WWindow::~WWindow() { terminate(); }
 
@@ -16,8 +16,6 @@ namespace ZOM {
 
 	void* WWindow::getContextCreationAdr()
 	{
-		ZOM_TRACE("Windows Window \"{}\" has been created", m_WindowData.param.name);
-
 		return (void*) m_WindowData.windowPtr;
 	}
 

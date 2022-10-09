@@ -10,10 +10,10 @@
 //     Header files       //
 ////////////////////////////
 #include "./../../src/Engine.h"
-#include "./../../src/EngineCommand.h"
 #include "./../../src/renderer/renderer.h"
 
 #include "./../../src/layers/Layer.h"
+#include "./../../src/EngineGame.h"
 
 #include "./../../src/events/Event.h"
 #include "./../../src/events/MouseEvents.h"
@@ -27,7 +27,7 @@
 ////////////////////////////
 //      Game creation     //
 ////////////////////////////
-#define ZOM_CREATE_GAME(x) ZOM::ZOMGameEngine* createApp() { return new x; }
+#define ZOM_CREATE_GAME(x) ZOM::Game* createGame() { return new x; }
 
 
 ////////////////////////////
@@ -50,8 +50,8 @@
 #undef ZOM_CRITICAL
 
 // redefine logger
-#define ZOM_TRACE(...)		ZOM::Log::getClient()->trace(__VA_ARGS__)
-#define ZOM_INFO(...)		ZOM::Log::getClient()->info(__VA_ARGS__)
-#define ZOM_WARNING(...)	ZOM::Log::getClient()->warn(__VA_ARGS__)
-#define ZOM_ERROR(...)		ZOM::Log::getClient()->error(__VA_ARGS__)
-#define ZOM_CRITICAL(...)	ZOM::Log::getClient()->critical(__VA_ARGS__)
+#define ZOM_TRACE(...)		ZOM::Logger::getClient()->trace(__VA_ARGS__)
+#define ZOM_INFO(...)		ZOM::Logger::getClient()->info(__VA_ARGS__)
+#define ZOM_WARNING(...)	ZOM::Logger::getClient()->warn(__VA_ARGS__)
+#define ZOM_ERROR(...)		ZOM::Logger::getClient()->error(__VA_ARGS__)
+#define ZOM_CRITICAL(...)	ZOM::Logger::getClient()->critical(__VA_ARGS__)

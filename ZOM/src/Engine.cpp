@@ -2,70 +2,85 @@
 
 #include <glad/gl.h>
 
+extern ZOM::Game* createGame();
+
 namespace ZOM {
-	ZOMGameEngine::ZOMGameEngine():
-		m_Running(false),
-		m_Window(nullptr),
-		m_LayerManager("./events.log")
+
+	void Engine::init()
 	{
+		s_LayerManager.init("./events.log");
+
 		Renderer::create(RenderingAPI::OPENGL);
 
-		m_Window = Window::createWindow();
+		s_Window = Window::createWindow();
 
-		m_Window->init();
+		s_Window->init();
 
-		m_Window->setEventCallbackFn(m_EventQueue.getEventCallBack());
+		s_Window->setEventCallbackFn(s_EventQueue.getEventCallBack());
 
+		s_Game = createGame();
+
+		ZOM_TRACE("Engine initialized");
 	}
 
-	void ZOMGameEngine::run()
+	void Engine::release()
 	{
-		m_Running = true;
+		s_LayerManager.release();
+		delete s_Game;
+
+		Renderer::terminate();
+
+		delete s_Window;
+
+		ZOM_TRACE("Engine released");
+	}
+
+	void Engine::run()
+	{
+		s_Running = true;
 
 		ZOM_TRACE("Starting main loop");
 
-		while (m_Running)
+		while (s_Running)
 			onFrame();
 
 		ZOM_TRACE("Ending main loop");
 	}
+	 
+	 void Engine::addLayer(Layer* layer)
+	 {
+		 s_LayerManager.addLayerOnTop(layer);
+	 }
 
-	void ZOMGameEngine::addLayer(Layer* layer)
-	{
-		m_LayerManager.addLayerOnTop(layer);
-	}
+	 void Engine::close()
+	 {
+		 ZOM_WARNING("Engine close function has been called");
 
-	void ZOMGameEngine::close()
-	{
-		ZOM_WARNING("Engine close function has been called");
+		 s_Running = false;
+	 }
 
-		m_Running = false;
-	}
+	 bool Engine::isRunning()
+	 {
+		 return s_Running;
+	 }
+	 
+	 void Engine::onFrame()
+	 {
+	 	Renderer::getRenderApplication()->clear();
+	
+	 	s_Window->pollEvents();
 
-	bool ZOMGameEngine::isRunning()
-	{
-		return m_Running;
-	}
-
-	void ZOMGameEngine::onFrame()
-	{
-		Renderer::getRenderApplication()->clear();
-
-		m_Window->pollEvents();
-		m_LayerManager.handleEvents(&m_EventQueue);
-
-		m_LayerManager.updateLayers();
-
-		Renderer::renderLoop();
-	}
-
-	ZOMGameEngine::~ZOMGameEngine()
-	{
-		ZOM_TRACE("Destroying engine");
-
-		Renderer::terminate();
-
-		delete m_Window;
-	}
+	 	s_LayerManager.handleEvents(&s_EventQueue);
+	 
+	 	s_LayerManager.updateLayers();
+	
+    	Renderer::renderLoop();
+	 }
+	
+	bool Engine::s_Running = false;
+	Window* Engine::s_Window = nullptr;
+	Game* Engine::s_Game;
+	EventQueue Engine::s_EventQueue;
+	LayerManager Engine::s_LayerManager;
 }
 

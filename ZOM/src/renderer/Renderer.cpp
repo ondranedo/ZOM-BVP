@@ -25,7 +25,10 @@ namespace ZOM {
 
 	void Renderer::contextInitialize(Window* window)
 	{
-		s_RenderPack->contextInitialize(window);
+		if (s_Created)
+			s_RenderPack->contextInitialize(window);
+		else
+			ZOM_ERROR("You have to create renderer in order to initialize context");
 	}
 
 	RenderApplication* Renderer::getRenderApplication()

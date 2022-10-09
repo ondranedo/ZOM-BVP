@@ -6,10 +6,11 @@
 namespace ZOM {
 	class ZOM_API LayerManager {
 	public:
-		LayerManager(const std::string& path = "none");
-		~LayerManager();
 		void addLayerOnTop(Layer* heap_layer_addr);
 		void addLayerToTheBack(Layer* heap_layer_addr);
+
+		void init(const std::string& path /* = "none" */);
+		void release();
 
 		void deleteLayers();
 		void updateLayers();

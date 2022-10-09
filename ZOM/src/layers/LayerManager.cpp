@@ -2,18 +2,20 @@
 
 namespace ZOM {
 
-	LayerManager::LayerManager(const std::string& path /* = "none" */): m_Path(path)
+	void LayerManager::init(const std::string& path /* = "none" */)
 	{
+		m_Path = path;
+
 #ifdef ZOM_DEBUG
 		FILE* fw = fopen(path.c_str(), "w");
-		ZOM_ASSERT(fw, "Cant create event log file");
+		//ZOM_ASSERT(fw, "Cant create event log file");
 
 		fprintf(fw,"-------ZOM FILE EVENT LOG------\r\n");
 		fclose(fw);
 #endif
 	}
 
-	LayerManager::~LayerManager()
+	void LayerManager::release()
 	{
 		deleteLayers();
 	}

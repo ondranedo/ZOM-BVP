@@ -56,7 +56,7 @@ void GameLayer::onEvent(ZOM::Event& event)
 
 bool GameLayer::onCloseEvent(ZOM::WindowCloseEvent& wce)
 {
-	ZOM::EngineCommand::close();
+	ZOM::Engine::close();
 
 	return true;
 }

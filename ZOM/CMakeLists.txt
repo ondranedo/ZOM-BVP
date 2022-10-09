@@ -46,8 +46,6 @@ add_library(ZOM STATIC
 "src/pch.h"
 "src/Entrypoint.cpp"
 "src/Window.h"
-"src/EngineCommand.h"
-"src/EngineCommand.cpp"
 "src/events/Event.h"
 "src/events/WindowEvents.h"
 "src/events/KeyEvents.h"
@@ -74,6 +72,8 @@ add_library(ZOM STATIC
 "src/renderingAPI/opengl/OpenGLRenderApplication.h"
 "src/renderingAPI/opengl/OpenGLRenderContext.cpp"
 "src/renderingAPI/opengl/OpenGLRenderContext.h"
+ "src/EngineGame.h" 
+ "src/EngineGame.cpp"
 )
 
 # precompiled headers

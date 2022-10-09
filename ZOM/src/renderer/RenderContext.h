@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Window.h"
-
 namespace ZOM {
 	class ZOM_API RenderContext {
 	public:

@@ -1,38 +1,35 @@
 ﻿#include "Engine.h"
 
-#include <glad/gl.h>
-
 extern ZOM::Game* createGame();
 
 namespace ZOM {
 
 	void Engine::init()
 	{
+		ZOM_TRACE("Engine initialization stared");
+
 		s_LayerManager.init("./events.log");
 
-		Renderer::create(RenderingAPI::OPENGL);
+		// Renderer::create(RenderingAPI::OPENGL);
 
-		s_Window = Window::createWindow();
-
-		s_Window->init();
-
-		s_Window->setEventCallbackFn(s_EventQueue.getEventCallBack());
+		MainWindow::setEventQueue(s_EventQueue);
 
 		s_Game = createGame();
 
-		ZOM_TRACE("Engine initialized");
+		ZOM_TRACE("Engine initialization ended");
 	}
 
 	void Engine::release()
 	{
+		ZOM_TRACE("Engine release started");
 		s_LayerManager.release();
 		delete s_Game;
 
-		Renderer::terminate();
+		// Renderer::terminate();
 
 		delete s_Window;
 
-		ZOM_TRACE("Engine released");
+		ZOM_TRACE("Engine release ended");
 	}
 
 	void Engine::run()
@@ -66,15 +63,14 @@ namespace ZOM {
 	 
 	 void Engine::onFrame()
 	 {
-	 	Renderer::getRenderApplication()->clear();
-	
-	 	s_Window->pollEvents();
-
+	 	// Renderer::getRenderApplication()->clear();
+		
+		MainWindow::pollEvents();
 	 	s_LayerManager.handleEvents(&s_EventQueue);
-	 
+
 	 	s_LayerManager.updateLayers();
 	
-    	Renderer::renderLoop();
+    	// Renderer::renderLoop();
 	 }
 	
 	bool Engine::s_Running = false;

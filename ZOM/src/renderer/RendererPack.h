@@ -3,6 +3,8 @@
 #include "RenderApplication.h"
 #include "RenderContext.h"
 
+#include "window/Window.h"
+
 namespace ZOM {
 	enum class ZOM_API RenderingAPI {
 		OPENGL

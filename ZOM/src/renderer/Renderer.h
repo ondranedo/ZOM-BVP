@@ -2,6 +2,7 @@
 
 #include "RendererPack.h"
 
+#include "window/window.h"
 
 namespace ZOM {
 	class ZOM_API Renderer {

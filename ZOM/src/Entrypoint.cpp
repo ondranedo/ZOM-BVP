@@ -1,9 +1,9 @@
 #include "Engine.h"
+#include "Window/MainWindow.h"
 
 int main(int argc, char** argv)
 {
-		ZOM::Logger::init();
-
+/*
 #ifdef ZOM_DEBUG
 		ZOM_CLIENT_ERROR("Debug build");
 #elif  ZOM_RELEASE
@@ -26,16 +26,18 @@ int main(int argc, char** argv)
 		ZOM_CLIENT_CRITICAL("Building on unknown device... quitting.");
 		return -1;
 #endif
-		//	ZOM::Renderer::init();
+*/
+	    ZOM::Logger::init();
+		ZOM::MainWindow::init();
 		ZOM::Engine::init();
-		//	ZOM::Window::init();
+		//	ZOM::Renderer::init();
 
 		ZOM::Engine::run();
 
-	//	ZOM::Renderer::release();
 		ZOM::Engine::release();
-	//	ZOM::Window::release();
+		ZOM::MainWindow::release();
 		ZOM::Logger::release();
+	//	ZOM::Renderer::release();
 
 	return 0;
 }

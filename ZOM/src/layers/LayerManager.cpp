@@ -1,5 +1,7 @@
 #include "LayerManager.h"
 
+#include "Window/MainWindow.h"
+
 namespace ZOM {
 
 	void LayerManager::init(const std::string& path /* = "none" */)

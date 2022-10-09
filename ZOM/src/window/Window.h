@@ -24,11 +24,13 @@ namespace ZOM {
 
 		virtual void setEventCallbackFn(const eventCallbackFn& fun) = 0;
 		virtual void setVsync(bool state) = 0;
-		virtual void resize(const std::pair<int, int>& dims) = 0;
-		virtual void init() = 0;
+		virtual void setWindowParam(const WindowParam& param) = 0;
 
 		virtual void pollEvents() = 0;
 
-		static Window* createWindow(const WindowParam& param = WindowParam());
+		virtual void init() = 0;
+		virtual void release() = 0;
+
+		static Window* createWindow(const WindowParam& param);
 	};
 }

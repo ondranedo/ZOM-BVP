@@ -33,7 +33,10 @@ namespace ZOM {
 
 	RenderApplication* Renderer::getRenderApplication()
 	{
-		return s_RenderPack->getRenderApplication();
+		if (s_Created)
+			return s_RenderPack->getRenderApplication();
+		else
+			ZOM_ERROR("You have to create renderer in order to return render application");
 	}
 
 	void Renderer::renderLoop()
@@ -53,5 +56,5 @@ namespace ZOM {
 	}
 
 	RendererPack* Renderer::s_RenderPack;
-	bool Renderer::s_Created;
+	bool Renderer::s_Created = false;
 }

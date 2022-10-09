@@ -1,7 +1,7 @@
 #ifdef ZOM_WINDOWS
 
 #pragma once
-#include "Window.h"
+#include "window/Window.h"
 
 
 #include <GLFW/glfw3.h>
@@ -33,7 +33,6 @@ namespace ZOM {
 	class ZOM_API WWindow : public Window {
 	public:
 		WWindow(const WindowParam& param);
-		~WWindow();
 
 		virtual inline std::string name() const override;
 		virtual inline std::pair<int, int> dime() const override;
@@ -42,10 +41,12 @@ namespace ZOM {
 
 		virtual void setEventCallbackFn(const eventCallbackFn& fun) override;
 		virtual void setVsync(bool state) override;
-		virtual void resize(const std::pair<int, int>& dims) override;
+		virtual void setWindowParam(const WindowParam& param) override;
 
 		virtual void pollEvents() override;
+
 		virtual void init() override;
+		virtual void release() override;
 private:
 		void terminate() const;
 		void setCallBacks();

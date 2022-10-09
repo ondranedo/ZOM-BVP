@@ -8,7 +8,7 @@ namespace ZOM {
 	{ 
 		ZOM_TRACE("Windows Window \"{}\" has been created", m_WindowData.param.name);
 	}
-	WWindow::~WWindow() { terminate(); }
+	
 
 	inline std::string WWindow::name() const { return m_WindowData.param.name; }
 	inline std::pair<int,int> WWindow::dime() const { return m_WindowData.param.dimensions; }
@@ -34,9 +34,12 @@ namespace ZOM {
 		}
 	}
 
-	void WWindow::resize(const std::pair<int, int>& dims) {
-		glfwSetWindowSize(m_WindowData.windowPtr, dims.first, dims.second);
-		m_WindowData.param.dimensions = dims;
+	void WWindow::setWindowParam(const WindowParam& param)
+	{
+		glfwSetWindowSize(m_WindowData.windowPtr, param.dimensions.first, param.dimensions.second);
+		glfwSetWindowTitle(m_WindowData.windowPtr, param.name.c_str());
+
+		m_WindowData.param = param;
 	}
 	
 	void WWindow::pollEvents()
@@ -57,6 +60,11 @@ namespace ZOM {
 		Renderer::contextInitialize(this);
 
 		setCallBacks();
+	}
+
+	void WWindow::release()
+	{
+		terminate();
 	}
 
 	void WWindow::terminate() const

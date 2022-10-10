@@ -34,14 +34,13 @@ namespace ZOM {
 
 	void OpenGLRenderContex::destroy()
 	{
-		WWindowData* data = (WWindowData*)glfwGetWindowUserPointer(m_WindowPtr);
-
-		ZOM_TRACE("OpenGL context destroyed for window: {}", data->param.name);
+		ZOM_TRACE("OpenGL context destroyed");
 	}
 
 	void OpenGLRenderContex::swap() const
 	{
-		glfwSwapBuffers(m_WindowPtr);
+		if(m_WindowPtr != NULL)
+			glfwSwapBuffers(m_WindowPtr);
 	}
 
 }

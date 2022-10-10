@@ -1,28 +1,36 @@
 #pragma once
 
-#include "RendererPack.h"
-
 #include "window/window.h"
+#include "RenderContext.h"
+#include "RenderApplication.h"
 
 namespace ZOM {
+	enum class ZOM_API RenderingAPI {
+		OPENGL
+	};
+
 	class ZOM_API Renderer {
 	public:
-		static void create(RenderingAPI api);
-		static void terminate();
-		
-		// Context management
-		static void contextInitialize(Window*);
+		static void init();
+		static void release();
 
-		// Renderer commands
 		static RenderApplication* getRenderApplication();
-		static void renderLoop();
+		static void setBeforeInitRenderingApi(RenderingAPI api);
 
-		// For scene
+		// Context management
+		static void contextInitialize(Window* window);
+
+		// Render commands
+		static void renderLoop();
+		
+		// Scene methods
 		static void beginScene();
 		static void endScene();
 
 	private:
-		static RendererPack* s_RenderPack;
 		static bool s_Created;
+		static RenderingAPI s_RendreringApi;
+		static RenderContext* s_RenderContext;
+		static RenderApplication* s_RenderApplication;
 	};
 }

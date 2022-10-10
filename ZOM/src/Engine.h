@@ -9,7 +9,6 @@
 #include "events/WindowEvents.h"
 
 #include "layers/LayerManager.h"
-#include "renderer/RendererPack.h"
 #include "EngineGame.h"
 
 namespace ZOM {

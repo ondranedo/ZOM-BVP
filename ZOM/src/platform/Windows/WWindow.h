@@ -48,7 +48,7 @@ namespace ZOM {
 		virtual void init() override;
 		virtual void release() override;
 private:
-		void terminate() const;
+		void terminate();
 		void setCallBacks();
 
 	private:

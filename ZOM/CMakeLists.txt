@@ -37,29 +37,30 @@ endif(APPLE)
 
 # target
 add_library(ZOM STATIC
+"src/Core.h"
 "src/Engine.cpp"
 "src/Engine.h"
+"src/EngineGame.cpp"
+"src/EngineGame.h" 
+"src/Entrypoint.cpp"
 "src/Logger.cpp"
 "src/Logger.h"
-"src/Core.h"
-"src/Logger.h"
 "src/pch.h"
-"src/Entrypoint.cpp"
-"src/window/Window.h"
-"src/window/MainWindow.h"
 "src/window/MainWindow.cpp"
+"src/window/MainWindow.h"
+"src/window/Window.h"
 "src/events/Event.h"
-"src/events/WindowEvents.h"
+"src/events/EventQueue.cpp"
+"src/events/EventQueue.h"
 "src/events/KeyEvents.h"
 "src/events/MouseEvents.h"
-"src/events/EventQueue.h"
-"src/events/EventQueue.cpp"
+"src/events/WindowEvents.h"
 "src/platform/Windows/WWindow.h"
 "src/platform/Windows/WWindows.cpp"
-"src/codes/Keycodes.h"
 "src/codes/Keycodes.cpp"
-"src/codes/Mousecodes.h"
+"src/codes/Keycodes.h"
 "src/codes/Mousecodes.cpp"
+"src/codes/Mousecodes.h"
 "src/layers/Layer.h"
 "src/layers/LayerManager.cpp"
 "src/layers/LayerManager.h"
@@ -67,23 +68,21 @@ add_library(ZOM STATIC
 "src/renderer/RenderContext.h" 
 "src/renderer/Renderer.cpp"
 "src/renderer/Renderer.h"
-"src/renderer/RendererPack.cpp"
-"src/renderer/RendererPack.h"
 "src/renderingAPI/opengl/OpenGLCore.h"
 "src/renderingAPI/opengl/OpenGLRenderApplication.cpp"
 "src/renderingAPI/opengl/OpenGLRenderApplication.h"
 "src/renderingAPI/opengl/OpenGLRenderContext.cpp"
 "src/renderingAPI/opengl/OpenGLRenderContext.h"
-"src/EngineGame.h" 
-"src/EngineGame.cpp"
 )
 
 # precompiled headers
 target_precompile_headers(ZOM PUBLIC
-	"src/Core.h"
 	"src/pch.h"
-	"src/events/Event.h"
+	
+	"src/Core.h"
 	"src/renderingAPI/opengl/OpenGLCore.h"
+
+	"src/events/Event.h"
 	"src/renderer/renderer.h"
 )
 

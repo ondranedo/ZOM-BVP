@@ -7,36 +7,36 @@ void GameLayer::onUpdate()
 	ZOM::Renderer::beginScene();
 
 	{
-		//	m_Triangle.onUpdate();
-		//
-		//	unsigned int id_ver;
-		//	unsigned int id_ind;
-		//	unsigned int id_varr;
-		//	
-		//	// Vertex Array
-		//	glGenVertexArrays(1, &id_varr);
-		//	glBindVertexArray(id_varr);
-		//
-		//	// Vertex buffer
-		//	glGenBuffers(1, &id_ver);
-		//	glBindBuffer(GL_ARRAY_BUFFER, id_ver);
-		//	glBufferData(GL_ARRAY_BUFFER, m_Triangle.getVertexSize(), m_Triangle.getVertex(), GL_DYNAMIC_DRAW);
-		//
-		//
-		//	// Index buffer
-		//	glGenBuffers(1, &id_ind);
-		//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_ind);
-		//	glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Triangle.getIndexSize(), m_Triangle.getIndex(), GL_DYNAMIC_DRAW);
-		//
-		//	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, (const void*)0);
-		//	glEnableVertexAttribArray(0);
-		//
-		//	//glDrawArrays(GL_TRIANGLES, 0, 3);
-		//	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
-		//
-		//	glDeleteBuffers(1, &id_ver);
-		//	glDeleteBuffers(1, &id_ind);
-		//	glDeleteVertexArrays(1, &id_varr);
+		m_Triangle.onUpdate();
+		
+		unsigned int id_ver;
+		unsigned int id_ind;
+		unsigned int id_varr;
+		
+		// Vertex Array
+		glGenVertexArrays(1, &id_varr);
+		glBindVertexArray(id_varr);
+		
+		// Vertex buffer
+		glGenBuffers(1, &id_ver);
+		glBindBuffer(GL_ARRAY_BUFFER, id_ver);
+		glBufferData(GL_ARRAY_BUFFER, m_Triangle.getVertexSize(), m_Triangle.getVertex(), GL_DYNAMIC_DRAW);
+		
+		
+		// Index buffer
+		glGenBuffers(1, &id_ind);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_ind);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Triangle.getIndexSize(), m_Triangle.getIndex(), GL_DYNAMIC_DRAW);
+		
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, (const void*)0);
+		glEnableVertexAttribArray(0);
+		
+		//glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+		
+		glDeleteBuffers(1, &id_ver);
+		glDeleteBuffers(1, &id_ind);
+		glDeleteVertexArrays(1, &id_varr);
 	}
 
 	ZOM::Renderer::endScene();

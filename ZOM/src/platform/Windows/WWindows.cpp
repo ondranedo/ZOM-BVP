@@ -67,11 +67,13 @@ namespace ZOM {
 		terminate();
 	}
 
-	void WWindow::terminate() const
+	void WWindow::terminate()
 	{
 		ZOM_TRACE("Destroying \"{}\" Windows Window", name());
 
 		glfwDestroyWindow(m_WindowData.windowPtr);
+
+		m_WindowData.windowPtr = nullptr;
 	}
 
 	void WWindow::setCallBacks()

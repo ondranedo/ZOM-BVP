@@ -36,8 +36,8 @@ namespace ZOM {
 
 		for (size_t i = 0; i < layoutVec.size(); i++)
 		{
-			ZOM_GL_CALL(glBindVertexArray(i));
-			// (GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void * pointer)
+			ZOM_GL_CALL(glEnableVertexAttribArray(i));
+			
 			ZOM_GL_CALL(glVertexAttribPointer(i,
 				ZOMInShaderDataTypeComponentCount(layoutVec[0].type), 
 				ZOMInShaderDataTypeComponentToGLType(layoutVec[0].type),
@@ -45,6 +45,7 @@ namespace ZOM {
 				m_VB->getLayout().getSize(),
 				(const void*)layoutVec[0].offset));
 		}
+
 	}
 	const std::shared_ptr<VertexBuffer>& OpenGLVertexArray::getVertex() const  { return m_VB; }
 

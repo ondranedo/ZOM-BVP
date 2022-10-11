@@ -18,6 +18,12 @@ namespace ZOM {
 			offset = m_AttribVec[index-1].offset + m_AttribVec[index - 1].size;
 		}
 
-		m_AttribVec.push_back({name, type, ZOMInShaderDataTypeSize(type), offset});
+		m_AttribVec.push_back({name, type, m_Size += ZOMInShaderDataTypeSize(type), offset});
 	}
+
+	size_t VertexBufferLayout::getSize() const
+	{
+		return m_Size;
+	}
+
 }

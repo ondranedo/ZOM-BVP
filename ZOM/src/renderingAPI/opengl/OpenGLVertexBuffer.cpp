@@ -14,14 +14,24 @@ namespace ZOM {
 		ZOM_GL_CALL(glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW));
 	}
 
-	void OpenGLVertexBuffer::bind()
+	void OpenGLVertexBuffer::bind() const
 	{
 		ZOM_GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, m_ID));
 	}
 
-	void OpenGLVertexBuffer::unbind()
+	void OpenGLVertexBuffer::unbind() const
 	{
 		ZOM_GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, 0));
+	}
+
+	void OpenGLVertexBuffer::setLayout(const VertexBufferLayout& vbl)
+	{
+		m_VBL = vbl;
+	}
+
+	const VertexBufferLayout& OpenGLVertexBuffer::getLayout() const
+	{
+		return m_VBL;
 	}
 
 }

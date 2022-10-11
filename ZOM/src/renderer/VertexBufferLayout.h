@@ -20,8 +20,10 @@ namespace ZOM {
 		const AttribVec& getAttribVec() const { return m_AttribVec; }
 
 		void add(InShaderDataType t, const std::string& name);
+		size_t getSize() const;
 
 	private:
 		AttribVec m_AttribVec;
+		size_t m_Size = 0;
 	};
 }

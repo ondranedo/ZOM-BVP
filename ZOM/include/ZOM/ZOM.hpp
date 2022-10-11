@@ -31,6 +31,7 @@
 #include "./../../src/renderer/VertexBuffer.h"
 #include "./../../src/renderer/IndexBuffer.h"
 #include "./../../src/renderer/VertexBufferLayout.h"
+#include "./../../src/renderer/VertexArray.h"
 
 
 ////////////////////////////

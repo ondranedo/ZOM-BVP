@@ -4,47 +4,33 @@
 
 void GameLayer::onUpdate()
 {
-
 	std::shared_ptr<ZOM::VertexBuffer>vb;
 	std::shared_ptr<ZOM::IndexBuffer>ib;
-	unsigned int id_varr;
+	std::shared_ptr<ZOM::VertexArray>va;
+	ZOM::VertexBufferLayout vbl;
 
 	{
 		vb.reset(ZOM::VertexBuffer::create((void*)m_Triangle.getVertex(), m_Triangle.getVertexSize()));
 		ib.reset(ZOM::IndexBuffer::create(m_Triangle.getIndex(), m_Triangle.getIndexSize()));
+		va.reset(ZOM::VertexArray::create());
+
+		vbl.add(ZOM::InShaderDataType::VecF2, "test");
+
+		vb->setLayout(vbl);
+
+		va->setIndex(ib);
+		va->setVertex(vb);
 	}
-	
+
 	m_Triangle.onUpdate();
 	
-	glGenVertexArrays(1, &id_varr);
-	{
-		glBindVertexArray(id_varr);
-		vb->bind();
-
-		ib->bind();
-		
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, (const void*)0);
-		glEnableVertexAttribArray(0);
-
-		/**
-		* API:
-		*	vbl->add(4,ZOM_FLOAT);
-		*	vbl->add(3,ZOM_CHAR);
-		*	vbl->add(3,ZOM_FLOAT);
-		* 
-		**/
-		// vb->setLayout({ZOM::InShaderDataType::VecF2, "Color"});
-	}
-
 	ZOM::Renderer::beginScene();
 
-	glBindVertexArray(id_varr);
+	va->bind();
 
 	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 	
 	ZOM::Renderer::endScene();
-	
-	glDeleteVertexArrays(1, &id_varr);
 }
 
 

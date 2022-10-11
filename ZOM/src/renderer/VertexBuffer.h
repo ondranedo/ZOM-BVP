@@ -7,11 +7,11 @@ namespace ZOM {
 	public:
 		virtual ~VertexBuffer(){}
 		
-		virtual void bind() = 0;
-		virtual void unbind() = 0;
-
-		void setLayout(const VertexBufferLayout& vbl);
-		const VertexBufferLayout& getLayout();
+		virtual void bind() const = 0;
+		virtual void unbind() const = 0;
+		
+		virtual void setLayout(const VertexBufferLayout& vbl) = 0;
+		virtual const VertexBufferLayout& getLayout() const = 0;
 
 		static VertexBuffer* create(void* data, size_t size);
 

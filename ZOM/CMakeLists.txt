@@ -98,7 +98,7 @@ add_library(ZOM STATIC
 "src/renderingAPI/opengl/OpenGLVertexBuffer.h"
 "src/renderingAPI/opengl/OpenGLCodes.h"
 "src/renderingAPI/opengl/OpenGLCodes.cpp"
-)
+ "src/renderingAPI/opengl/OpenGlVertexArray.h" "src/renderingAPI/opengl/OpenGLVertexArray.cpp")
 
 
 # precompiled headers

@@ -3,6 +3,7 @@
 #include "renderingAPI/opengl/OpenGLRenderApplication.h"
 #include "renderingAPI/opengl/OpenGLRenderContext.h"
 
+#include "window/MainWindow.h"
 
 namespace ZOM {
 	void Renderer::init()
@@ -20,6 +21,7 @@ namespace ZOM {
 		default:
 			ZOM_CRITICAL("Unkown rendering api when creating renderer");
 		}
+
 
 		ZOM_TRACE("Renderer initialization ended");
 	}
@@ -54,7 +56,12 @@ namespace ZOM {
 		if (!s_Created)
 			s_RendreringApi = api;
 		else
-			ZOM_ERROR("Renderer already created");
+			ZOM_ERROR("Renderer already created when trying to set before init rendering api");
+	}
+
+	RenderingAPI Renderer::getAPI()
+	{
+		return s_RendreringApi;
 	}
 
 	void Renderer::contextInitialize(Window* window)

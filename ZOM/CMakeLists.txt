@@ -68,11 +68,15 @@ add_library(ZOM STATIC
 "src/renderer/RenderContext.h" 
 "src/renderer/Renderer.cpp"
 "src/renderer/Renderer.h"
+"src/renderer/VertexBuffer.cpp"
+"src/renderer/VertexBuffer.h"
 "src/renderingAPI/opengl/OpenGLCore.h"
 "src/renderingAPI/opengl/OpenGLRenderApplication.cpp"
 "src/renderingAPI/opengl/OpenGLRenderApplication.h"
 "src/renderingAPI/opengl/OpenGLRenderContext.cpp"
 "src/renderingAPI/opengl/OpenGLRenderContext.h"
+"src/renderingAPI/opengl/OpenGLVertexBuffer.cpp"
+"src/renderingAPI/opengl/OpenGLVertexBuffer.h"
 )
 
 # precompiled headers

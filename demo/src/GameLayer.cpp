@@ -9,7 +9,7 @@ void GameLayer::onUpdate()
 	{
 		m_Triangle.onUpdate();
 		
-		unsigned int id_ver;
+		// unsigned int id_ver;
 		unsigned int id_ind;
 		unsigned int id_varr;
 		
@@ -17,12 +17,8 @@ void GameLayer::onUpdate()
 		glGenVertexArrays(1, &id_varr);
 		glBindVertexArray(id_varr);
 		
-		// Vertex buffer
-		glGenBuffers(1, &id_ver);
-		glBindBuffer(GL_ARRAY_BUFFER, id_ver);
-		glBufferData(GL_ARRAY_BUFFER, m_Triangle.getVertexSize(), m_Triangle.getVertex(), GL_DYNAMIC_DRAW);
-		
-		
+		std::shared_ptr<ZOM::VertexBuffer> vb(ZOM::VertexBuffer::create((void*)m_Triangle.getVertex(), m_Triangle.getVertexSize()));
+
 		// Index buffer
 		glGenBuffers(1, &id_ind);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_ind);
@@ -34,7 +30,7 @@ void GameLayer::onUpdate()
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 		
-		glDeleteBuffers(1, &id_ver);
+		// glDeleteBuffers(1, &id_ver);
 		glDeleteBuffers(1, &id_ind);
 		glDeleteVertexArrays(1, &id_varr);
 	}

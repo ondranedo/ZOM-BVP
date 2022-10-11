@@ -17,6 +17,8 @@ namespace ZOM {
 		static RenderApplication* getRenderApplication();
 		static void setBeforeInitRenderingApi(RenderingAPI api);
 
+		static RenderingAPI getAPI();
+
 		// Context management
 		static void contextInitialize(Window* window);
 

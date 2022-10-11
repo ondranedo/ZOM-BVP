@@ -10,7 +10,6 @@
 //     Header files       //
 ////////////////////////////
 #include "./../../src/Engine.h"
-#include "./../../src/renderer/renderer.h"
 
 #include "./../../src/layers/Layer.h"
 #include "./../../src/EngineGame.h"
@@ -23,6 +22,12 @@
 
 #include "./../../src/codes/Keycodes.h"
 #include "./../../src/codes/Mousecodes.h"
+
+
+
+#include "./../../src/renderer/renderer.h"
+#include "./../../src/renderer/VertexBuffer.h"
+
 
 ////////////////////////////
 //      Game creation     //

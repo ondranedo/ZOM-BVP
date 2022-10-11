@@ -21,6 +21,8 @@
 
 
 #include "./../../src/codes/Keycodes.h"
+#include "./../../src/codes/DataType.h"
+#include "./../../src/codes/ComplexDataType.h"
 #include "./../../src/codes/Mousecodes.h"
 
 
@@ -28,6 +30,7 @@
 #include "./../../src/renderer/renderer.h"
 #include "./../../src/renderer/VertexBuffer.h"
 #include "./../../src/renderer/IndexBuffer.h"
+#include "./../../src/renderer/VertexBufferLayout.h"
 
 
 ////////////////////////////

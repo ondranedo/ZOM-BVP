@@ -33,11 +33,7 @@ void GameLayer::onUpdate()
 		*	vbl->add(3,ZOM_FLOAT);
 		* 
 		**/
-		ZOM::VertexBufferLayout vbl;
-		vbl.add(2, ZOM::dataType::F4);
-
-
-		ZOM_TRACE("SIZE: {}", vbl.getAttribVec().size());
+		// vb->setLayout({ZOM::InShaderDataType::VecF2, "Color"});
 	}
 
 	ZOM::Renderer::beginScene();

@@ -1,10 +1,13 @@
 #pragma once
 
+#include "codes/ComplexDataType.h"
+
 namespace ZOM {
 	struct ZOM_API VertexBufferLayoutAttrib {
-		size_t size;
-		dataType type;
-		bool normalize;
+		std::string name = "";
+		InShaderDataType type = InShaderDataType::Null;
+		size_t size = 0;
+		size_t offset = 0;
 	};
 
 	using AttribVec = std::vector<VertexBufferLayoutAttrib>;
@@ -14,8 +17,9 @@ namespace ZOM {
 		VertexBufferLayout(const AttribVec& vecarr);
 		VertexBufferLayout(){}
 
-		const AttribVec& getAttribVec() const { return m_AttribVec; }	
-		void add(size_t size, dataType type);
+		const AttribVec& getAttribVec() const { return m_AttribVec; }
+
+		void add(InShaderDataType t, const std::string& name);
 
 	private:
 		AttribVec m_AttribVec;

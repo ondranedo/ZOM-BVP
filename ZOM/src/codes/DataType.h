@@ -2,9 +2,11 @@
 
 namespace ZOM {
 	enum class ZOM_API dataType {
-		INT1, INT2, INT4, INT8,
-		UINT1, UINT2, UINT4, UINT8,
-		F4,F8,F16
+		Null,
+		Int1, Int2, Int4, Int8,
+		UInt1, UInt2, UInt4, UInt8,
+		F4,F8,F16,
+		Bool
 	};
 
 	using ZOMInt1 = int8_t;
@@ -20,6 +22,8 @@ namespace ZOM {
 	using ZOMFloat4 = float;
 	using ZOMFloat8 = double;
 	using ZOMFloat16 = long double;
+
+	using ZOMBool = bool;
 
 	extern size_t ZOM_API ZOMDataTypeSize(dataType type);
 }

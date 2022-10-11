@@ -67,6 +67,8 @@ add_library(ZOM STATIC
 "src/codes/Keycodes.h"
 "src/codes/Mousecodes.cpp"
 "src/codes/Mousecodes.h"
+"src/codes/ComplexDataType.h" 
+"src/codes/ComplexDataType.cpp"
 
 "src/layers/Layer.h"
 "src/layers/LayerManager.cpp"
@@ -78,6 +80,8 @@ add_library(ZOM STATIC
 "src/renderer/RenderContext.h" 
 "src/renderer/Renderer.cpp"
 "src/renderer/Renderer.h"
+"src/renderer/VertexArray.cpp" 
+"src/renderer/VertexArray.h" 
 "src/renderer/VertexBuffer.cpp"
 "src/renderer/VertexBuffer.h"
 "src/renderer/VertexBufferLayout.cpp"
@@ -92,6 +96,8 @@ add_library(ZOM STATIC
 "src/renderingAPI/opengl/OpenGLRenderContext.h"
 "src/renderingAPI/opengl/OpenGLVertexBuffer.cpp"
 "src/renderingAPI/opengl/OpenGLVertexBuffer.h"
+"src/renderingAPI/opengl/OpenGLCodes.h"
+"src/renderingAPI/opengl/OpenGLCodes.cpp"
 )
 
 
@@ -99,10 +105,11 @@ add_library(ZOM STATIC
 target_precompile_headers(ZOM PUBLIC
 	"src/pch.h"
 	"src/Core.h"
-	"src/renderingAPI/opengl/OpenGLCore.h"
 	"src/events/Event.h"
 	"src/renderer/renderer.h"
 	"src/codes/DataType.h"
+	"src/codes/ComplexDataType.h"
+	"src/renderingAPI/opengl/OpenGLCore.h"
 )
 
 ###################################

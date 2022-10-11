@@ -27,6 +27,7 @@
 
 #include "./../../src/renderer/renderer.h"
 #include "./../../src/renderer/VertexBuffer.h"
+#include "./../../src/renderer/IndexBuffer.h"
 
 
 ////////////////////////////

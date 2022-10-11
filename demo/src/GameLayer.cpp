@@ -17,21 +17,19 @@ void GameLayer::onUpdate()
 		glGenVertexArrays(1, &id_varr);
 		glBindVertexArray(id_varr);
 		
+		// Vertex buffer
 		std::shared_ptr<ZOM::VertexBuffer> vb(ZOM::VertexBuffer::create((void*)m_Triangle.getVertex(), m_Triangle.getVertexSize()));
 
 		// Index buffer
-		glGenBuffers(1, &id_ind);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_ind);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Triangle.getIndexSize(), m_Triangle.getIndex(), GL_DYNAMIC_DRAW);
+		std::shared_ptr<ZOM::IndexBuffer> ib(ZOM::IndexBuffer::create(m_Triangle.getIndex(), m_Triangle.getIndexSize()));
 		
+
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, (const void*)0);
 		glEnableVertexAttribArray(0);
 		
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 		
-		// glDeleteBuffers(1, &id_ver);
-		glDeleteBuffers(1, &id_ind);
 		glDeleteVertexArrays(1, &id_varr);
 	}
 

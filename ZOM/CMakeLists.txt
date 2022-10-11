@@ -37,7 +37,6 @@ endif(APPLE)
 
 # target
 add_library(ZOM STATIC
-
 "src/Core.h"
 "src/Engine.cpp"
 "src/Engine.h"
@@ -62,6 +61,8 @@ add_library(ZOM STATIC
 "src/platform/Windows/WWindow.h"
 "src/platform/Windows/WWindows.cpp"
 
+"src/codes/DataType.cpp"
+"src/codes/DataType.h"
 "src/codes/Keycodes.cpp"
 "src/codes/Keycodes.h"
 "src/codes/Mousecodes.cpp"
@@ -79,6 +80,8 @@ add_library(ZOM STATIC
 "src/renderer/Renderer.h"
 "src/renderer/VertexBuffer.cpp"
 "src/renderer/VertexBuffer.h"
+"src/renderer/VertexBufferLayout.cpp"
+"src/renderer/VertexBufferLayout.h"
 
 "src/renderingAPI/opengl/OpenGLCore.h"
 "src/renderingAPI/opengl/OpenGLIndexBuffer.cpp"
@@ -99,6 +102,7 @@ target_precompile_headers(ZOM PUBLIC
 	"src/renderingAPI/opengl/OpenGLCore.h"
 	"src/events/Event.h"
 	"src/renderer/renderer.h"
+	"src/codes/DataType.h"
 )
 
 ###################################

@@ -8,9 +8,10 @@ namespace ZOM {
 		virtual void bind() = 0;
 		virtual void unbind() = 0;
 
-		static IndexBuffer* create(unsigned int* data, size_t size);
+		static IndexBuffer* create(unsigned int* data, size_t count);
 
 	protected:
+		size_t m_Count;
 		unsigned int m_ID = 0;
 	};
 };

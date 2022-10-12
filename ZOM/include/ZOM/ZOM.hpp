@@ -13,6 +13,7 @@
 
 #include "./../../src/layers/Layer.h"
 #include "./../../src/EngineGame.h"
+#include "./../../src/Input.h"
 
 #include "./../../src/events/Event.h"
 #include "./../../src/events/MouseEvents.h"

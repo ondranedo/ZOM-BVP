@@ -4,38 +4,37 @@
 
 void GameLayer::onUpdate()
 {
-	std::shared_ptr<ZOM::VertexBuffer>vb;
-	std::shared_ptr<ZOM::IndexBuffer>ib;
-	std::shared_ptr<ZOM::VertexArray>va;
-
-	{
-		ZOM::VertexBufferLayout vbl;
-
+	// 
+	// {
+	 	ZOM::VertexBufferLayout vbl;
+	// 
+		va.reset(ZOM::VertexArray::create());
 		vb.reset(ZOM::VertexBuffer::create((void*)m_Triangle.getVertex(), m_Triangle.getVertexSize()));
 		ib.reset(ZOM::IndexBuffer::create(m_Triangle.getIndex(), m_Triangle.getIndexSize()));
-		va.reset(ZOM::VertexArray::create());
-
-		vbl.add(ZOM::InShaderDataType::VecF2, "test");
-
-		vb->setLayout(vbl);
-
-		va->setIndex(ib);
-		va->setVertex(vb);
-
-		va->unbind();
-		ib->unbind();
-	}
+	// 
+	 	vbl.add(ZOM::InShaderDataType::VecF2, "test");
+	 
+	 	vb->setLayout(vbl);
+	// 
+	// 	va->setIndex(ib);
+	//	va->setVertex(vb);
+	// 
+	 //	va->unbind();
+	 	ib->unbind();
+	// }
 
 	m_Triangle.onUpdate();
 
+	// if (ZOM::Input::isPressed(ZOM_KEY_X))
+	// {
+	//	   ZOM_ERROR("PICO NEMACKEJ X");
+	// }
+
 	ZOM::Renderer::beginScene();
 
-	va->bind();
+	// va->bind();
 
-	// glEnableVertexAttribArray(0);
-	// glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), NULL);
-
-	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+	// glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
 	ZOM::Renderer::endScene();
 }

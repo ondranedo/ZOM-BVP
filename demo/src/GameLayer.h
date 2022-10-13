@@ -17,8 +17,4 @@ protected:
 
 private:
 	TrinageMesh m_Triangle;
-
-	std::shared_ptr<ZOM::VertexBuffer*>vb;
-	std::shared_ptr<ZOM::IndexBuffer*>ib;
-	std::shared_ptr<ZOM::VertexArray*>va;
 };

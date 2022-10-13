@@ -14,7 +14,7 @@ namespace ZOM {
 		virtual void setVertex(std::shared_ptr<VertexBuffer>& vb) = 0;
 		virtual const std::shared_ptr<VertexBuffer>& getVertex() const = 0;
 
-		static VertexArray* create();
+		static std::shared_ptr<VertexArray> create();
 
 	protected:	
 		unsigned int m_ID;

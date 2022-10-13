@@ -13,7 +13,7 @@ namespace ZOM {
 		virtual void setLayout(const VertexBufferLayout& vbl) = 0;
 		virtual const VertexBufferLayout& getLayout() const = 0;
 
-		static VertexBuffer* create(void* data, size_t size);
+		static std::shared_ptr<VertexBuffer> create(void* data, size_t size);
 
 	protected:
 		unsigned int m_ID = 0;

@@ -3,12 +3,12 @@
 #include "renderingAPI/opengl/OpenGLVertexArray.h"
 
 namespace ZOM {
-	ZOM::VertexArray* VertexArray::create()
+	std::shared_ptr<VertexArray> VertexArray::create()
 	{
 		switch (Renderer::getAPI())
 		{
 		case RenderingAPI::OPENGL:
-			return new OpenGLVertexArray;
+			return std::shared_ptr<VertexArray>(new OpenGLVertexArray);
 		default:
 			ZOM_ERROR("Unkown rendering API when creating vertex buffer");
 		}

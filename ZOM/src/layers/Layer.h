@@ -13,6 +13,7 @@ namespace ZOM {
 
 		virtual void onUpdate() = 0;
 		virtual void onEvent(Event&) = 0;
+		virtual void onCreate() = 0;
 
 		std::string getName() { return m_Name; }
 	private:

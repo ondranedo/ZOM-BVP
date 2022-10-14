@@ -16,8 +16,8 @@ namespace ZOM {
 		ZOM_GL_CALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count, data, GL_STATIC_DRAW));
 	}
 
-	void OpenGLIndexBuffer::bind()
-	{
+	void OpenGLIndexBuffer::bind() const 
+{
 		ZOM_GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ID));
 	}
 

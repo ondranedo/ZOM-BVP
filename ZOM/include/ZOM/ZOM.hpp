@@ -33,6 +33,7 @@
 #include "./../../src/renderer/IndexBuffer.h"
 #include "./../../src/renderer/VertexBufferLayout.h"
 #include "./../../src/renderer/VertexArray.h"
+#include "./../../src/renderer/Shader.h"
 
 
 ////////////////////////////

@@ -25,7 +25,6 @@ namespace ZOM {
 		s_LayerManager.release();
 
 		delete s_Game;
-		delete s_Window;
 
 		ZOM_TRACE("Engine release ended");
 	}
@@ -35,6 +34,8 @@ namespace ZOM {
 		s_Running = true;
 
 		ZOM::MainWindow::setEventQueue(s_EventQueue);
+
+		s_LayerManager.onCreateLayers();
 
 		ZOM_TRACE("Starting main loop");
 
@@ -69,12 +70,11 @@ namespace ZOM {
 	 	s_LayerManager.handleEvents(&s_EventQueue);
 
 	 	s_LayerManager.updateLayers();
-	
+		
     	Renderer::renderLoop();
 	 }
 	
 	bool Engine::s_Running = false;
-	Window* Engine::s_Window = nullptr;
 	Game* Engine::s_Game;
 	EventQueue Engine::s_EventQueue;
 	LayerManager Engine::s_LayerManager;

@@ -16,6 +16,8 @@ namespace ZOM {
 		void updateLayers();
 		void handleEvents(EventQueue* queue);
 
+		void onCreateLayers();
+
 		void storeEventToFile(Event* event);
 
 		void printLayerLayout()

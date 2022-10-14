@@ -28,7 +28,6 @@ namespace ZOM {
 
 	private:
 		 static bool s_Running;
-		 static Window* s_Window;
 		 static Game* s_Game;
 		 static EventQueue s_EventQueue;
 		 static LayerManager s_LayerManager;

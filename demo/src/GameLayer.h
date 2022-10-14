@@ -5,10 +5,13 @@
 
 class GameLayer : public ZOM::Layer {
 public:
-	GameLayer(const std::string& name):Layer(name){}
+	GameLayer(const std::string& name):Layer(name)
+	{
+	}
 
 	void onUpdate() override;
 	void onEvent(ZOM::Event& event) override;
+	void onCreate() override;
 
 protected:
 	bool onCloseEvent(ZOM::WindowCloseEvent& wce);
@@ -17,4 +20,5 @@ protected:
 
 private:
 	TrinageMesh m_Triangle;
+	std::shared_ptr<ZOM::Shader>shader;
 };

@@ -33,9 +33,17 @@ void GameLayer::onUpdate()
 	if (ZOM::Input::isPressed(ZOM_KEY_KP_ADD)) m_Triangle.speedUp(); 
 	if (ZOM::Input::isPressed(ZOM_KEY_KP_SUBTRACT)) m_Triangle.speedDown(); 
 
+
+
+
+	//////////////////
+
+
 	ZOM::Renderer::beginScene();
 
 	va->bind();
+
+	shader->bind();
 
 	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
@@ -52,6 +60,12 @@ void GameLayer::onEvent(ZOM::Event& event)
 	d.dispatchEvent<ZOM::KeyPressedEvent>(ZOM_BIND_CLASS_FUNC(GameLayer::onKey));
 
 	d.dispatchEvent<ZOM::KeyReleasedEvent>(ZOM_BIND_CLASS_FUNC(GameLayer::onKeyRelease));
+}
+
+void GameLayer::onCreate()
+{
+	shader = ZOM::Shader::create();
+	shader->compile();
 }
 
 bool GameLayer::onCloseEvent(ZOM::WindowCloseEvent& wce)

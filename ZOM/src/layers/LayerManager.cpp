@@ -74,6 +74,14 @@ namespace ZOM {
 		}
 	}
 
+	void LayerManager::onCreateLayers()
+	{
+		for (Layer* layer : m_Layers)
+		{
+			layer->onCreate();
+		}
+	}
+
 	void LayerManager::storeEventToFile(Event* event)
 	{
 #ifdef ZOM_DEBUG

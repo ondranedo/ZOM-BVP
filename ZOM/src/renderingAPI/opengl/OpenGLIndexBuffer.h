@@ -8,7 +8,7 @@ namespace ZOM {
 		~OpenGLIndexBuffer();
 		OpenGLIndexBuffer(unsigned int* data, size_t size);
 
-		void bind() override;
+		void bind() const override;
 		void unbind() override;
 	};
 }

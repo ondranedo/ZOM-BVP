@@ -43,6 +43,8 @@ add_library(ZOM STATIC
 "src/EngineGame.cpp"
 "src/EngineGame.h" 
 "src/Entrypoint.cpp"
+"src/Input.h"
+"src/Input.cpp"
 "src/Logger.cpp"
 "src/Logger.h"
 "src/pch.h"
@@ -58,6 +60,8 @@ add_library(ZOM STATIC
 "src/events/MouseEvents.h"
 "src/events/WindowEvents.h"
 
+"src/platform/Windows/WInput.cpp"
+"src/platform/Windows/WInput.h"
 "src/platform/Windows/WWindow.h"
 "src/platform/Windows/WWindows.cpp"
 
@@ -80,6 +84,8 @@ add_library(ZOM STATIC
 "src/renderer/RenderContext.h" 
 "src/renderer/Renderer.cpp"
 "src/renderer/Renderer.h"
+"src/renderer/Shader.cpp"
+"src/renderer/Shader.h"
 "src/renderer/VertexArray.cpp" 
 "src/renderer/VertexArray.h" 
 "src/renderer/VertexBuffer.cpp"
@@ -87,6 +93,8 @@ add_library(ZOM STATIC
 "src/renderer/VertexBufferLayout.cpp"
 "src/renderer/VertexBufferLayout.h"
 
+"src/renderingAPI/opengl/OpenGLCodes.cpp"
+"src/renderingAPI/opengl/OpenGLCodes.h"
 "src/renderingAPI/opengl/OpenGLCore.h"
 "src/renderingAPI/opengl/OpenGLIndexBuffer.cpp"
 "src/renderingAPI/opengl/OpenGLIndexBuffer.h"
@@ -94,11 +102,13 @@ add_library(ZOM STATIC
 "src/renderingAPI/opengl/OpenGLRenderApplication.h"
 "src/renderingAPI/opengl/OpenGLRenderContext.cpp"
 "src/renderingAPI/opengl/OpenGLRenderContext.h"
+"src/renderingAPI/opengl/OpenGLShader.cpp"
+"src/renderingAPI/opengl/OpenGLShader.h"
 "src/renderingAPI/opengl/OpenGLVertexBuffer.cpp"
 "src/renderingAPI/opengl/OpenGLVertexBuffer.h"
-"src/renderingAPI/opengl/OpenGLCodes.h"
-"src/renderingAPI/opengl/OpenGLCodes.cpp"
- "src/renderingAPI/opengl/OpenGlVertexArray.h" "src/renderingAPI/opengl/OpenGLVertexArray.cpp" "src/platform/Windows/WInput.h" "src/platform/Windows/WInput.cpp" "src/Input.cpp")
+"src/renderingAPI/opengl/OpenGLVertexArray.cpp" 
+"src/renderingAPI/opengl/OpenGlVertexArray.h" 
+)
 
 
 # precompiled headers

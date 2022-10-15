@@ -38,56 +38,56 @@ namespace ZOM {
 
 	void OpenGLShader::compile()
 	{
-		m_ID = glCreateProgram();
+		ZOM_GL_CALL(m_ID = glCreateProgram());
 		
-		unsigned int vertex_id = glCreateShader(GL_VERTEX_SHADER);
+		unsigned int vertex_id = ZOM_GL_CALL(glCreateShader(GL_VERTEX_SHADER));
 		const size_t vertex_size = sizeof(default_vertex_shader);
-		unsigned int fragment_id = glCreateShader(GL_FRAGMENT_SHADER);
+		unsigned int fragment_id = ZOM_GL_CALL(glCreateShader(GL_FRAGMENT_SHADER));
 		const size_t fragment_size = sizeof(default_fragment_shader);
 
-		glShaderSource(vertex_id, 1, &default_vertex_shader, (const GLint*) &vertex_size);
-		glShaderSource(fragment_id, 1, &default_fragment_shader, (const GLint*) &fragment_size);
+		ZOM_GL_CALL(glShaderSource(vertex_id, 1, &default_vertex_shader, (const GLint*) &vertex_size));
+		ZOM_GL_CALL(glShaderSource(fragment_id, 1, &default_fragment_shader, (const GLint*) &fragment_size));
 
-		glCompileShader(vertex_id);
-		glCompileShader(fragment_id);
+		ZOM_GL_CALL(glCompileShader(vertex_id));
+		ZOM_GL_CALL(glCompileShader(fragment_id));
 
 		int shader_error;
-		glGetShaderiv(vertex_id, GL_COMPILE_STATUS, &shader_error);
+		ZOM_GL_CALL(glGetShaderiv(vertex_id, GL_COMPILE_STATUS, &shader_error));
 		if (shader_error != GL_TRUE)
 		{
 			int error_length;
-			glGetShaderiv(vertex_id, GL_INFO_LOG_LENGTH, &error_length);
+			ZOM_GL_CALL(glGetShaderiv(vertex_id, GL_INFO_LOG_LENGTH, &error_length));
 			char* buff = (char*)malloc(sizeof(char) * error_length);
-			glGetShaderInfoLog(vertex_id, error_length * sizeof(char), &error_length, buff);
+			ZOM_GL_CALL(glGetShaderInfoLog(vertex_id, error_length * sizeof(char), &error_length, buff));
 
 			ZOM_ERROR("Error when compiling vertex shader: {}", buff);
 
 			free(buff);
 		}
 
-		glGetShaderiv(fragment_id, GL_COMPILE_STATUS, &shader_error);
+		ZOM_GL_CALL(glGetShaderiv(fragment_id, GL_COMPILE_STATUS, &shader_error));
 		if (shader_error != GL_TRUE)
 		{
 			int error_length;
-			glGetShaderiv(fragment_id, GL_INFO_LOG_LENGTH, &error_length);
+			ZOM_GL_CALL(glGetShaderiv(fragment_id, GL_INFO_LOG_LENGTH, &error_length));
 			char* buff = (char*)malloc(sizeof(char) * error_length);
-			glGetShaderInfoLog(fragment_id, error_length * sizeof(char), &error_length, buff);
+			ZOM_GL_CALL(glGetShaderInfoLog(fragment_id, error_length * sizeof(char), &error_length, buff));
 
 			ZOM_ERROR("Error when compiling fragment shader: {}", buff);
 			
 			free(buff);
 		}
 
-		glAttachShader(m_ID, vertex_id);
-		glAttachShader(m_ID, fragment_id);
+		ZOM_GL_CALL(glAttachShader(m_ID, vertex_id));
+		ZOM_GL_CALL(glAttachShader(m_ID, fragment_id));
 
-		glLinkProgram(m_ID);
+		ZOM_GL_CALL(glLinkProgram(m_ID));
 		
-		glValidateProgram(m_ID);
+		ZOM_GL_CALL(glValidateProgram(m_ID));
 		
-		glDeleteShader(vertex_id);
-		glDeleteShader(fragment_id);
-
+		ZOM_GL_CALL(glDeleteShader(vertex_id));
+		ZOM_GL_CALL(glDeleteShader(fragment_id));
+		
 	}
 
 }

@@ -5,47 +5,44 @@
 void GameLayer::onUpdate()
 {
 	 
-	std::shared_ptr<ZOM::VertexBuffer>vb = ZOM::VertexBuffer::create(m_Triangle.getVertex(), m_Triangle.getVertexSize());
-	std::shared_ptr<ZOM::IndexBuffer>ib = ZOM::IndexBuffer::create(m_Triangle.getIndex(), m_Triangle.getIndexSize());
+	std::shared_ptr<ZOM::VertexBuffer>vb = ZOM::VertexBuffer::create(m_Mesh.getVertex(), m_Mesh.getVertexSize());
+	std::shared_ptr<ZOM::IndexBuffer>ib = ZOM::IndexBuffer::create(m_Mesh.getIndex(), m_Mesh.getIndexSize());
 	std::shared_ptr<ZOM::VertexArray>va = ZOM::VertexArray::create();
-
-	 {
-	 	ZOM::VertexBufferLayout vbl;
 	
-	 	vbl.add(ZOM::InShaderDataType::VecF2, "test");
-	 
-	 	vb->setLayout(vbl);
-	 
+	{
+		ZOM::VertexBufferLayout vbl;
+
+		vbl.add(ZOM::InShaderDataType::VecF2, "test");
+
+		vb->setLayout(vbl);
+
 		va->setIndex(ib);
 		va->setVertex(vb);
-	
-	 	va->unbind();
-	 	ib->unbind();
+
+		va->unbind();
+		ib->unbind();
 	}
 
-	m_Triangle.onUpdate();
+	m_Mesh.onUpdate();
 
-	if (ZOM::Input::isPressed(ZOM_KEY_W)) m_Triangle.moveTop(); 
-	if (ZOM::Input::isPressed(ZOM_KEY_A)) m_Triangle.moveLeft(); 
-	if (ZOM::Input::isPressed(ZOM_KEY_S)) m_Triangle.moveBottom(); 
-	if (ZOM::Input::isPressed(ZOM_KEY_D)) m_Triangle.moveRight(); 
-	if (ZOM::Input::isPressed(ZOM_KEY_R)) m_Triangle.moveReset(); 
-	if (ZOM::Input::isPressed(ZOM_KEY_KP_ADD)) m_Triangle.speedUp(); 
-	if (ZOM::Input::isPressed(ZOM_KEY_KP_SUBTRACT)) m_Triangle.speedDown(); 
-
-
-
+	if (ZOM::Input::isPressed(ZOM_KEY_W)) m_Mesh.moveTop();
+	if (ZOM::Input::isPressed(ZOM_KEY_A)) m_Mesh.moveLeft(); 
+	if (ZOM::Input::isPressed(ZOM_KEY_S)) m_Mesh.moveBottom(); 
+	if (ZOM::Input::isPressed(ZOM_KEY_D)) m_Mesh.moveRight(); 
+	if (ZOM::Input::isPressed(ZOM_KEY_R)) m_Mesh.moveReset(); 
+	if (ZOM::Input::isPressed(ZOM_KEY_KP_ADD)) m_Mesh.speedUp(); 
+	if (ZOM::Input::isPressed(ZOM_KEY_KP_SUBTRACT)) m_Mesh.speedDown(); 
 
 	//////////////////
 
 
 	ZOM::Renderer::beginScene();
 
-	va->bind();
-
 	shader->bind();
 
-	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+	va->bind();
+
+	glDrawElements(GL_TRIANGLES, m_Mesh.g_IndexCount, GL_UNSIGNED_INT, nullptr);
 
 	ZOM::Renderer::endScene();
 }
@@ -83,7 +80,7 @@ bool GameLayer::onKey(ZOM::KeyPressedEvent& kpe)
 
 bool GameLayer::onKeyRelease(ZOM::KeyReleasedEvent& kpe)
 {
-	m_Triangle.moveStop();
+	m_Mesh.moveStop();
 
 	return true;
 }

@@ -2,6 +2,7 @@
 
 #include <ZOM/ZOM.hpp>
 #include "trinagle.h"
+#include "square.h"
 
 class GameLayer : public ZOM::Layer {
 public:
@@ -19,6 +20,6 @@ protected:
 	bool onKeyRelease(ZOM::KeyReleasedEvent& kpe);
 
 private:
-	TrinageMesh m_Triangle;
+	SquareMesh m_Mesh;
 	std::shared_ptr<ZOM::Shader>shader;
 };

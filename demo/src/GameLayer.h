@@ -21,5 +21,5 @@ protected:
 
 private:
 	SquareMesh m_Mesh;
-	std::shared_ptr<ZOM::Shader>shader;
+	std::shared_ptr<ZOM::Shader> m_Shader;
 };

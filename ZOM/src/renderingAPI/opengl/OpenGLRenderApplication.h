@@ -2,7 +2,7 @@
 
 namespace ZOM {
 
-	class ZOM_API OpenGLRenderApplication : public RenderApplication
+	class OpenGLRenderApplication : public RenderApplication
 	{
 	public:
 		OpenGLRenderApplication();

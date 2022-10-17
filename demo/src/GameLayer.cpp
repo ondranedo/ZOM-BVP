@@ -38,7 +38,7 @@ void GameLayer::onUpdate()
 
 	ZOM::Renderer::beginScene();
 
-	shader->bind();
+	m_Shader->bind();
 
 	va->bind();
 
@@ -61,8 +61,8 @@ void GameLayer::onEvent(ZOM::Event& event)
 
 void GameLayer::onCreate()
 {
-	shader = ZOM::Shader::create();
-	shader->compile();
+	m_Shader = ZOM::Shader::create("C:/Dev/ZOM-BVP/ZOM/resources/shaders/basic.shader");
+	m_Shader->compile();
 }
 
 bool GameLayer::onCloseEvent(ZOM::WindowCloseEvent& wce)

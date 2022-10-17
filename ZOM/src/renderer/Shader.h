@@ -9,9 +9,9 @@ namespace ZOM {
 
 		virtual void compile() = 0;
 		
-		static std::shared_ptr<Shader> create();
+		static std::shared_ptr<Shader> create(const std::string& path);
 
 	protected:
-		unsigned int m_ID = 0;
+		unsigned int m_ID;
 	};
 }

@@ -1,31 +1,24 @@
 #include "OpenGLShader.h"
 
 namespace ZOM {
-	
 	static const char* default_vertex_shader =
 		"#version 330 core\n"
 		"layout(location = 0) in vec4 position;\n"
-		"out vec4 vertexColor;\n"
-		"\n"
 		"void main()\n"
 		"{\n"
 		"	gl_Position = position;\n"
-		"	vertexColor = vec4(cos(position.y)*sin(position.x),cos(position.x)*sin(position.y),tan(position.y)*sin(position.x),0);\n"
 		"}\n";
 
-
-		static const char* default_fragment_shader =
+	static const char* default_fragment_shader =
 		"#version 330 core\n"
 		"out vec4 color;\n"
-		"in vec4 vertexColor;\n"
 		"\n"
 		"void main()\n"
 		"{\n"
-		"	color = vertexColor;\n"
+		"	color = vec4(8.0f,7.0f,8.0f,1.0f);\n"
 		"}\n";
-		
 
-	OpenGLShader::OpenGLShader()
+	OpenGLShader::OpenGLShader(const std::string& path) : m_Path(path)
 	{
 		ZOM_GL_CALL(m_ID = glCreateProgram());
 		ZOM_ASSERT(m_ID, "failed to create shader program");
@@ -48,7 +41,9 @@ namespace ZOM {
 
 	void OpenGLShader::compile()
 	{		
-		OpenGLSubShadersID shaders = attatchShaders(default_vertex_shader, default_fragment_shader);
+		OpenGLSubShadersSources sources = readShaderFile();
+
+		OpenGLSubShadersID shaders = attatchShaders(sources);
 
 		compileShaders(shaders);
 
@@ -103,14 +98,47 @@ namespace ZOM {
 
 	void OpenGLShader::deleteShaders(const OpenGLSubShadersID& shader_ids)
 	{
+		ZOM_GL_CALL(glDetachShader(m_ID, shader_ids.m_VertexID));
+		ZOM_GL_CALL(glDetachShader(m_ID, shader_ids.m_FragmentID));
+
 		ZOM_GL_CALL(glDeleteShader(shader_ids.m_VertexID));
 		ZOM_GL_CALL(glDeleteShader(shader_ids.m_FragmentID));
 	}
 
-	OpenGLSubShadersID OpenGLShader::attatchShaders(const std::string& vertex_source, const std::string& fragment_source)
+	OpenGLSubShadersSources OpenGLShader::readShaderFile() const
 	{
-		unsigned int vertex_id = createShader(GL_VERTEX_SHADER, vertex_source);
-		unsigned int fragment_id = createShader(GL_FRAGMENT_SHADER, fragment_source);
+		enum : short { NONE = 0, VERTEX, FRAGMENT } shader = NONE;
+
+		OpenGLSubShadersSources sources;
+		
+		FILE* fr = fopen(m_Path.c_str(), "r");
+		if (!fr)
+		{
+			ZOM_ERROR("Can't load shader file {}, loading default shader", m_Path);
+			sources.m_FragmentSrc = default_fragment_shader;
+			sources.m_VertexSrc = default_vertex_shader;
+			return sources;
+		}
+
+		char linebuff[256] = { 0 };
+
+		while (fgets(linebuff,256, fr))
+		{
+		
+			if (strstr(linebuff, "#shader vertex")) { shader = VERTEX; continue; }
+			if (strstr(linebuff, "#shader fragment")) { shader = FRAGMENT; continue; }
+		
+			if(shader == VERTEX)   sources.m_VertexSrc += linebuff;
+			if(shader == FRAGMENT) sources.m_FragmentSrc += linebuff;
+		}
+
+		return sources;
+	}
+
+	OpenGLSubShadersID OpenGLShader::attatchShaders(const OpenGLSubShadersSources& sources)
+	{
+		unsigned int vertex_id = createShader(GL_VERTEX_SHADER, sources.m_VertexSrc);
+		unsigned int fragment_id = createShader(GL_FRAGMENT_SHADER, sources.m_FragmentSrc);
 
 		ZOM_GL_CALL(glAttachShader(m_ID, vertex_id));
 		ZOM_GL_CALL(glAttachShader(m_ID, fragment_id));

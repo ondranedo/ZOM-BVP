@@ -6,7 +6,7 @@
 #include <GLFW/glfw3.h>
 
 namespace ZOM {
-	class ZOM_API OpenGLRenderContex : public RenderContext
+	class OpenGLRenderContex : public RenderContext
 	{
 	public:
 		OpenGLRenderContex();

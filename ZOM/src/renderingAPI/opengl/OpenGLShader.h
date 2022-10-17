@@ -8,10 +8,15 @@ namespace ZOM {
 		unsigned int m_FragmentID;
 	};
 
+	struct OpenGLSubShadersSources {
+		std::string m_VertexSrc;
+		std::string m_FragmentSrc;
+	};
+
 	class OpenGLShader : public Shader {
 		
 	public:
-		OpenGLShader();
+		OpenGLShader(const std::string& path);
 		~OpenGLShader();
 
 		void bind() const override;
@@ -22,9 +27,13 @@ namespace ZOM {
 	private:
 
 		unsigned int createShader(GLenum id, const std::string& source);
-		OpenGLSubShadersID attatchShaders(const std::string& vertex_source, const std::string& fragment_source);
+		OpenGLSubShadersID attatchShaders(const OpenGLSubShadersSources& vertex_source);
 		void compileShaders(const OpenGLSubShadersID& shader_ids);
 		bool checkCompilation(unsigned int shader_id);
 		void deleteShaders(const OpenGLSubShadersID& shader_ids);
+		OpenGLSubShadersSources readShaderFile() const;
+
+	private:
+		std::string m_Path;
 	};
 };

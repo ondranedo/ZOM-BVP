@@ -2,7 +2,7 @@
 
 namespace ZOM {
 
-	int ZOM_API ZOMInShaderDataTypeComponentToGLType(InShaderDataType isdt)
+	int ZOMInShaderDataTypeComponentToGLType(InShaderDataType isdt)
 	{
 		switch (isdt)
 		{

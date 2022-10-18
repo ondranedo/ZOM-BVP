@@ -86,6 +86,8 @@ add_library(ZOM STATIC
 "src/renderer/Renderer.h"
 "src/renderer/Shader.cpp"
 "src/renderer/Shader.h"
+"src/renderer/ShaderManager.cpp" 
+"src/renderer/ShaderManager.h"
 "src/renderer/VertexArray.cpp" 
 "src/renderer/VertexArray.h" 
 "src/renderer/VertexBuffer.cpp"
@@ -145,6 +147,7 @@ set(GLFW_BUILD_DOCS OFF)
 add_subdirectory("vendor/spdlog")
 add_subdirectory("vendor/glfw")
 add_subdirectory("vendor/glad/gl_4.0_core_debug")
+add_subdirectory("vendor/jsoncpp")
 
 # vendor links
 target_link_libraries(ZOM "spdlog")
@@ -157,6 +160,7 @@ target_include_directories(ZOM PUBLIC
 "${CMAKE_SOURCE_DIR}/ZOM/vendor/glfw/include"
 "${CMAKE_SOURCE_DIR}/ZOM/vendor/glad/gl_4.0_core_debug/include"
 "${CMAKE_SOURCE_DIR}/ZOM/vendor/glm/"
+"${CMAKE_SOURCE_DIR}/ZOM/vendor/jsoncpp"
 )
 
 # install

@@ -5,6 +5,8 @@
 
 #include "window/MainWindow.h"
 
+#include "Shader.h"
+
 namespace ZOM {
 	void Renderer::init()
 	{
@@ -22,6 +24,10 @@ namespace ZOM {
 			ZOM_CRITICAL("Unkown rendering api when creating renderer");
 		}
 
+		s_ShaderMgr.setShaderPaths({
+			{ "C:/Dev/ZOM-BVP/ZOM/resources/shaders/basic" },
+			{ "C:/Dev/ZOM-BVP/ZOM/resources/shaders/rainbow" } }
+		);
 
 		ZOM_TRACE("Renderer initialization ended");
 	}
@@ -33,12 +39,25 @@ namespace ZOM {
 			ZOM_TRACE("Renderer release started");
 			delete s_RenderApplication;
 			delete s_RenderContext;
+			s_ShaderMgr.deleteAllShaders();
 			ZOM_TRACE("Renderer release ended");
 			s_Created = false;
 		}
 		else
 		{
 			ZOM_TRACE("Can't release renderer, you have to initialize it first");
+		}
+	}
+
+	void Renderer::preRunInit()
+	{
+		if (s_Created)
+		{
+			s_ShaderMgr.compileAllShaders();
+		}
+		else
+		{
+			ZOM_TRACE("Can't preRunInit renderer, you have to initialize it first");
 		}
 	}
 
@@ -62,6 +81,11 @@ namespace ZOM {
 	RenderingAPI Renderer::getAPI()
 	{
 		return s_RendreringApi;
+	}
+
+	std::shared_ptr<Shader> Renderer::getShader(const std::string& name)
+	{
+		return s_ShaderMgr.getShader(name);
 	}
 
 	void Renderer::contextInitialize(Window* window)
@@ -98,4 +122,5 @@ namespace ZOM {
 	ZOM::RenderingAPI Renderer::s_RendreringApi = RenderingAPI::OPENGL;
 	RenderContext* Renderer::s_RenderContext = nullptr;
 	RenderApplication* Renderer::s_RenderApplication = nullptr;
+	ShaderManager Renderer::s_ShaderMgr;
 }

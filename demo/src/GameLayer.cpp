@@ -8,7 +8,8 @@ void GameLayer::onUpdate()
 	std::shared_ptr<ZOM::VertexBuffer>vb = ZOM::VertexBuffer::create(m_Mesh.getVertex(), m_Mesh.getVertexSize());
 	std::shared_ptr<ZOM::IndexBuffer>ib = ZOM::IndexBuffer::create(m_Mesh.getIndex(), m_Mesh.getIndexSize());
 	std::shared_ptr<ZOM::VertexArray>va = ZOM::VertexArray::create();
-	
+	std::shared_ptr<ZOM::Shader>shader = ZOM::Renderer::getShader("basic");
+
 	{
 		ZOM::VertexBufferLayout vbl;
 
@@ -32,13 +33,14 @@ void GameLayer::onUpdate()
 	if (ZOM::Input::isPressed(ZOM_KEY_R)) m_Mesh.moveReset(); 
 	if (ZOM::Input::isPressed(ZOM_KEY_KP_ADD)) m_Mesh.speedUp(); 
 	if (ZOM::Input::isPressed(ZOM_KEY_KP_SUBTRACT)) m_Mesh.speedDown(); 
+	if (ZOM::Input::isPressed(ZOM_KEY_E)) shader = ZOM::Renderer::getShader("rainbow");
 
 	//////////////////
 
 
 	ZOM::Renderer::beginScene();
 
-	m_Shader->bind();
+	shader->bind();
 
 	va->bind();
 
@@ -61,8 +63,7 @@ void GameLayer::onEvent(ZOM::Event& event)
 
 void GameLayer::onCreate()
 {
-	m_Shader = ZOM::Shader::create("C:/Dev/ZOM-BVP/ZOM/resources/shaders/basic.shader");
-	m_Shader->compile();
+
 }
 
 bool GameLayer::onCloseEvent(ZOM::WindowCloseEvent& wce)

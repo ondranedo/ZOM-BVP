@@ -8,6 +8,7 @@
 #include <queue>
 #include <array>
 #include <filesystem>
+#include <map>
 #include <unordered_map>
 
 #include <glm/glm.hpp>

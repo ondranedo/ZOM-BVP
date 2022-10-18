@@ -10,3 +10,6 @@
 [submodule "ZOM/vendor/glm"]
 	path = ZOM/vendor/glm
 	url = https://github.com/g-truc/glm
+[submodule "ZOM/vendor/jsoncpp"]
+	path = ZOM/vendor/jsoncpp
+	url = https://github.com/open-source-parsers/jsoncpp

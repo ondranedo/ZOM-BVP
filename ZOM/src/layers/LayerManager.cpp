@@ -55,8 +55,9 @@ namespace ZOM {
 	void LayerManager::handleEvents(EventQueue* eventQueue)
 	{	
 		size_t nOfEvents = eventQueue->getEventCount();
-		
-		ZOM_ASSERT(nOfEvents < 200, "Number of queued events is way too hight");
+
+		if(nOfEvents > 200)
+			ZOM_WARNING( "Number of queued events is way too hight");
 
 		for (size_t i = 0; i < nOfEvents; i++)
 		{

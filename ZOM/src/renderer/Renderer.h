@@ -4,6 +4,9 @@
 #include "RenderContext.h"
 #include "RenderApplication.h"
 
+#include "Shader.h"
+#include "ShaderManager.h"
+
 namespace ZOM {
 	enum class ZOM_API RenderingAPI {
 		OPENGL
@@ -14,10 +17,15 @@ namespace ZOM {
 		static void init();
 		static void release();
 
+		static void preRunInit();
+
 		static RenderApplication* getRenderApplication();
 		static void setBeforeInitRenderingApi(RenderingAPI api);
 
 		static RenderingAPI getAPI();
+
+		// Shaders
+		static std::shared_ptr<Shader> getShader(const std::string& name);
 
 		// Context management
 		static void contextInitialize(Window* window);
@@ -34,5 +42,6 @@ namespace ZOM {
 		static RenderingAPI s_RendreringApi;
 		static RenderContext* s_RenderContext;
 		static RenderApplication* s_RenderApplication;
+		static ShaderManager s_ShaderMgr;
 	};
 }

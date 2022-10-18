@@ -31,9 +31,11 @@ namespace ZOM {
 
 	void Engine::run()
 	{
+		Renderer::preRunInit();
+
 		s_Running = true;
 
-		ZOM::MainWindow::setEventQueue(s_EventQueue);
+		MainWindow::setEventQueue(s_EventQueue);
 
 		s_LayerManager.onCreateLayers();
 

@@ -15,18 +15,22 @@ namespace ZOM {
 		"\n"
 		"void main()\n"
 		"{\n"
-		"	color = vec4(8.0f,7.0f,8.0f,1.0f);\n"
+		"	color = vec4(1.0f,5.0f,1.0f,1.0f);\n"
 		"}\n";
 
 	OpenGLShader::OpenGLShader(const std::string& path) : m_Path(path)
 	{
 		ZOM_GL_CALL(m_ID = glCreateProgram());
 		ZOM_ASSERT(m_ID, "failed to create shader program");
+		m_Created = true;
 	}
 
 	OpenGLShader::~OpenGLShader()
 	{
-		ZOM_GL_CALL(glDeleteProgram(m_ID));
+		if (m_Created)
+		{
+			ZOM_ERROR("Shader {} shloud be deleted, can't delete shader now", m_Path);
+		}
 	}
 
 	void OpenGLShader::bind() const
@@ -39,27 +43,45 @@ namespace ZOM {
 		ZOM_GL_CALL(glUseProgram(0));
 	}
 
-	void OpenGLShader::compile()
+	
+
+	void OpenGLShader::release()
+	{
+		unsigned int shaders[8];
+		GLsizei count;
+
+		ZOM_GL_CALL(glGetAttachedShaders(m_ID, 8, &count, shaders));
+		ZOM_GL_CALL(glDeleteProgram(m_ID));
+
+		m_Created = false;
+	}
+
+	bool OpenGLShader::compile()
 	{		
 		OpenGLSubShadersSources sources = readShaderFile();
 
 		OpenGLSubShadersID shaders = attatchShaders(sources);
 
-		compileShaders(shaders);
+		bool succes = compileShaders(shaders);
 
 		ZOM_GL_CALL(glLinkProgram(m_ID));
 	    ZOM_GL_CALL(glValidateProgram(m_ID));		
 
 		deleteShaders(shaders);
+		
+		return succes;
 	}
 
-	void OpenGLShader::compileShaders(const OpenGLSubShadersID& shader_ids)
+	bool OpenGLShader::compileShaders(const OpenGLSubShadersID& shader_ids)
 	{
+		bool succes = true;
 		ZOM_GL_CALL(glCompileShader(shader_ids.m_FragmentID));
 		ZOM_GL_CALL(glCompileShader(shader_ids.m_VertexID));
 
-		checkCompilation(shader_ids.m_FragmentID);
-		checkCompilation(shader_ids.m_VertexID);
+		succes &= checkCompilation(shader_ids.m_FragmentID);
+		succes &= checkCompilation(shader_ids.m_VertexID);
+
+		return succes;
 	}
 
 	unsigned int OpenGLShader::createShader(GLenum id, const std::string& source)
@@ -67,8 +89,8 @@ namespace ZOM {
 		unsigned int shader_id = ZOM_GL_CALL(glCreateShader(id));
 		const char* c_source = source.c_str();
 		ZOM_GL_CALL(glShaderSource(shader_id, 1, &c_source, NULL));
-
 		return shader_id;
+
 	}
 
 	bool OpenGLShader::checkCompilation(unsigned int shader_id)

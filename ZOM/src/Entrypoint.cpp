@@ -2,8 +2,8 @@
 #include "Window/MainWindow.h"
 
 int main(int argc, char** argv)
-{
-    ZOM::Logger::init();
+{	
+	ZOM::Logger::init();
 	ZOM::Engine::init();
 	ZOM::Renderer::init();
 	ZOM::MainWindow::init();
@@ -15,5 +15,7 @@ int main(int argc, char** argv)
 	ZOM::MainWindow::release();
 	ZOM::Logger::release();
 
+	std::cin.get();
 	return 0;
+
 }

@@ -22,18 +22,21 @@ namespace ZOM {
 		void bind() const override;
 		void unbind() const override;
 
+		void release() override;
 
-		void compile() override;
+		bool compile() override;
 	private:
 
 		unsigned int createShader(GLenum id, const std::string& source);
 		OpenGLSubShadersID attatchShaders(const OpenGLSubShadersSources& vertex_source);
-		void compileShaders(const OpenGLSubShadersID& shader_ids);
+		bool compileShaders(const OpenGLSubShadersID& shader_ids);
 		bool checkCompilation(unsigned int shader_id);
 		void deleteShaders(const OpenGLSubShadersID& shader_ids);
 		OpenGLSubShadersSources readShaderFile() const;
 
 	private:
 		std::string m_Path;
+		bool m_Created = false;
+		void deleteShader();
 	};
 };

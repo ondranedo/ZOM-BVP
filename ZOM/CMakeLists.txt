@@ -37,6 +37,8 @@ endif(APPLE)
 
 # target
 add_library(ZOM STATIC
+"src/Config.cpp"
+"src/Config.h"
 "src/Core.h"
 "src/Engine.cpp"
 "src/Engine.h"
@@ -109,7 +111,7 @@ add_library(ZOM STATIC
 "src/renderingAPI/opengl/OpenGLVertexBuffer.cpp"
 "src/renderingAPI/opengl/OpenGLVertexBuffer.h"
 "src/renderingAPI/opengl/OpenGLVertexArray.cpp" 
-"src/renderingAPI/opengl/OpenGlVertexArray.h" 
+"src/renderingAPI/opengl/OpenGlVertexArray.h"
 )
 
 
@@ -142,6 +144,8 @@ set(GLFW_INSTALL OFF)
 set(GLFW_BUILD_EXAMPLES OFF)
 set(GLFW_BUILD_TESTS OFF)
 set(GLFW_BUILD_DOCS OFF)
+set(JSONCPP_WITH_TESTS OFF)
+set(BUILD_STATIC_LIBS ON)
 
 # projects
 add_subdirectory("vendor/spdlog")
@@ -153,6 +157,7 @@ add_subdirectory("vendor/jsoncpp")
 target_link_libraries(ZOM "spdlog")
 target_link_libraries(ZOM "glfw")
 target_link_libraries(ZOM "glad")
+target_link_libraries(ZOM "jsoncpp_static")
 
 # include dirs
 target_include_directories(ZOM PUBLIC
@@ -160,7 +165,7 @@ target_include_directories(ZOM PUBLIC
 "${CMAKE_SOURCE_DIR}/ZOM/vendor/glfw/include"
 "${CMAKE_SOURCE_DIR}/ZOM/vendor/glad/gl_4.0_core_debug/include"
 "${CMAKE_SOURCE_DIR}/ZOM/vendor/glm/"
-"${CMAKE_SOURCE_DIR}/ZOM/vendor/jsoncpp"
+"${CMAKE_SOURCE_DIR}/ZOM/vendor/jsoncpp/include"
 )
 
 # install

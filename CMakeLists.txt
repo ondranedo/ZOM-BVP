@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED true)
 
 project(ZOM)
 
+
+
 # Sub projects
 add_subdirectory("ZOM")
 add_subdirectory("demo")

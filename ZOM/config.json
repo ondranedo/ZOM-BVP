@@ -1,14 +1,19 @@
 {
-    "renderingAPI" : [
-        {
-            "name" : "OpenGL",
-            "platforms" : ["Windows"],
-            "shaderFile" : ".glsl"
-        }
-    ],
 
-    "shaderPaths" : [
-        "C:/Dev/ZOM-BVP/ZOM/resources/shaders/basic",
-        "C:/Dev/ZOM-BVP/ZOM/resources/shaders/rainbow"
-    ]
+  "logEvents": true,
+  "logEventPath": "./",
+
+  "renderingAPI": "OpenGL",
+  "renderingAPIs": [
+    {
+      "name": "OpenGL",
+      "platforms": [ "Windows" ],
+      "shaderFile": ".glsl"
+    }
+  ],
+
+  "shaderPaths": [
+    "./resources/shaders/basic",
+    "./resources/shaders/rainbow"
+  ]
 }

@@ -9,4 +9,4 @@ target_include_directories(demo PUBLIC
 target_link_libraries(demo "ZOM")
 
 # install script
-install(TARGETS demo)
+install(TARGETS demo DESTINATION ${CMAKE_INSTALL_PREFIX})

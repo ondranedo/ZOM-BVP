@@ -2,6 +2,8 @@
 
 #include "window/MainWindow.h"
 
+#include "config.h"
+
 extern ZOM::Game* createGame();
 
 namespace ZOM {
@@ -10,7 +12,7 @@ namespace ZOM {
 	{
 		ZOM_TRACE("Engine initialization stared");
 
-		s_LayerManager.init("./events.log");
+		s_LayerManager.init("events.log");
 		
 		s_Game = createGame();
 

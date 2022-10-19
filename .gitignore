@@ -1,5 +1,6 @@
 # DIRS
 .vs
+.idea
 out
 
 # FILES

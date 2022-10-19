@@ -19,7 +19,7 @@ endif(CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
 
 # platforms
 if(WIN32)
-	add_compile_definitions(ZOM_WINDOWS) 
+	add_compile_definitions(ZOM_WINDOWS)
 endif(WIN32)
 
 if(UNIX AND NOT APPLE)
@@ -124,6 +124,7 @@ target_precompile_headers(ZOM PUBLIC
 	"src/codes/DataType.h"
 	"src/codes/ComplexDataType.h"
 	"src/renderingAPI/opengl/OpenGLCore.h"
+	"src/config.h"
 )
 
 ###################################
@@ -146,6 +147,9 @@ set(GLFW_BUILD_TESTS OFF)
 set(GLFW_BUILD_DOCS OFF)
 set(JSONCPP_WITH_TESTS OFF)
 set(BUILD_STATIC_LIBS ON)
+set(JSONCPP_WITH_PKGCONFIG_SUPPORT OFF)
+set(JSONCPP_WITH_CMAKE_PACKAGE OFF)
+set(JSONCPP_WITH_TESTS OFF)
 
 # projects
 add_subdirectory("vendor/spdlog")
@@ -169,12 +173,24 @@ target_include_directories(ZOM PUBLIC
 )
 
 # install
-install(TARGETS spdlog)
-install(TARGETS glfw)
+install(TARGETS spdlog DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+install(TARGETS glfw DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+install(TARGETS jsoncpp_static DESTINATION  ${CMAKE_INSTALL_PREFIX}/lib)
+install(TARGETS glad DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
 ###################################
 #        install scripts          #
 ###################################
-install(TARGETS ZOM)
 
+install(TARGETS ZOM DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
+# pre build
+add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_SOURCE_DIR}/ZOM/config.json
+                ${CMAKE_INSTALL_PREFIX}/config.json)
+
+add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+                ${CMAKE_SOURCE_DIR}/ZOM/resources
+                ${CMAKE_INSTALL_PREFIX}/resources)

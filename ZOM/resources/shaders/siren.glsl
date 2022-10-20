@@ -7,7 +7,7 @@ out vec3 pos;
 
 void main()
 {
-  normalPos = position.x * 0.5  + position.y * 0.5;
+  normalPos = (position.x + position.y)/2;
   pos = vec3(position.x,position.y,1.0);
 
   gl_Position = position;
@@ -27,11 +27,11 @@ void main()
   vec3 dir1 = vec3(cos(theta),0,sin(theta)); 
   vec3 dir2 = vec3(sin(theta),0,cos(theta));
   
-  float diffuse1 = dot(pos,dir1);
-  float diffuse2 = dot(pos,dir2);
+  float diffuse1 = dot( pos,dir1);
+  float diffuse2 = dot( pos,dir2);
   
-  vec3 col1 = diffuse1 * vec3(1,0,0);
-  vec3 col2 = diffuse2 * vec3(0,0,1);
+  vec3 col1 = diffuse1 * vec3(1,0,0.5);
+  vec3 col2 = diffuse2 * vec3(0,0.5,1);
   
-  color = vec4(col1 + col2, 1.0);
+  color = vec4(dot(col1,col2),dot(col1,pos),dot(pos,col2), 1.0);
 }

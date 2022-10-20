@@ -139,7 +139,7 @@ namespace ZOM {
 		ZOM_GL_CALL(glDeleteShader(shader_ids.m_FragmentID));
 	}
 
-	OpenGLSubShadersSources OpenGLShader::readShaderFile() const
+	OpenGLSubShadersSources OpenGLShader::readShaderFile()
 	{
 		enum : short { NONE = 0, VERTEX, FRAGMENT } shader = NONE;
 
@@ -155,19 +155,42 @@ namespace ZOM {
 			return sources;
 		}
 
-		char linebuff[256] = { 0 };
+		const size_t buffSize = 256;
+		char linebuff[buffSize] = { 0 };
 
-		while (fgets(linebuff,256, fr))
+		while (fgets(linebuff, buffSize, fr))
 		{
 		
 			if (strstr(linebuff, "#shader vertex")) { shader = VERTEX; continue; }
 			if (strstr(linebuff, "#shader fragment")) { shader = FRAGMENT; continue; }
+			if (strstr(linebuff, "location")) { readAndAddVBL(linebuff, buffSize); } // reading VBL
 		
 			if(shader == VERTEX)   sources.m_VertexSrc += linebuff;
 			if(shader == FRAGMENT) sources.m_FragmentSrc += linebuff;
 		}
 
 		return sources;
+	}
+
+	void OpenGLShader::readAndAddVBL(char* buff, size_t size)
+	{
+		int location = readLocation(buff, size);
+		InShaderDataType dataType = readDataType(buff, size);
+	}
+
+	int OpenGLShader::readLocation(char* buff, size_t size)
+	{
+		std::string str(buff, size);
+		std::size_t pos = str.find("=");
+		std::size_t end = str.find(")");
+		std::string number = str.substr(pos + 1, end - pos - 1);
+		number.erase(std::remove_if(number.begin(), number.end(), ::isspace), number.end());
+		return (int)*number.c_str()-'0';
+	}
+
+	ZOM::InShaderDataType OpenGLShader::readDataType(char* buff, size_t size)
+	{
+		// TODO: f. uniform reading
 	}
 
 	OpenGLSubShadersID OpenGLShader::attatchShaders(const OpenGLSubShadersSources& sources)

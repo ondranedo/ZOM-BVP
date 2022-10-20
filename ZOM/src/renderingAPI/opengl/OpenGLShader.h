@@ -33,8 +33,11 @@ namespace ZOM {
 		bool compileShaders(const OpenGLSubShadersID& shader_ids);
 		bool checkCompilation(unsigned int shader_id);
 		void deleteShaders(const OpenGLSubShadersID& shader_ids);
-		OpenGLSubShadersSources readShaderFile() const;
+		OpenGLSubShadersSources readShaderFile();
 
+		void readAndAddVBL(char* buff, size_t size);
+		int readLocation(char* buff, size_t size);
+		InShaderDataType readDataType(char* buff, size_t size);
 	private:
 		std::string m_Path;
 		bool m_Created = false;

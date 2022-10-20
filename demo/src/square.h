@@ -47,13 +47,11 @@ public:
 	void moveStop() { m_Dir = NONE; }
 	void speedUp() { speed += 0.01f; }
 	void speedDown() { speed -= 0.01f; }
-	void scaleUp(){ /*// tady pico **/}
-	void scaleDown(){}
 	void moveReset() {
-		vertexD[0] = -0.5f; vertexD[1] = -0.5f;
-		vertexD[2] = -0.5f; vertexD[3] = 0.5f;
-		vertexD[4] = 0.5f; vertexD[5] = 0.5f;
-		vertexD[6] = 0.5f; vertexD[7] = -0.5f;
+		vertexD[0] = -1.0f; vertexD[1] = -1.0f;
+		vertexD[2] = -1.0f; vertexD[3] =  1.0f;
+		vertexD[4] =  1.0f; vertexD[5] =  1.0f;
+		vertexD[6] =  1.0f; vertexD[7] = -1.0f;
 		speed = 0.2f;
 		m_Dir = NONE;
 	}
@@ -61,10 +59,10 @@ public:
 private:
 	float speed = 0.2f;
 	float vertexD[8] = { 
-		-0.5f,-0.5f,
-		-0.5f, 0.5f,
-		 0.5f, 0.5f,
-		 0.5f,-0.5f
+		-1.0f,-1.0f,
+		-1.0f, 1.0f,
+		 1.0f, 1.0f,
+		 1.0f,-1.0f
 	};
 	unsigned int indexD[6] = {
 		0,1,2,

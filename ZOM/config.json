@@ -1,7 +1,6 @@
 {
-
-  "logEvents": true,
-  "logEventPath": "./",
+  "logEvents": false,
+  "logEventPath": "events.log",
 
   "renderingAPI": "OpenGL",
   "renderingAPIs": [
@@ -14,6 +13,6 @@
 
   "shaderPaths": [
     "./resources/shaders/basic",
-    "./resources/shaders/rainbow"
+    "./resources/shaders/siren"
   ]
 }

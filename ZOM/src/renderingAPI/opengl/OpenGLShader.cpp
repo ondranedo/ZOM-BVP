@@ -25,6 +25,13 @@ namespace ZOM {
 		m_Created = true;
 	}
 
+	OpenGLShader::OpenGLShader() : m_Path("none@none")
+	{
+		ZOM_GL_CALL(m_ID = glCreateProgram());
+		ZOM_ASSERT(m_ID, "failed to create default shader program");
+		m_Created = true;
+	}
+
 	OpenGLShader::~OpenGLShader()
 	{
 		if (m_Created)
@@ -57,8 +64,13 @@ namespace ZOM {
 	}
 
 	bool OpenGLShader::compile()
-	{		
-		OpenGLSubShadersSources sources = readShaderFile();
+	{	
+		OpenGLSubShadersSources sources;
+
+		if (m_Path == "none@none")
+			sources = { default_vertex_shader, default_fragment_shader };
+		else
+			sources = readShaderFile();
 
 		OpenGLSubShadersID shaders = attatchShaders(sources);
 
@@ -133,7 +145,8 @@ namespace ZOM {
 
 		OpenGLSubShadersSources sources;
 		
-		FILE* fr = fopen(m_Path.c_str(), "r");
+		FILE* fr;
+		fopen_s(&fr, m_Path.c_str(), "r");
 		if (!fr)
 		{
 			ZOM_ERROR("Can't load shader file {}, loading default shader", m_Path);

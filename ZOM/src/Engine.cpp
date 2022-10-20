@@ -12,7 +12,7 @@ namespace ZOM {
 	{
 		ZOM_TRACE("Engine initialization stared");
 
-		s_LayerManager.init("events.log");
+		s_LayerManager.init();
 		
 		s_Game = createGame();
 

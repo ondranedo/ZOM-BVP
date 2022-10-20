@@ -4,17 +4,18 @@
 
 namespace ZOM {
 
-	void LayerManager::init(const std::string& path /* = "none" */)
+	void LayerManager::init()
 	{
-		m_Path = path;
+		m_Path = Config::logEventPath();
 
-#ifdef ZOM_DEBUG
-		FILE* fw = fopen(path.c_str(), "w");
-		//ZOM_ASSERT(fw, "Cant create event log file");
-
-		fprintf(fw,"-------ZOM FILE EVENT LOG------\r\n");
-		fclose(fw);
-#endif
+		if (Config::logEvents())
+		{
+			FILE* fw;
+			fopen_s(&fw, m_Path.c_str(), "w");
+			ZOM_ASSERT(fw, "Cant create event log file");
+			fprintf(fw, "-------ZOM FILE EVENT LOG------\r\n");
+			fclose(fw);
+		}
 	}
 
 	void LayerManager::release()
@@ -68,8 +69,10 @@ namespace ZOM {
 				layer->onEvent(*event);
 			}
 
-			if (m_Path != "none")
+			if (Config::logEvents())
+			{
 				storeEventToFile(event);
+			}
 
 			delete event;
 		}
@@ -85,13 +88,14 @@ namespace ZOM {
 
 	void LayerManager::storeEventToFile(Event* event)
 	{
-#ifdef ZOM_DEBUG
-		FILE* fw = fopen(m_Path.c_str(), "a");
+	
+		FILE* fw;
+		fopen_s(&fw, m_Path.c_str(), "a");
 		ZOM_ASSERT(fw, "Can't append event to the evenrt log file");
 
-		fprintf(fw, (event->toString()+"\r\n").c_str());
+		fprintf(fw, (event->toString() + "\r\n").c_str());
 		fclose(fw);
-#endif
+	
 	}
 
 }

@@ -34,15 +34,15 @@ namespace ZOM {
 
 		auto layoutVec = m_VB->getLayout().getAttribVec();
 
-		for (size_t i = 0; i < layoutVec.size(); i++)
+		for (size_t i = 0; i < (int)layoutVec.size(); i++)
 		{
-			ZOM_GL_CALL(glEnableVertexAttribArray(i));
-			
-			ZOM_GL_CALL(glVertexAttribPointer(i,
-				ZOMInShaderDataTypeComponentCount(layoutVec[0].type), 
-				ZOMInShaderDataTypeComponentToGLType(layoutVec[0].type),
-				GL_FALSE, 
-				m_VB->getLayout().getSize(),
+			ZOM_GL_CALL(glEnableVertexAttribArray((GLsizei)i));
+
+			ZOM_GL_CALL(glVertexAttribPointer((GLuint)i,
+				(GLint)ZOMInShaderDataTypeComponentCount(layoutVec[0].type),
+				(GLenum)ZOMInShaderDataTypeComponentToGLType(layoutVec[0].type),
+				(GLboolean)GL_FALSE, 
+				(GLsizei)m_VB->getLayout().getSize(),
 				(const void*)layoutVec[0].offset));
 		}
 

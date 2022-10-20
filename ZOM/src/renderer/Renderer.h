@@ -11,6 +11,7 @@ namespace ZOM {
 	enum class ZOM_API RenderingAPI {
 		OPENGL
 	};
+	std::string getStrRenderingApi(RenderingAPI rapi);
 
 	class ZOM_API Renderer {
 	public:

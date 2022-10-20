@@ -185,12 +185,12 @@ install(TARGETS glad DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 install(TARGETS ZOM DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
 # pre build
-add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
                 ${CMAKE_SOURCE_DIR}/ZOM/config.json
                 ${CMAKE_INSTALL_PREFIX}/config.json)
 
-add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
                 ${CMAKE_SOURCE_DIR}/ZOM/resources
                 ${CMAKE_INSTALL_PREFIX}/resources)

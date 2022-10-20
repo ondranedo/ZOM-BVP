@@ -9,7 +9,7 @@ namespace ZOM {
 		void addLayerOnTop(Layer* heap_layer_addr);
 		void addLayerToTheBack(Layer* heap_layer_addr);
 
-		void init(const std::string& path /* = "none" */);
+		void init();
 		void release();
 
 		void deleteLayers();

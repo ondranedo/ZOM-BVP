@@ -33,7 +33,7 @@ void GameLayer::onUpdate()
 	if (ZOM::Input::isPressed(ZOM_KEY_R)) m_Mesh.moveReset(); 
 	if (ZOM::Input::isPressed(ZOM_KEY_KP_ADD)) m_Mesh.speedUp(); 
 	if (ZOM::Input::isPressed(ZOM_KEY_KP_SUBTRACT)) m_Mesh.speedDown(); 
-	if (ZOM::Input::isPressed(ZOM_KEY_E)) shader = ZOM::Renderer::getShader("rainbow");
+	if (ZOM::Input::isPressed(ZOM_KEY_E)) shader = ZOM::Renderer::getShader("siren");
 
 	//////////////////
 

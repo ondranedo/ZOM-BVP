@@ -17,6 +17,7 @@ namespace ZOM {
 		
 	public:
 		OpenGLShader(const std::string& path);
+		OpenGLShader();
 		~OpenGLShader();
 
 		void bind() const override;

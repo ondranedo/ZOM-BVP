@@ -12,6 +12,8 @@ namespace ZOM {
 	{
 		ZOM_TRACE("Renderer initialization started");
 
+		setBeforeInitRenderingApi(Config::renderingAPI());
+
 		switch (s_RendreringApi)
 		{
 		case RenderingAPI::OPENGL:
@@ -24,10 +26,7 @@ namespace ZOM {
 			ZOM_CRITICAL("Unkown rendering api when creating renderer");
 		}
 
-		s_ShaderMgr.setShaderPaths({
-			{ "C:/Dev/ZOM-BVP/ZOM/resources/shaders/basic" },
-			{ "C:/Dev/ZOM-BVP/ZOM/resources/shaders/rainbow" } }
-		);
+		s_ShaderMgr.setShaderPaths(Config::shaderPaths());
 
 		ZOM_TRACE("Renderer initialization ended");
 	}
@@ -116,6 +115,18 @@ namespace ZOM {
 	void Renderer::endScene()
 	{
 
+	}
+
+	std::string getStrRenderingApi(RenderingAPI rapi)
+	{
+		
+		switch (rapi)
+		{
+			case RenderingAPI::OPENGL: return "OpenGL";
+		}
+
+		ZOM_WARNING("Unsuported RendreringAPI in getStrRenderingApi");
+		return "";
 	}
 
 	bool Renderer::s_Created = false;

@@ -27,18 +27,22 @@ namespace ZOM {
 		return m_Config["logEvents"].asBool();
 	}
 
-	std::string Config::logEventPath() { return m_Config["logEventPath"].asString() + "events.log"; }
+	std::string Config::logEventPath()
+	{ 
+		return m_Config["logEventPath"].asString();
+	}
 
 	ZOM::RenderingAPI Config::renderingAPI() {
-		if (m_Config["renderingAPI"].asCString() == "OpenGL") return RenderingAPI::OPENGL;
+		if (m_Config["renderingAPI"].asString() == "OpenGL") return RenderingAPI::OPENGL;
+
+		return RenderingAPI::OPENGL;
 	}
 
 	ZOM::RenderingApiConfig Config::renderingAPIs(const std::string& name){
 		RenderingApiConfig ret;
-
 		for (const auto& li : m_Config["renderingAPIs"])
 		{
-			if (li["name"] == m_Config["renderingAPI"])
+			if (li["name"].asString() == getStrRenderingApi(Renderer::getAPI()))
 			{
 				ret.name = li["name"].asString();
 				for (const auto& li2 : li["platforms"])
@@ -48,7 +52,8 @@ namespace ZOM {
 				break;
 			}
 		}
-
+		if (ret.name == "")
+			ZOM_ERROR("Can't find rendering api specification in config.json");
 		return ret;
 	}
 

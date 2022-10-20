@@ -11,6 +11,7 @@ namespace ZOM {
 		virtual void release() = 0;
 
 		static std::shared_ptr<Shader> create(const std::string& path);
+		static std::shared_ptr<Shader> createDefault();
 
 	protected:
 		unsigned int m_ID;

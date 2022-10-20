@@ -9,7 +9,6 @@ namespace ZOM {
 		void deleteAllShaders();
 
 		const std::shared_ptr<Shader>& getShader(const std::string& name);
-		const std::string& getShaderPath(const std::string& name);
 
 	private:
 		std::string shaderPathFromNamePath(const std::string& path);

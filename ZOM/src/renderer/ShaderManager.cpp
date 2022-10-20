@@ -4,12 +4,12 @@ namespace ZOM {
 	
 	void ShaderManager::setShaderPaths(const std::vector<std::string>& name_paths)
 	{
-		/*
-			name_path = /assets/shaders/basic
-			shader_path (per RenderingAPI) = /assets/shaders/basic.glsl
-										   = /assets/shaders/basic.hlsl
+		//  
+		//  name_path = /assets/shaders/basic
+		//  shader_path (per RenderingAPI) = /assets/shaders/basic.glsl
+		//  							   = /assets/shaders/basic.hlsl
+		//  
 		
-		*/
 		ZOM_TRACE("Setting shader paths");
 
 		for (const std::string& name_path : name_paths)
@@ -61,15 +61,22 @@ namespace ZOM {
 
 	const std::shared_ptr<Shader>& ShaderManager::getShader(const std::string& name)
 	{
-		return m_Shaders[name];
+
+		if (m_Shaders[name]) return  m_Shaders[name];
+		
+		ZOM_WARNING("Can't find {0} shader, setting {0} to default shader", name);
+		m_Shaders[name] = Shader::createDefault();
+		m_Shaders[name]->compile();
+		return  m_Shaders[name];
 	}
 
 	std::string ShaderManager::shaderPathFromNamePath(const std::string& path)
 	{
+		std::string fileEnding =  Config::renderingAPIs(getStrRenderingApi(Renderer::getAPI())).shaderFile;
 		switch (Renderer::getAPI())
 		{
 		case RenderingAPI::OPENGL:
-			return path + ".glsl";
+			return path + fileEnding;
 		}
 
 		ZOM_ERROR("Unknown rendering api when loading shaders");

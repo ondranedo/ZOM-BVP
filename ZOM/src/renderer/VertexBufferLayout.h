@@ -22,6 +22,9 @@ namespace ZOM {
 		void add(InShaderDataType t, const std::string& name);
 		size_t getSize() const;
 
+		bool operator==(const VertexBufferLayout& right);
+		bool operator!=(const VertexBufferLayout& right);
+
 	private:
 		AttribVec m_AttribVec;
 		size_t m_Size = 0;

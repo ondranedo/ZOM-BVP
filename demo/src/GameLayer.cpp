@@ -9,13 +9,8 @@ void GameLayer::onUpdate()
 	std::shared_ptr<ZOM::IndexBuffer>ib = ZOM::IndexBuffer::create(m_Mesh.getIndex(), m_Mesh.getIndexSize());
 	std::shared_ptr<ZOM::VertexArray>va = ZOM::VertexArray::create();
 	std::shared_ptr<ZOM::Shader>shader = ZOM::Renderer::getShader("siren");
-
 	{
-		ZOM::VertexBufferLayout vbl;
-
-		vbl.add(ZOM::InShaderDataType::VecF2, "test");
-
-		vb->setLayout(vbl);
+		vb->setLayout(shader->getLayout());
 
 		va->setIndex(ib);
 		va->setVertex(vb);
@@ -33,7 +28,12 @@ void GameLayer::onUpdate()
 	if (ZOM::Input::isPressed(ZOM_KEY_R)) m_Mesh.moveReset(); 
 	if (ZOM::Input::isPressed(ZOM_KEY_KP_ADD)) m_Mesh.speedUp(); 
 	if (ZOM::Input::isPressed(ZOM_KEY_KP_SUBTRACT)) m_Mesh.speedDown(); 
-	if (ZOM::Input::isPressed(ZOM_KEY_E)) shader = ZOM::Renderer::getShader("basic");
+	if (ZOM::Input::isPressed(ZOM_KEY_E))
+	{
+		shader = ZOM::Renderer::getShader("basic");
+		vb->setLayout(shader->getLayout());
+	}
+
 
 	//////////////////
 

@@ -1,16 +1,17 @@
 #shader vertex
 #version 330 core
 
-layout(location = 0) in vec4 position;
+layout(location = 0) in vec2 position;
+
 out float normalPos;
 out vec3 pos;
 
 void main()
 {
   normalPos = (position.x + position.y)/2;
-  pos = vec3(position.x,position.y,1.0);
+  pos = vec3(position,1.0f);
 
-  gl_Position = position;
+  gl_Position = vec4(position,0.0f,1.0f);
 }
 
 #shader fragment
@@ -27,8 +28,8 @@ void main()
   vec3 dir1 = vec3(cos(theta),0,sin(theta)); 
   vec3 dir2 = vec3(sin(theta),0,cos(theta));
   
-  float diffuse1 = dot( pos,dir1);
-  float diffuse2 = dot( pos,dir2);
+  float diffuse1 = dot( pos, dir1);
+  float diffuse2 = dot( pos, dir2);
   
   vec3 col1 = diffuse1 * vec3(1,0,0.5);
   vec3 col2 = diffuse2 * vec3(0,0.5,1);

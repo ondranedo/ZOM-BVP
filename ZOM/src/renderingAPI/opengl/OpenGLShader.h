@@ -26,8 +26,10 @@ namespace ZOM {
 		void release() override;
 
 		bool compile() override;
-	private:
 
+		VertexBufferLayout getLayout() override;
+
+	private:
 		unsigned int createShader(GLenum id, const std::string& source);
 		OpenGLSubShadersID attatchShaders(const OpenGLSubShadersSources& vertex_source);
 		bool compileShaders(const OpenGLSubShadersID& shader_ids);
@@ -38,9 +40,15 @@ namespace ZOM {
 		void readAndAddVBL(char* buff, size_t size);
 		int readLocation(char* buff, size_t size);
 		InShaderDataType readDataType(char* buff, size_t size);
+
+		void removeSpacesBefore(std::string& str);
+
+		void createBufferLayout();
 	private:
 		std::string m_Path;
 		bool m_Created = false;
-		void deleteShader();
+		VertexBufferLayout m_Layout;
+		std::vector<std::tuple<int,InShaderDataType,std::string>> m_LayoutVector;
+		std::string readName(char* buff, size_t size);
 	};
 };

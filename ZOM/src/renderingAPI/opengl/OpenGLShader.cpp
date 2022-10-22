@@ -84,6 +84,11 @@ namespace ZOM {
 		return succes;
 	}
 
+	VertexBufferLayout OpenGLShader::getLayout()
+	{
+		return m_Layout;
+	}
+
 	bool OpenGLShader::compileShaders(const OpenGLSubShadersID& shader_ids)
 	{
 		bool succes = true;
@@ -169,6 +174,8 @@ namespace ZOM {
 			if(shader == FRAGMENT) sources.m_FragmentSrc += linebuff;
 		}
 
+		createBufferLayout();
+
 		return sources;
 	}
 
@@ -176,6 +183,9 @@ namespace ZOM {
 	{
 		int location = readLocation(buff, size);
 		InShaderDataType dataType = readDataType(buff, size);
+		std::string name = readName(buff, size);
+
+		m_LayoutVector.push_back({ location,dataType, name});
 	}
 
 	int OpenGLShader::readLocation(char* buff, size_t size)
@@ -188,9 +198,79 @@ namespace ZOM {
 		return (int)*number.c_str()-'0';
 	}
 
-	ZOM::InShaderDataType OpenGLShader::readDataType(char* buff, size_t size)
+	InShaderDataType OpenGLShader::readDataType(char* buff, size_t size)
 	{
-		// TODO: f. uniform reading
+		std::string spec;
+		{
+			std::string str(buff, size);
+			spec = str.substr(
+				str.find("in") + 2, str.find(";") - str.find("in") - 2);
+		}
+		
+		removeSpacesBefore(spec);
+
+		std::string dataType = spec.substr(0, spec.find(' '));
+
+		if (dataType == "vec4")  return InShaderDataType::VecF4;
+		if (dataType == "vec3")  return InShaderDataType::VecF3;
+		if (dataType == "vec2")  return InShaderDataType::VecF2;
+		if (dataType == "float") return InShaderDataType::VecF1;
+		
+		ZOM_ERROR("Unknown data type in {} shader at location {}", m_Path, readLocation(buff, size));
+
+		return InShaderDataType::Null;
+	}
+
+	void OpenGLShader::removeSpacesBefore(std::string& spec)
+	{
+		for (size_t i = 0; i < spec.size(); i++)
+		{
+			if (spec[i] != ' ')
+			{
+				spec.erase(0, i);
+				break;
+			}
+		}
+	}
+
+	void OpenGLShader::createBufferLayout()
+	{
+		for (size_t i = 0; i < m_LayoutVector.size(); i++)
+		{
+			for (auto[location,dt,name] : m_LayoutVector)
+				if (location == i) m_Layout.add(dt, name);
+		}
+	}
+
+	std::string OpenGLShader::readName(char* buff, size_t size)
+	{
+		std::string spec;
+		{
+			std::string str(buff, size);
+			spec = str.substr(
+				str.find("in") + 2, str.find(";") - str.find("in") - 2);
+		}
+
+		removeSpacesBefore(spec);
+
+		std::string dataType = spec.substr(0, spec.find(' '));
+
+		spec.erase(0, dataType.size());
+	
+		removeSpacesBefore(spec);
+
+		std::string name;
+		{
+			size_t name_size = 0;
+			while (name_size < spec.size())
+			{
+				if (spec[name_size] == ' ') break;
+				else name_size++;
+			}
+			name = spec.substr(0, name_size); 
+		}
+
+		return name;
 	}
 
 	OpenGLSubShadersID OpenGLShader::attatchShaders(const OpenGLSubShadersSources& sources)

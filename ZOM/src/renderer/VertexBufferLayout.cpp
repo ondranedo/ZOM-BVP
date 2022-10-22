@@ -26,4 +26,22 @@ namespace ZOM {
 		return m_Size;
 	}
 
+	bool VertexBufferLayout::operator!=(const VertexBufferLayout& right)
+	{
+		return !(*this == right);
+	}
+
+	bool VertexBufferLayout::operator==(const VertexBufferLayout& right)
+	{
+		for(size_t i = 0; i < m_AttribVec.size(); i++)
+		{
+			if (m_AttribVec[i].type != right.m_AttribVec[i].type)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 }

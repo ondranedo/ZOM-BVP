@@ -13,7 +13,7 @@ namespace ZOM {
 		virtual void release() = 0;
 
 		// virtual void uniform(const std::string&) = 0;
-		// virtual VertexBufferLayout getLayout() = 0;
+		virtual VertexBufferLayout getLayout() = 0;
 
 		static std::shared_ptr<Shader> create(const std::string& path);
 		static std::shared_ptr<Shader> createDefault();

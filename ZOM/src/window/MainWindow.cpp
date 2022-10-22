@@ -6,6 +6,7 @@ namespace ZOM {
 	
 	void MainWindow::init()
 	{
+		ZOM_FUNCTION_TIMER();
 		ZOM_TRACE("MainWindow initialization started");
 		if (!s_Created)
 		{
@@ -25,6 +26,7 @@ namespace ZOM {
 
 	void MainWindow::release()
 	{
+		ZOM_FUNCTION_TIMER();
 		if (s_Created)
 		{
 			ZOM_TRACE("MainWindow release started");
@@ -48,6 +50,8 @@ namespace ZOM {
 
 	void MainWindow::setEventQueue(EventQueue& event_queue)
 	{
+		ZOM_FUNCTION_TIMER();
+
 		if (s_Created)
 			s_Window->setEventCallbackFn(event_queue.getEventCallBack());
 		else
@@ -56,6 +60,8 @@ namespace ZOM {
 
 	void MainWindow::pollEvents()
 	{
+		ZOM_FUNCTION_TIMER();
+
 		if (s_Created)
 			s_Window->pollEvents();
 		else

@@ -10,6 +10,7 @@
 namespace ZOM {
 	void Renderer::init()
 	{
+		ZOM_FUNCTION_TIMER();
 		ZOM_TRACE("Renderer initialization started");
 
 		setBeforeInitRenderingApi(Config::renderingAPI());
@@ -33,6 +34,7 @@ namespace ZOM {
 
 	void Renderer::release()
 	{
+		ZOM_FUNCTION_TIMER();
 		if (s_Created)
 		{
 			ZOM_TRACE("Renderer release started");
@@ -50,6 +52,8 @@ namespace ZOM {
 
 	void Renderer::preRunInit()
 	{
+		ZOM_FUNCTION_TIMER();
+
 		if (s_Created)
 		{
 			s_ShaderMgr.compileAllShaders();
@@ -61,7 +65,9 @@ namespace ZOM {
 	}
 
 	void Renderer::clear()
-{
+	{
+		ZOM_FUNCTION_TIMER();
+
 		if (s_Created)
 			s_RenderApplication->clear();
 		else
@@ -96,6 +102,8 @@ namespace ZOM {
 
 	void Renderer::renderLoop()
 	{
+		ZOM_FUNCTION_TIMER();
+
 		if (s_Created)
 		{
 			// s_RenderApplication->clear();

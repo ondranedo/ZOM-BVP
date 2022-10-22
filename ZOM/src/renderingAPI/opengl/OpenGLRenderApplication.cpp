@@ -14,6 +14,7 @@ namespace ZOM {
 
 	void OpenGLRenderApplication::clear(const glm::vec4& color)
 	{
+		ZOM_FUNCTION_TIMER();
 		ZOM_GL_CALL(glClearColor(
 				(GLfloat)color.r,
 				(GLfloat)color.g,

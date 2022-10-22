@@ -47,6 +47,8 @@ namespace ZOM {
 
 	void LayerManager::updateLayers()
 	{
+		ZOM_FUNCTION_TIMER();
+
 		for (Layer* layer : m_Layers)
 		{
 			layer->onUpdate();
@@ -55,6 +57,8 @@ namespace ZOM {
 
 	void LayerManager::handleEvents(EventQueue* eventQueue)
 	{	
+		ZOM_FUNCTION_TIMER();
+
 		size_t nOfEvents = eventQueue->getEventCount();
 
 		if(nOfEvents > 200)
@@ -80,6 +84,8 @@ namespace ZOM {
 
 	void LayerManager::onCreateLayers()
 	{
+		ZOM_FUNCTION_TIMER();
+
 		for (Layer* layer : m_Layers)
 		{
 			layer->onCreate();

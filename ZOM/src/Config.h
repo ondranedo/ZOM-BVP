@@ -20,6 +20,8 @@ namespace ZOM {
 		static RenderingAPI renderingAPI();
 		static RenderingApiConfig renderingAPIs(const std::string& name);
 		static std::vector<std::string> shaderPaths();
+		static std::string profilePath();
+		static bool profile();
 
 	private:
 		static Json::Value m_Config;

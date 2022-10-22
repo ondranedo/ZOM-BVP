@@ -5,6 +5,8 @@
 namespace ZOM {
 	std::shared_ptr<Shader> Shader::create(const std::string& path)
 	{
+		ZOM_FUNCTION_TIMER();
+
 		switch (Renderer::getAPI())
 		{
 		case RenderingAPI::OPENGL:
@@ -18,6 +20,8 @@ namespace ZOM {
 
 	std::shared_ptr<ZOM::Shader> Shader::createDefault()
 	{
+		ZOM_FUNCTION_TIMER();
+
 		switch (Renderer::getAPI())
 		{
 		case RenderingAPI::OPENGL:

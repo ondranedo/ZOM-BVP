@@ -65,5 +65,15 @@ namespace ZOM {
 	}
 
 
+	std::string Config::profilePath()
+	{
+		return m_Config["profilePath"].asString();
+	}
+
+	bool Config::profile()
+	{
+		return m_Config["profile"].asBool();
+	}
+
 	Json::Value Config::m_Config;
 }

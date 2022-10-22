@@ -50,6 +50,8 @@ add_library(ZOM STATIC
 "src/Logger.cpp"
 "src/Logger.h"
 "src/pch.h"
+"src/Profiling.cpp"
+"src/Profiling.h"
 
 "src/window/MainWindow.cpp"
 "src/window/MainWindow.h"
@@ -125,6 +127,7 @@ target_precompile_headers(ZOM PUBLIC
 	"src/codes/ComplexDataType.h"
 	"src/renderingAPI/opengl/OpenGLCore.h"
 	"src/config.h"
+	"src/Profiling.h"
 )
 
 ###################################

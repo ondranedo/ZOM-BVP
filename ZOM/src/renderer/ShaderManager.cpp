@@ -23,6 +23,8 @@ namespace ZOM {
 
 	size_t ShaderManager::compileAllShaders()
 	{
+		ZOM_FUNCTION_TIMER();
+
 		ZOM_TRACE("Creating shaders", m_Shaders.size());
 		for (const std::pair<std::string, std::string>& shader_path : m_ShaderPaths)
 		{

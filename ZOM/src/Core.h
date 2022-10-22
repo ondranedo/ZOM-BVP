@@ -5,6 +5,10 @@
 
 #define ZOM_BIND_CLASS_FUNC(x) std::bind(&x,this,std::placeholders::_1)
 
+
+#include "Profiling.h"
+#define ZOM_FUNCTION_TIMER() ZOM::MeasureTime __FUNC__(__FUNCSIG__)
+
 // Client logger
 
 #include "logger.h"

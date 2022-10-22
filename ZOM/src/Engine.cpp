@@ -10,6 +10,7 @@ namespace ZOM {
 
 	void Engine::init()
 	{
+		ZOM_FUNCTION_TIMER();
 		ZOM_TRACE("Engine initialization stared");
 
 		s_LayerManager.init();
@@ -23,6 +24,7 @@ namespace ZOM {
 
 	void Engine::release()
 	{
+		ZOM_FUNCTION_TIMER();
 		ZOM_TRACE("Engine release started");
 		s_LayerManager.release();
 
@@ -33,6 +35,7 @@ namespace ZOM {
 
 	void Engine::run()
 	{
+		ZOM_FUNCTION_TIMER();
 		Renderer::preRunInit();
 
 		s_Running = true;
@@ -68,6 +71,8 @@ namespace ZOM {
 	 
 	 void Engine::onFrame()
 	 {
+		ZOM_FUNCTION_TIMER();
+
 		Renderer::clear();
 		
 		MainWindow::pollEvents();

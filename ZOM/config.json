@@ -2,6 +2,9 @@
   "logEvents": false,
   "logEventPath": "events.log",
 
+  "profile": true,
+  "profilePath": "chromeProfiling.json",
+
   "renderingAPI": "OpenGL",
   "renderingAPIs": [
     {

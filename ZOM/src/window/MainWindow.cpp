@@ -62,12 +62,12 @@ namespace ZOM {
 			ZOM_ERROR("You have to create window, in order to poll events");
 	}
 
-	Window* MainWindow::windowPtr()
+	void* MainWindow::getContextCreationAdr()
 	{
-		return s_Window;
+		return s_Window->getContextCreationAdr();
 	}
 
-	Window* MainWindow::s_Window = nullptr;
+	std::unique_ptr<Window> MainWindow::s_Window;
 	bool MainWindow::s_Created = false;
 	WindowParam MainWindow::s_WindowParam = WindowParam();
 }

@@ -17,8 +17,8 @@ namespace ZOM {
 		switch (s_RendreringApi)
 		{
 		case RenderingAPI::OPENGL:
-			s_RenderContext = new OpenGLRenderContex;
-			s_RenderApplication = new OpenGLRenderApplication;
+			s_RenderContext = std::make_unique<OpenGLRenderContex>();
+			s_RenderApplication = std::make_unique<OpenGLRenderApplication>();
 			s_Created = true;
 		break;
 
@@ -36,9 +36,9 @@ namespace ZOM {
 		if (s_Created)
 		{
 			ZOM_TRACE("Renderer release started");
-			delete s_RenderApplication;
-			delete s_RenderContext;
 			s_ShaderMgr.deleteAllShaders();
+			s_RenderContext.reset();
+			s_RenderApplication.reset();
 			ZOM_TRACE("Renderer release ended");
 			s_Created = false;
 		}
@@ -60,13 +60,12 @@ namespace ZOM {
 		}
 	}
 
-	RenderApplication* Renderer::getRenderApplication()
-	{
+	void Renderer::clear()
+{
 		if (s_Created)
-			return s_RenderApplication;
+			s_RenderApplication->clear();
 		else
-			ZOM_ERROR("Have to initialize renderer, in order to get renderer application");
-		return nullptr;
+			ZOM_ERROR("Have to initialize renderer, in order to clear");
 	}
 
 	void Renderer::setBeforeInitRenderingApi(RenderingAPI api)
@@ -131,7 +130,7 @@ namespace ZOM {
 
 	bool Renderer::s_Created = false;
 	ZOM::RenderingAPI Renderer::s_RendreringApi = RenderingAPI::OPENGL;
-	RenderContext* Renderer::s_RenderContext = nullptr;
-	RenderApplication* Renderer::s_RenderApplication = nullptr;
+	std::unique_ptr<RenderContext> Renderer::s_RenderContext = nullptr;
+	std::unique_ptr<RenderApplication> Renderer::s_RenderApplication = nullptr;
 	ShaderManager Renderer::s_ShaderMgr;
 }

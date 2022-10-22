@@ -16,10 +16,10 @@ namespace ZOM {
 		static void setEventQueue(EventQueue& event_queue);
 		static void pollEvents();
 
-		static Window* windowPtr();
+		static void* getContextCreationAdr();
 
 	private:
-		static Window* s_Window;
+		static std::unique_ptr<Window> s_Window;
 		static bool s_Created;
 		static WindowParam s_WindowParam;
 	};

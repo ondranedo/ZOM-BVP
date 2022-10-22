@@ -31,6 +31,6 @@ namespace ZOM {
 		virtual void init() = 0;
 		virtual void release() = 0;
 
-		static Window* createWindow(const WindowParam& param);
+		static std::unique_ptr<Window> createWindow(const WindowParam& param);
 	};
 }

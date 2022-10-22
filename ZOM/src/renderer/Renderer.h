@@ -20,7 +20,7 @@ namespace ZOM {
 
 		static void preRunInit();
 
-		static RenderApplication* getRenderApplication();
+		static void clear();
 		static void setBeforeInitRenderingApi(RenderingAPI api);
 
 		static RenderingAPI getAPI();
@@ -41,8 +41,8 @@ namespace ZOM {
 	private:
 		static bool s_Created;
 		static RenderingAPI s_RendreringApi;
-		static RenderContext* s_RenderContext;
-		static RenderApplication* s_RenderApplication;
+		static std::unique_ptr<RenderContext> s_RenderContext;
+		static std::unique_ptr<RenderApplication> s_RenderApplication;
 		static ShaderManager s_ShaderMgr;
 	};
 }

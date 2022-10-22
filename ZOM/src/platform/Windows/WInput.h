@@ -10,11 +10,6 @@ namespace ZOM {
 	protected:
 		bool isPressedImpl(int zom_key_code) override;
 	};
-
-	Input* Input::create()
-	{
-		return new WInput;
-	}
 }
 
 #endif

@@ -74,6 +74,8 @@ namespace ZOM {
 		glfwDestroyWindow(m_WindowData.windowPtr);
 
 		m_WindowData.windowPtr = nullptr;
+
+		glfwTerminate();
 	}
 
 	void WWindow::setCallBacks()
@@ -156,9 +158,9 @@ namespace ZOM {
 		});
 	}
 
-	Window* Window::createWindow(const WindowParam& param)
+	std::unique_ptr<Window> Window::createWindow(const WindowParam& param)
 	{
-		return new WWindow(param);
+		return std::make_unique<WWindow>(param);
 	}
 }
 

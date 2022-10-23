@@ -91,7 +91,13 @@ namespace ZOM {
 
 	void OpenGLShader::setUniform(const std::string& name, void* data)
 	{
-		throw std::logic_error("The method or operation is not implemented.");
+		if (isUniformStored(name))
+		{
+			auto [dt, id] = m_UnifromMap[name];
+			sendToUniform(id, dt, data);
+		}
+		else
+			ZOM_ERROR("Unknown uniform[{}] in shader {}", name, m_Path);
 	}
 
 	bool OpenGLShader::compileShaders(const OpenGLSubShadersID& shader_ids)
@@ -132,7 +138,7 @@ namespace ZOM {
 
 			ZOM_GL_CALL(glGetShaderInfoLog(shader_id, error_length * sizeof(char), &error_length, buff));
 
-			ZOM_ERROR("Error when shader: {}", buff);
+			ZOM_ERROR("Error with {} shader: {}", m_Path ,buff);
 			
 			free(buff);
 
@@ -321,8 +327,8 @@ namespace ZOM {
 			if (!isUniformStored(name))
 			{
 				unsigned int id = ZOM_GL_CALL(glGetUniformLocation(m_ID, name.c_str()));
-				if (!id)
-					ZOM_ERROR("Can't find uniform[{}] location", name);
+				if (id)
+					ZOM_ERROR("Can't find uniform[{}] location in shader {}", name, m_Path);
 				m_UnifromMap[name] = { dataType,id };
 			}
 		}
@@ -334,6 +340,33 @@ namespace ZOM {
 			return true;
 
 		return false;
+	}
+
+	void OpenGLShader::sendToUniform(unsigned int id, InShaderDataType dt, void* data)
+	{
+		switch (dt)
+		{
+		case InShaderDataType::Null:     break;
+		case InShaderDataType::VecF1:	glUniform1fv(id,1,  (GLfloat*)data); break;
+
+		case InShaderDataType::VecF2:	glUniform2fv(id, 1, &(*(glm::fvec2*)data)[0]); break;
+		case InShaderDataType::VecF3:	glUniform3fv(id, 1, &(*(glm::fvec2*)data)[0]); break;
+		case InShaderDataType::VecF4:	glUniform4fv(id, 1, &(*(glm::fvec2*)data)[0]); break;
+
+		case InShaderDataType::VecI1:	glUniform1iv(id, 1, (GLint*)data); break;
+
+		case InShaderDataType::VecI2:	glUniform2iv(id, 1, &(*(glm::ivec2*)data)[0]); break;
+		case InShaderDataType::VecI3:	glUniform3iv(id, 1, &(*(glm::ivec2*)data)[0]); break;
+		case InShaderDataType::VecI4:	glUniform4iv(id, 1, &(*(glm::ivec2*)data)[0]); break;
+
+		case InShaderDataType::Mat2:	glUniformMatrix2fv(id, 1, GL_FALSE, (GLfloat*)data);break;
+		case InShaderDataType::Mat3:	glUniformMatrix3fv(id, 1, GL_FALSE, (GLfloat*)data);break;
+		case InShaderDataType::Mat4:	glUniformMatrix4fv(id, 1, GL_FALSE, (GLfloat*)data);break;
+
+		case InShaderDataType::Bool:	glUniform1iv(id,1, (GLint*)data); break;
+		default:
+			ZOM_ERROR("Unsuported InShaderDataType in sendToUniform function");
+		}
 	}
 
 	OpenGLSubShadersID OpenGLShader::attatchShaders(const OpenGLSubShadersSources& sources)

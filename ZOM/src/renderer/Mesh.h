@@ -23,7 +23,8 @@ namespace ZOM {
 		virtual ~Mesh(){};
 		virtual size_t getIndexCount() const = 0;
 		virtual void bind() const = 0;
-		
+		virtual void setUniform(const std::string& name, void* data) const = 0;
+
 		static std::unique_ptr<Mesh> create(const MeshCreationData&);
 
 	protected:

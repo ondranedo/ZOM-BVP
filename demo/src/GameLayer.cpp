@@ -4,31 +4,9 @@
 
 void GameLayer::onUpdate()
 {
-	//float positions[]
-	//{
-	//	-0.7,-0.5,
-	//	-0.5,0.0,
-	//	-0.7,0.5,
-	//	 0.7,0.5,
-	//	 0.7,-0.5,
-	//};
-	//unsigned int index[]
-	//{
-	//	0,1,4,
-	//	1,2,3,
-	//	1,3,4
-	//};
-	//ZOM::MeshCreationData mcd = ZOM::MeshCreationData::createMCDBuffers(positions, sizeof(positions), index, 9);
-	//mcd.shader_name = "siren";
-
-	//std::shared_ptr<ZOM::Mesh> triangle = ZOM::Mesh::create(mcd);
-	std::shared_ptr<ZOM::Mesh> triangle = ZOM::Mesh::create(ZOM::MeshCreationData::triangle("siren"));
-	std::shared_ptr<ZOM::Mesh> square = ZOM::Mesh::create(ZOM::MeshCreationData::square("basic"));
 	std::shared_ptr<ZOM::Mesh> background = ZOM::Mesh::create(ZOM::MeshCreationData::background("background"));
 
 	ZOM::Renderer::draw(background);
-	ZOM::Renderer::draw(square);
-	ZOM::Renderer::draw(triangle);
 
 	ZOM::Renderer::endScene();
 }

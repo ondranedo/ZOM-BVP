@@ -51,6 +51,7 @@ namespace ZOM {
 		InShaderDataType readUniformType(char* linebuff, size_t buffSize);
 		void mapUniforms();
 		bool isUniformStored(const std::string& name);
+		void sendToUniform(unsigned int id, InShaderDataType dt, void* data);
 	private:
 		std::string m_Path;
 		bool m_Created = false;

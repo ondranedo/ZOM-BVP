@@ -3,7 +3,6 @@
 #include "renderingAPI/opengl/OpenGLMesh.h"
 
 namespace ZOM {
-
 	std::unique_ptr<ZOM::Mesh> Mesh::create(const MeshCreationData& mcd)
 	{
 		switch (Renderer::getAPI())

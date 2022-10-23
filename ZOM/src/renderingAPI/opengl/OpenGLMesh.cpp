@@ -39,8 +39,13 @@ namespace ZOM {
 	void OpenGLMesh::bind() const
 	{
 		m_Shader->bind();
-
 		m_VertexArray->bind();
+	}
+
+	void OpenGLMesh::setUniform(const std::string& name, void* data) const
+	{
+		m_Shader->bind();
+		m_Shader->setUniform(name, data);
 	}
 
 }	

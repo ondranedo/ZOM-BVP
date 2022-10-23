@@ -6,6 +6,7 @@
 
 #include "Shader.h"
 #include "ShaderManager.h"
+#include "Mesh.h"
 
 namespace ZOM {
 	enum class ZOM_API RenderingAPI {
@@ -19,11 +20,10 @@ namespace ZOM {
 		static void release();
 
 		static void preRunInit();
-
-		static void clear();
 		static void setBeforeInitRenderingApi(RenderingAPI api);
 
 		static RenderingAPI getAPI();
+
 
 		// Shaders
 		static std::shared_ptr<Shader> getShader(const std::string& name);
@@ -33,7 +33,9 @@ namespace ZOM {
 
 		// Render commands
 		static void renderLoop();
-		
+		static void clear();
+		static void draw(const std::shared_ptr<Mesh>& mesh);
+
 		// Scene methods
 		static void beginScene();
 		static void endScene();

@@ -1,8 +1,6 @@
 #pragma once
 
 #include <ZOM/ZOM.hpp>
-#include "trinagle.h"
-#include "square.h"
 
 class GameLayer : public ZOM::Layer {
 public:
@@ -19,6 +17,4 @@ protected:
 	bool onKey(ZOM::KeyPressedEvent& kpe);
 	bool onKeyRelease(ZOM::KeyReleasedEvent& kpe);
 
-private:
-	SquareMesh m_Mesh;
 };

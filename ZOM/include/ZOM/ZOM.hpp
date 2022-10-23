@@ -34,6 +34,7 @@
 #include "./../../src/renderer/VertexBufferLayout.h"
 #include "./../../src/renderer/VertexArray.h"
 #include "./../../src/renderer/Shader.h"
+#include "./../../src/renderer/Mesh.h"
 
 
 ////////////////////////////

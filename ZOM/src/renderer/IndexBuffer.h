@@ -8,6 +8,8 @@ namespace ZOM {
 		virtual void bind() const = 0;
 		virtual void unbind() = 0;
 
+		virtual size_t getIndexCount() const = 0;
+
 		static std::shared_ptr<IndexBuffer> create(unsigned int* data, size_t count);
 
 	protected:

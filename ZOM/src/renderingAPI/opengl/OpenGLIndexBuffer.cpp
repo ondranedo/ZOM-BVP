@@ -13,7 +13,7 @@ namespace ZOM {
 
 		ZOM_GL_CALL(glGenBuffers(1, &m_ID));
 		ZOM_GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ID));
-		ZOM_GL_CALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count, data, GL_STATIC_DRAW));
+		ZOM_GL_CALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, GL_STATIC_DRAW));
 	}
 
 	void OpenGLIndexBuffer::bind() const 
@@ -24,6 +24,11 @@ namespace ZOM {
 	void OpenGLIndexBuffer::unbind()
 	{
 		ZOM_GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+	}
+
+	size_t OpenGLIndexBuffer::getIndexCount() const
+	{
+		return m_Count;
 	}
 
 }

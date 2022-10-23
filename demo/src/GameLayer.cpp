@@ -4,47 +4,31 @@
 
 void GameLayer::onUpdate()
 {
-	 
-	std::shared_ptr<ZOM::VertexBuffer>vb = ZOM::VertexBuffer::create(m_Mesh.getVertex(), m_Mesh.getVertexSize());
-	std::shared_ptr<ZOM::IndexBuffer>ib = ZOM::IndexBuffer::create(m_Mesh.getIndex(), m_Mesh.getIndexSize());
-	std::shared_ptr<ZOM::VertexArray>va = ZOM::VertexArray::create();
-	std::shared_ptr<ZOM::Shader>shader = ZOM::Renderer::getShader("siren");
-	{
-		vb->setLayout(shader->getLayout());
+	//float positions[]
+	//{
+	//	-0.7,-0.5,
+	//	-0.5,0.0,
+	//	-0.7,0.5,
+	//	 0.7,0.5,
+	//	 0.7,-0.5,
+	//};
+	//unsigned int index[]
+	//{
+	//	0,1,4,
+	//	1,2,3,
+	//	1,3,4
+	//};
+	//ZOM::MeshCreationData mcd = ZOM::MeshCreationData::createMCDBuffers(positions, sizeof(positions), index, 9);
+	//mcd.shader_name = "siren";
 
-		va->setIndex(ib);
-		va->setVertex(vb);
+	//std::shared_ptr<ZOM::Mesh> triangle = ZOM::Mesh::create(mcd);
+	std::shared_ptr<ZOM::Mesh> triangle = ZOM::Mesh::create(ZOM::MeshCreationData::triangle("siren"));
+	std::shared_ptr<ZOM::Mesh> square = ZOM::Mesh::create(ZOM::MeshCreationData::square("basic"));
+	std::shared_ptr<ZOM::Mesh> background = ZOM::Mesh::create(ZOM::MeshCreationData::background("background"));
 
-		va->unbind();
-		ib->unbind();
-	}
-
-	m_Mesh.onUpdate();
-
-	if (ZOM::Input::isPressed(ZOM_KEY_W)) m_Mesh.moveTop();
-	if (ZOM::Input::isPressed(ZOM_KEY_A)) m_Mesh.moveLeft(); 
-	if (ZOM::Input::isPressed(ZOM_KEY_S)) m_Mesh.moveBottom(); 
-	if (ZOM::Input::isPressed(ZOM_KEY_D)) m_Mesh.moveRight(); 
-	if (ZOM::Input::isPressed(ZOM_KEY_R)) m_Mesh.moveReset(); 
-	if (ZOM::Input::isPressed(ZOM_KEY_KP_ADD)) m_Mesh.speedUp(); 
-	if (ZOM::Input::isPressed(ZOM_KEY_KP_SUBTRACT)) m_Mesh.speedDown(); 
-	if (ZOM::Input::isPressed(ZOM_KEY_E))
-	{
-		shader = ZOM::Renderer::getShader("basic");
-		vb->setLayout(shader->getLayout());
-	}
-
-
-	//////////////////
-
-
-	ZOM::Renderer::beginScene();
-
-	shader->bind();
-
-	va->bind();
-
-	glDrawElements(GL_TRIANGLES, m_Mesh.g_IndexCount, GL_UNSIGNED_INT, nullptr);
+	ZOM::Renderer::draw(background);
+	ZOM::Renderer::draw(square);
+	ZOM::Renderer::draw(triangle);
 
 	ZOM::Renderer::endScene();
 }
@@ -75,13 +59,10 @@ bool GameLayer::onCloseEvent(ZOM::WindowCloseEvent& wce)
 
 bool GameLayer::onKey(ZOM::KeyPressedEvent& kpe)
 {
-
 	return true;
 }
 
 bool GameLayer::onKeyRelease(ZOM::KeyReleasedEvent& kpe)
 {
-	m_Mesh.moveStop();
-
 	return true;
 }

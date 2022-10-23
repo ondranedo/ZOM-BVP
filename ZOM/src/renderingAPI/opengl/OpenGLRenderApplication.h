@@ -8,5 +8,7 @@ namespace ZOM {
 		OpenGLRenderApplication();
 		~OpenGLRenderApplication();
 		void clear(const glm::vec4& color) override;
+
+		void draw(const std::shared_ptr<Mesh>& mesh) override;
 	};
 }

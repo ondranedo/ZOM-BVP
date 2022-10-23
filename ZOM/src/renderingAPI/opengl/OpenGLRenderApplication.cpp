@@ -23,5 +23,10 @@ namespace ZOM {
 			));
 		ZOM_GL_CALL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 	}
+	void OpenGLRenderApplication::draw(const std::shared_ptr<Mesh>& mesh)
+	{
+		mesh->bind();
+		ZOM_GL_CALL(glDrawElements(GL_TRIANGLES, mesh->getIndexCount(), GL_UNSIGNED_INT, nullptr));
+	}
 }
 

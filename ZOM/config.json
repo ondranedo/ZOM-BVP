@@ -2,7 +2,7 @@
   "logEvents": false,
   "logEventPath": "events.log",
 
-  "profile": true,
+  "profile": false,
   "profilePath": "chromeProfiling.json",
 
   "renderingAPI": "OpenGL",
@@ -16,6 +16,7 @@
 
   "shaderPaths": [
     "./resources/shaders/basic",
-    "./resources/shaders/siren"
+    "./resources/shaders/siren",
+    "./resources/shaders/background"
   ]
 }

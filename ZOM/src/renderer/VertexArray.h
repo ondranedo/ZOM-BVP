@@ -10,11 +10,10 @@ namespace ZOM {
 		virtual void unbind() const = 0;
 
 		virtual void setIndex(std::shared_ptr<IndexBuffer>& ib) = 0;
-		virtual const std::shared_ptr<IndexBuffer>& getIndex() const = 0;
 		virtual void setVertex(std::shared_ptr<VertexBuffer>& vb) = 0;
-		virtual const std::shared_ptr<VertexBuffer>& getVertex() const = 0;
 
 		static std::shared_ptr<VertexArray> create();
+		virtual size_t getIndexCount() const = 0;
 
 	protected:	
 		unsigned int m_ID;

@@ -74,6 +74,16 @@ namespace ZOM {
 			ZOM_ERROR("Have to initialize renderer, in order to clear");
 	}
 
+	void Renderer::draw(const std::shared_ptr<Mesh>& mesh)
+	{
+		ZOM_FUNCTION_TIMER();
+
+		if (s_Created)
+			s_RenderApplication->draw(mesh);
+		else
+			ZOM_ERROR("Have to initialize renderer, in order to draw mesh");
+	}
+
 	void Renderer::setBeforeInitRenderingApi(RenderingAPI api)
 	{
 		if (!s_Created)

@@ -24,8 +24,6 @@ namespace ZOM {
 		m_IB = ib;
 		m_IB->bind();
 	}
-	const std::shared_ptr<IndexBuffer>& OpenGLVertexArray::getIndex() const    { return m_IB; }
-
 	void OpenGLVertexArray::setVertex(std::shared_ptr<VertexBuffer>& vb)
 	{ 
 		bind();
@@ -47,6 +45,10 @@ namespace ZOM {
 		}
 
 	}
-	const std::shared_ptr<VertexBuffer>& OpenGLVertexArray::getVertex() const  { return m_VB; }
+
+	size_t OpenGLVertexArray::getIndexCount() const
+	{
+		return m_IB->getIndexCount();
+	}
 
 }

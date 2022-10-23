@@ -84,6 +84,8 @@ add_library(ZOM STATIC
 
 "src/renderer/IndexBuffer.cpp"
 "src/renderer/IndexBuffer.h"
+"src/renderer/Mesh.cpp"
+"src/renderer/Mesh.h"
 "src/renderer/RenderApplication.h" 
 "src/renderer/RenderContext.h" 
 "src/renderer/Renderer.cpp"
@@ -104,6 +106,8 @@ add_library(ZOM STATIC
 "src/renderingAPI/opengl/OpenGLCore.h"
 "src/renderingAPI/opengl/OpenGLIndexBuffer.cpp"
 "src/renderingAPI/opengl/OpenGLIndexBuffer.h"
+"src/renderingAPI/opengl/OpenGLMesh.cpp"
+"src/renderingAPI/opengl/OpenGLMesh.h"
 "src/renderingAPI/opengl/OpenGLRenderApplication.cpp"
 "src/renderingAPI/opengl/OpenGLRenderApplication.h"
 "src/renderingAPI/opengl/OpenGLRenderContext.cpp"

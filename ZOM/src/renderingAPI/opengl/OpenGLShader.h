@@ -14,7 +14,6 @@ namespace ZOM {
 	};
 
 	class OpenGLShader : public Shader {
-		
 	public:
 		OpenGLShader(const std::string& path);
 		OpenGLShader();
@@ -28,6 +27,7 @@ namespace ZOM {
 		bool compile() override;
 
 		VertexBufferLayout getLayout() override;
+		void setUniform(const std::string& name, void* data) override;
 
 	private:
 		unsigned int createShader(GLenum id, const std::string& source);
@@ -38,17 +38,25 @@ namespace ZOM {
 		OpenGLSubShadersSources readShaderFile();
 
 		void readAndAddVBL(char* buff, size_t size);
-		int readLocation(char* buff, size_t size);
-		InShaderDataType readDataType(char* buff, size_t size);
+		int readLayoutLocation(char* buff, size_t size);
+		InShaderDataType readLayoutType(char* buff, size_t size);
 
 		void removeSpacesBefore(std::string& str);
 
 		void createBufferLayout();
+		std::string readLayoutName(char* buff, size_t size);
+
+		void readAndAddUnifrom(char* linebuff, size_t buffSize);
+		std::string readUniformName(char* linebuff, size_t buffSize);
+		InShaderDataType readUniformType(char* linebuff, size_t buffSize);
+		void mapUniforms();
+		bool isUniformStored(const std::string& name);
 	private:
 		std::string m_Path;
 		bool m_Created = false;
 		VertexBufferLayout m_Layout;
 		std::vector<std::tuple<int,InShaderDataType,std::string>> m_LayoutVector;
-		std::string readName(char* buff, size_t size);
+		std::vector<std::tuple<InShaderDataType,std::string>> m_UnifromVector;
+		std::unordered_map<std::string, std::tuple<InShaderDataType, unsigned int>> m_UnifromMap;
 	};
 };

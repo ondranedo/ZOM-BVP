@@ -50,8 +50,6 @@ namespace ZOM {
 		ZOM_GL_CALL(glUseProgram(0));
 	}
 
-	
-
 	void OpenGLShader::release()
 	{
 		unsigned int shaders[8];
@@ -81,12 +79,19 @@ namespace ZOM {
 
 		deleteShaders(shaders);
 		
+		mapUniforms();
+
 		return succes;
 	}
 
 	VertexBufferLayout OpenGLShader::getLayout()
 	{
 		return m_Layout;
+	}
+
+	void OpenGLShader::setUniform(const std::string& name, void* data)
+	{
+		throw std::logic_error("The method or operation is not implemented.");
 	}
 
 	bool OpenGLShader::compileShaders(const OpenGLSubShadersID& shader_ids)
@@ -97,6 +102,8 @@ namespace ZOM {
 
 		succes &= checkCompilation(shader_ids.m_FragmentID);
 		succes &= checkCompilation(shader_ids.m_VertexID);
+
+
 
 		return succes;
 	}
@@ -169,6 +176,7 @@ namespace ZOM {
 			if (strstr(linebuff, "#shader vertex")) { shader = VERTEX; continue; }
 			if (strstr(linebuff, "#shader fragment")) { shader = FRAGMENT; continue; }
 			if (strstr(linebuff, "location")) { readAndAddVBL(linebuff, buffSize); } // reading VBL
+			if (strstr(linebuff, "uniform")) { readAndAddUnifrom(linebuff, buffSize); } // reading Uniform
 		
 			if(shader == VERTEX)   sources.m_VertexSrc += linebuff;
 			if(shader == FRAGMENT) sources.m_FragmentSrc += linebuff;
@@ -181,14 +189,14 @@ namespace ZOM {
 
 	void OpenGLShader::readAndAddVBL(char* buff, size_t size)
 	{
-		int location = readLocation(buff, size);
-		InShaderDataType dataType = readDataType(buff, size);
-		std::string name = readName(buff, size);
+		int location = readLayoutLocation(buff, size);
+		InShaderDataType dataType = readLayoutType(buff, size);
+		std::string name = readLayoutName(buff, size);
 
 		m_LayoutVector.push_back({ location,dataType, name});
 	}
 
-	int OpenGLShader::readLocation(char* buff, size_t size)
+	int OpenGLShader::readLayoutLocation(char* buff, size_t size)
 	{
 		std::string str(buff, size);
 		std::size_t pos = str.find("=");
@@ -198,7 +206,7 @@ namespace ZOM {
 		return (int)*number.c_str()-'0';
 	}
 
-	InShaderDataType OpenGLShader::readDataType(char* buff, size_t size)
+	InShaderDataType OpenGLShader::readLayoutType(char* buff, size_t size)
 	{
 		std::string spec;
 		{
@@ -211,14 +219,7 @@ namespace ZOM {
 
 		std::string dataType = spec.substr(0, spec.find(' '));
 
-		if (dataType == "vec4")  return InShaderDataType::VecF4;
-		if (dataType == "vec3")  return InShaderDataType::VecF3;
-		if (dataType == "vec2")  return InShaderDataType::VecF2;
-		if (dataType == "float") return InShaderDataType::VecF1;
-		
-		ZOM_ERROR("Unknown data type in {} shader at location {}", m_Path, readLocation(buff, size));
-
-		return InShaderDataType::Null;
+		return strToZOMInShaderDataType(dataType);
 	}
 
 	void OpenGLShader::removeSpacesBefore(std::string& spec)
@@ -242,7 +243,7 @@ namespace ZOM {
 		}
 	}
 
-	std::string OpenGLShader::readName(char* buff, size_t size)
+	std::string OpenGLShader::readLayoutName(char* buff, size_t size)
 	{
 		std::string spec;
 		{
@@ -273,11 +274,73 @@ namespace ZOM {
 		return name;
 	}
 
+	void OpenGLShader::readAndAddUnifrom(char* linebuff, size_t buffSize)
+	{
+		std::string name = readUniformName(linebuff, buffSize);
+		InShaderDataType type = readUniformType(linebuff, buffSize);
+
+		m_UnifromVector.push_back({ type, name });
+	}
+
+	std::string OpenGLShader::readUniformName(char* linebuff, size_t buffSize)
+	{
+		std::string name;
+		{
+			std::string str(linebuff, buffSize);
+			name = str.erase(str.find("uniform"), str.find("uniform") + 8);
+		}
+		removeSpacesBefore(name);
+		name = name.erase(0, name.find(' '));
+		removeSpacesBefore(name);
+
+		if(name.find(' ') > name.find(';'))
+			name = name.substr(0, name.find(';'));
+		else
+			name = name.substr(0, name.find(' '));
+
+		return name;
+	}
+
+	ZOM::InShaderDataType OpenGLShader::readUniformType(char* linebuff, size_t buffSize)
+	{
+		std::string type;
+		{
+			std::string str(linebuff, buffSize);
+			type = str.erase(str.find("uniform"), str.find("uniform") + 8);
+		}
+		removeSpacesBefore(type);
+		type = type.substr(0, type.find(' ')); \
+
+		return strToZOMInShaderDataType(type);
+	}
+
+	void OpenGLShader::mapUniforms()
+	{
+		for (auto[dataType, name]: m_UnifromVector)
+		{
+			if (!isUniformStored(name))
+			{
+				unsigned int id = ZOM_GL_CALL(glGetUniformLocation(m_ID, name.c_str()));
+				if (!id)
+					ZOM_ERROR("Can't find uniform[{}] location", name);
+				m_UnifromMap[name] = { dataType,id };
+			}
+		}
+	}
+
+	bool OpenGLShader::isUniformStored(const std::string& name)
+	{
+		if (m_UnifromMap.find(name) != m_UnifromMap.end())
+			return true;
+
+		return false;
+	}
+
 	OpenGLSubShadersID OpenGLShader::attatchShaders(const OpenGLSubShadersSources& sources)
 	{
 		unsigned int vertex_id = createShader(GL_VERTEX_SHADER, sources.m_VertexSrc);
 		unsigned int fragment_id = createShader(GL_FRAGMENT_SHADER, sources.m_FragmentSrc);
-
+	
 		ZOM_GL_CALL(glAttachShader(m_ID, vertex_id));
 		ZOM_GL_CALL(glAttachShader(m_ID, fragment_id));
 

@@ -15,7 +15,6 @@ namespace ZOM {
 		case InShaderDataType::VecI2: return GL_INT;
 		case InShaderDataType::VecI3: return GL_INT;
 		case InShaderDataType::VecI4: return GL_FLOAT;
-		case InShaderDataType::Mat1:  return GL_FLOAT;
 		case InShaderDataType::Mat2:  return GL_FLOAT;
 		case InShaderDataType::Mat3:  return GL_FLOAT;
 		case InShaderDataType::Mat4:  return GL_FLOAT;

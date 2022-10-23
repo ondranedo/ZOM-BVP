@@ -27,8 +27,11 @@ namespace ZOM {
 		{
 			0,1,2
 		};
+		VertexBufferLayout vbl;
+		vbl.add(InShaderDataType::VecF2, "position");
+
 		MeshCreationData mcd = createMCDBuffers(
-			vertex, sizeof(vertex), index, sizeof(index) / sizeof(unsigned int));
+			vertex, sizeof(vertex), index, sizeof(index) / sizeof(unsigned int),vbl);
 		mcd.shader_name = shader_name;
 
 		return mcd;
@@ -47,8 +50,11 @@ namespace ZOM {
 			0,1,2,
 			0,2,3
 		};
+		VertexBufferLayout vbl;
+		vbl.add(InShaderDataType::VecF2, "position");
+
 		MeshCreationData mcd = createMCDBuffers(
-			vertex, sizeof(vertex), index, sizeof(index) / sizeof(unsigned int));
+			vertex, sizeof(vertex), index, sizeof(index) / sizeof(unsigned int),vbl);
 		mcd.shader_name = shader_name;
 
 		return mcd;
@@ -60,21 +66,32 @@ namespace ZOM {
 			-1.0f,-1.0f,
 			-1.0f, 1.0f,
 			 1.0f, 1.0f,
-			 1.0f,-1.0f
+			 1.0f,-1.0f,
 		};
 		unsigned int index[]
 		{
 			0,1,2,
 			0,2,3
 		};
+		VertexBufferLayout vbl;
+		vbl.add(InShaderDataType::VecF2, "position");
+
+
 		MeshCreationData mcd = createMCDBuffers(
-			vertex, sizeof(vertex), index, sizeof(index)/sizeof(unsigned int));
+			vertex, sizeof(vertex), index, sizeof(index)/sizeof(unsigned int), vbl);
 		mcd.shader_name = shader_name;
 
 		return mcd;
 	}
 
-	ZOM::MeshCreationData MeshCreationData::createMCDBuffers(void* vertex_buffer, size_t vertex_buffer_size, unsigned int* index_buffer, size_t index_buffer_count)
+	ZOM::MeshCreationData MeshCreationData::createMCDBuffers
+	(
+		void* vertex_buffer, 
+		size_t vertex_buffer_size, 
+		unsigned int* index_buffer, 
+		size_t index_buffer_count, 
+		const VertexBufferLayout& layout
+	)
 	{
 		MeshCreationData mcd;
 
@@ -84,6 +101,7 @@ namespace ZOM {
 		memcpy(mcd.index_buffer, index_buffer, index_buffer_count*sizeof(unsigned int));
 		mcd.vertex_buffer_size = vertex_buffer_size;
 		mcd.index_buffer_count = index_buffer_count;
+		mcd.vertex_buffer_layout = layout;
 
 		return mcd;
 	}

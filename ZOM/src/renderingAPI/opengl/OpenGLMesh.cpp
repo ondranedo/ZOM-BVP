@@ -17,6 +17,9 @@ namespace ZOM {
 		m_VertexArray = VertexArray::create();
 		m_Shader = Renderer::getShader(mcd.shader_name);
 		
+		if (m_Shader->getLayout() != mcd.vertex_buffer_layout)
+			ZOM_ERROR("Mismatch of vertex buffer layout and shader layout, for shader {}", mcd.shader_name);
+	
 		vertexB->setLayout(m_Shader->getLayout());
 
 		m_VertexArray->setIndex(indexB);

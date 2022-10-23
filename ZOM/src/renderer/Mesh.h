@@ -9,12 +9,13 @@ namespace ZOM {
 		unsigned int* index_buffer; // On HEAP !!
 		size_t vertex_buffer_size;
 		size_t index_buffer_count;
+		VertexBufferLayout vertex_buffer_layout;
 		std::string shader_name;
 
 		static MeshCreationData triangle(const std::string& shader_name);
 		static MeshCreationData square(const std::string& shader_name);
 		static MeshCreationData background(const std::string& shader_name);
-		static MeshCreationData createMCDBuffers(void* vertex_buffer, size_t vertex_buffer_size, unsigned int* index, size_t index_count);
+		static MeshCreationData createMCDBuffers(void* vertex_buffer, size_t vertex_buffer_size, unsigned int* index, size_t index_count, const VertexBufferLayout& layout);
 	};
 
 	class ZOM_API Mesh {

@@ -20,6 +20,8 @@
 #include "./../../src/events/KeyEvents.h"
 #include "./../../src/events/WindowEvents.h"
 
+#include "./../../src/window/MainWindow.h"
+
 
 #include "./../../src/codes/Keycodes.h"
 #include "./../../src/codes/DataType.h"

@@ -28,6 +28,8 @@ namespace ZOM {
 
 		VertexBufferLayout getLayout() override;
 		void setUniform(const std::string& name, void* data) override;
+		void checkIfUniformAreSet() const override;
+		void mapUniforms() override;
 
 	private:
 		unsigned int createShader(GLenum id, const std::string& source);
@@ -49,15 +51,18 @@ namespace ZOM {
 		void readAndAddUnifrom(char* linebuff, size_t buffSize);
 		std::string readUniformName(char* linebuff, size_t buffSize);
 		InShaderDataType readUniformType(char* linebuff, size_t buffSize);
-		void mapUniforms();
 		bool isUniformStored(const std::string& name);
 		void sendToUniform(unsigned int id, InShaderDataType dt, void* data);
+
+
+
 	private:
 		std::string m_Path;
 		bool m_Created = false;
 		VertexBufferLayout m_Layout;
 		std::vector<std::tuple<int,InShaderDataType,std::string>> m_LayoutVector;
 		std::vector<std::tuple<InShaderDataType,std::string>> m_UnifromVector;
-		std::unordered_map<std::string, std::tuple<InShaderDataType, unsigned int>> m_UnifromMap;
+		std::unordered_map<std::string, std::tuple<InShaderDataType, int>> m_UnifromMap;
+		std::unordered_map<std::string, bool> m_UnifrmSets;
 	};
 };

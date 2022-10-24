@@ -48,6 +48,11 @@ namespace ZOM {
 			ZOM_ERROR("Window already initialized, try running setBeforeInitWindowParam([Param])");
 	}
 
+	glm::vec2 MainWindow::getDims()
+	{
+		return { s_WindowParam.dimensions.second,s_WindowParam.dimensions.first };
+	}
+
 	void MainWindow::setEventQueue(EventQueue& event_queue)
 	{
 		ZOM_FUNCTION_TIMER();

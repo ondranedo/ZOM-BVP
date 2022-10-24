@@ -13,6 +13,8 @@ namespace ZOM {
 
 		static void setBeforeInitWindowParam(const WindowParam& param);
 
+		static glm::vec2 getDims();
+
 		static void setEventQueue(EventQueue& event_queue);
 		static void pollEvents();
 

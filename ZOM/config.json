@@ -1,22 +1,21 @@
 {
-  "logEvents": false,
-  "logEventPath": "events.log",
-
-  "profile": false,
-  "profilePath": "chromeProfiling.json",
-
-  "renderingAPI": "OpenGL",
-  "renderingAPIs": [
-    {
-      "name": "OpenGL",
-      "platforms": [ "Windows" ],
-      "shaderFile": ".glsl"
-    }
-  ],
-
-  "shaderPaths": [
-    "./resources/shaders/basic",
-    "./resources/shaders/siren",
-    "./resources/shaders/background"
-  ]
-}
+    "logEvents": false,
+    "logEventPath": "events.log",
+  
+    "profile": false,
+    "profilePath": "chromeProfiling.json",
+  
+    "renderingAPI": "OpenGL",
+    "renderingAPIs": [
+      {
+        "name": "OpenGL",
+        "platforms": [ "Windows" ],
+        "shaderFile": ".glsl"
+      }
+    ],
+  
+    "shaderPaths": [
+      "./resources/shaders/mandelbrot",
+      "./resources/shaders/basic"
+    ]
+  }

@@ -25,7 +25,7 @@ namespace ZOM {
 		m_Created = true;
 	}
 
-	OpenGLShader::OpenGLShader() : m_Path("none@none")
+	OpenGLShader::OpenGLShader() : m_Path("default")
 	{
 		ZOM_GL_CALL(m_ID = glCreateProgram());
 		ZOM_ASSERT(m_ID, "failed to create default shader program");
@@ -65,10 +65,7 @@ namespace ZOM {
 	{	
 		OpenGLSubShadersSources sources;
 
-		if (m_Path == "none@none")
-			sources = { default_vertex_shader, default_fragment_shader };
-		else
-			sources = readShaderFile();
+		sources = readShaderFile();
 
 		OpenGLSubShadersID shaders = attatchShaders(sources);
 
@@ -76,10 +73,8 @@ namespace ZOM {
 
 		ZOM_GL_CALL(glLinkProgram(m_ID));
 	    ZOM_GL_CALL(glValidateProgram(m_ID));		
-
-		deleteShaders(shaders);
 		
-		mapUniforms();
+		deleteShaders(shaders);
 
 		return succes;
 	}
@@ -95,6 +90,7 @@ namespace ZOM {
 		{
 			auto [dt, id] = m_UnifromMap[name];
 			sendToUniform(id, dt, data);
+			m_UnifrmSets[name] = true;
 		}
 		else
 			ZOM_ERROR("Unknown uniform[{}] in shader {}", name, m_Path);
@@ -108,8 +104,6 @@ namespace ZOM {
 
 		succes &= checkCompilation(shader_ids.m_FragmentID);
 		succes &= checkCompilation(shader_ids.m_VertexID);
-
-
 
 		return succes;
 	}
@@ -167,7 +161,8 @@ namespace ZOM {
 		fopen_s(&fr, m_Path.c_str(), "r");
 		if (!fr)
 		{
-			ZOM_ERROR("Can't load shader file {}, loading default shader", m_Path);
+			if (m_Path != "default")
+				ZOM_ERROR("Can't load shader file {}, loading default shader", m_Path);
 			sources.m_FragmentSrc = default_fragment_shader;
 			sources.m_VertexSrc = default_vertex_shader;
 			return sources;
@@ -286,6 +281,7 @@ namespace ZOM {
 		InShaderDataType type = readUniformType(linebuff, buffSize);
 
 		m_UnifromVector.push_back({ type, name });
+		m_UnifrmSets[name] = false;
 	}
 
 	std::string OpenGLShader::readUniformName(char* linebuff, size_t buffSize)
@@ -315,7 +311,7 @@ namespace ZOM {
 			type = str.erase(str.find("uniform"), str.find("uniform") + 8);
 		}
 		removeSpacesBefore(type);
-		type = type.substr(0, type.find(' ')); \
+		type = type.substr(0, type.find(' '));
 
 		return strToZOMInShaderDataType(type);
 	}
@@ -326,10 +322,11 @@ namespace ZOM {
 		{
 			if (!isUniformStored(name))
 			{
-				unsigned int id = ZOM_GL_CALL(glGetUniformLocation(m_ID, name.c_str()));
-				if (id)
-					ZOM_ERROR("Can't find uniform[{}] location in shader {}", name, m_Path);
-				m_UnifromMap[name] = { dataType,id };
+				std::string uniform = name + "\0";
+				int id = ZOM_GL_CALL(glGetUniformLocation(m_ID, uniform.c_str()));
+				if (id < 0)
+					ZOM_ERROR("Uniform[{}] in shader[{}] is probably not being used", name, m_Path);
+				m_UnifromMap[name] = { dataType,id }; 
 			}
 		}
 	}
@@ -379,4 +376,14 @@ namespace ZOM {
 
 		return { vertex_id, fragment_id };
 	}
+
+	void OpenGLShader::checkIfUniformAreSet() const
+	{
+		for (const auto[name, isSet] : m_UnifrmSets)
+		{
+			if (!isSet)
+				ZOM_ERROR("Uniform[{}] in shader[{}] is unset", name, m_Path);
+		}
+	}
+
 }

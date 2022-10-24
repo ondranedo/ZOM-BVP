@@ -4,7 +4,10 @@
 
 void GameLayer::onUpdate()
 {
-	std::shared_ptr<ZOM::Mesh> background = ZOM::Mesh::create(ZOM::MeshCreationData::background("background"));
+	std::shared_ptr<ZOM::Mesh> background = ZOM::Mesh::create(ZOM::MeshCreationData::background("mandelbrot"));
+
+	glm::fvec2 dims = {640, 480};
+	background->setUniform("resolution", &dims);
 
 	ZOM::Renderer::draw(background);
 

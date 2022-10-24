@@ -36,14 +36,20 @@ namespace ZOM {
 		else
 			ZOM_TRACE("Starting to compile {} shaders", m_Shaders.size());
 
-		for (const std::pair<std::string, std::shared_ptr<Shader>>& shader_entry : m_Shaders)
+		for (const auto& [name, shader]  : m_Shaders)
 		{
-			ZOM_TRACE("Compiling {} shader", shader_entry.first);
-			if (!shader_entry.second->compile())
+			ZOM_TRACE("Compiling {} shader", name);
+			if (!shader->compile())
 			{
 				ZOM_ERROR("Compilation error!");
 			}
 		}
+		for (const auto& [name, shader] : m_Shaders)
+		{
+			ZOM_TRACE("Mapping uniforms of {} shader", name);
+			shader->mapUniforms();
+		}
+			
 
 		return m_Shaders.size();
 	}

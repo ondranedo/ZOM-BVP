@@ -16,5 +16,5 @@ protected:
 	bool onCloseEvent(ZOM::WindowCloseEvent& wce);
 	bool onKey(ZOM::KeyPressedEvent& kpe);
 	bool onKeyRelease(ZOM::KeyReleasedEvent& kpe);
-
+	float m_Time = 1.0f;
 };

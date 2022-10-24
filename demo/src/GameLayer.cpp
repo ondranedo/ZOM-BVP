@@ -8,10 +8,12 @@ void GameLayer::onUpdate()
 
 	glm::fvec2 dims = {640, 480};
 	background->setUniform("resolution", &dims);
+	background->setUniform("time", &m_Time);
 
 	ZOM::Renderer::draw(background);
 
 	ZOM::Renderer::endScene();
+	m_Time += 0.003;
 }
 
 

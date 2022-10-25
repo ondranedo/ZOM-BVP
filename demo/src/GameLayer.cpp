@@ -13,7 +13,7 @@ void GameLayer::onUpdate()
 	ZOM::Renderer::draw(background);
 
 	ZOM::Renderer::endScene();
-	m_Time += 0.003;
+	m_Time += 0.004 * m_Time;
 }
 
 

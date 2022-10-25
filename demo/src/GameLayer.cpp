@@ -6,14 +6,21 @@ void GameLayer::onUpdate()
 {
 	std::shared_ptr<ZOM::Mesh> background = ZOM::Mesh::create(ZOM::MeshCreationData::background("mandelbrot"));
 
+	if (ZOM::Input::isPressed(ZOM_KEY_Q)) m_Zoom -= 0.01;
+	if (ZOM::Input::isPressed(ZOM_KEY_E)) m_Zoom += 0.01;
+	if (ZOM::Input::isPressed(ZOM_KEY_W)) m_Position.y -= 0.02 / pow(m_Zoom,5);
+	if (ZOM::Input::isPressed(ZOM_KEY_A)) m_Position.x += 0.02 / pow(m_Zoom,5);
+	if (ZOM::Input::isPressed(ZOM_KEY_S)) m_Position.y += 0.02 / pow(m_Zoom,5);
+	if (ZOM::Input::isPressed(ZOM_KEY_D)) m_Position.x -= 0.02 / pow(m_Zoom,5);
+
 	glm::fvec2 dims = {640, 480};
 	background->setUniform("resolution", &dims);
-	background->setUniform("time", &m_Time);
+	background->setUniform("move_dir", &m_Position);
+	background->setUniform("zoom", &m_Zoom);
 
 	ZOM::Renderer::draw(background);
 
 	ZOM::Renderer::endScene();
-	m_Time += 0.004 * m_Time;
 }
 
 

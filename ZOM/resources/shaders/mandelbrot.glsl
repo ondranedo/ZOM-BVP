@@ -14,14 +14,16 @@ void main()
 out vec4 colorFragment;
 
 uniform vec2 resolution;
-uniform float time;
+uniform vec2 move_dir;
+uniform float zoom;
 
-const float MAX_ITER = 1000.0;
+const float MAX_ITER = 215.0;
 
 float mandelbrot(vec2 uv)
 {
-	vec2 c = 3.0 * uv - vec2(0.7,0.0);
-	c = c / pow(time, 4.0) - vec2(0.65,0.45);
+	vec2 c = uv*3;
+	c -=  move_dir;
+	c = c / pow(zoom, 6) - move_dir - vec2(0.1,0.1);
 	vec2 z = vec2(0.0);
 	float iter = 0.0;
 	for(float i = 0.0; i < MAX_ITER; i++)
@@ -35,12 +37,11 @@ float mandelbrot(vec2 uv)
 
 vec3 hash13(float m)
 {
-	float x = fract(sin(m)*6564.4564);
-	float y = fract(sin(m + x)*4122.1232);
-	float z = fract(sin(m + y)*1123.9414);
+	float x = fract(dot(m    ,m)*6513.4564);
+	float y = fract(dot(m + x,m)*4522.1232);
+	float z = fract(dot(m + y,m)*1123.9414);
 	return vec3(x,y,z);
 }
-
 
 void main()
 {	

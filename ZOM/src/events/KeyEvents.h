@@ -8,7 +8,7 @@ namespace ZOM {
 		KeyPressedEvent(int keycode, int repeatcount):
 			m_KeyCode(keycode),
 			m_RepeatCount(repeatcount){}
-		~KeyPressedEvent(){}
+		~KeyPressedEvent(){} 
 
 		int getKeyCode() const { return m_KeyCode; }
 		int getRepeatcount() const { return m_RepeatCount; }

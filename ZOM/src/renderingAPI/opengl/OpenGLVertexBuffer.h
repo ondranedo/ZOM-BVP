@@ -1,17 +1,18 @@
-#pragma once 
+#pragma once
 
 #include "renderer/VertexBuffer.h"
 
-namespace ZOM {
+namespace ZOM
+{
 	class OpenGLVertexBuffer : public VertexBuffer {
 	public:
-		~OpenGLVertexBuffer();
-		OpenGLVertexBuffer(void* data, size_t size);
+		virtual ~OpenGLVertexBuffer() override;
+		OpenGLVertexBuffer(const void* data,const size_t size);
 
-		void bind() const override;
-		void unbind() const override;
+		virtual void bind() const override;
+		virtual void unbind() const override;
 
-		void setLayout(const VertexBufferLayout& vbl) override;
-		const VertexBufferLayout& getLayout() const override;
+		virtual void setLayout(const VertexBufferLayout& vbl) override;
+		virtual const VertexBufferLayout& getLayout() const override;
 	};
 }

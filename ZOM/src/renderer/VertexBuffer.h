@@ -2,14 +2,15 @@
 
 #include "VertexBufferLayout.h"
 
-namespace ZOM {
+namespace ZOM
+{
 	class ZOM_API VertexBuffer {
 	public:
-		virtual ~VertexBuffer(){}
-		
+		virtual ~VertexBuffer() {}
+
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;
-		
+
 		virtual void setLayout(const VertexBufferLayout& vbl) = 0;
 		virtual const VertexBufferLayout& getLayout() const = 0;
 

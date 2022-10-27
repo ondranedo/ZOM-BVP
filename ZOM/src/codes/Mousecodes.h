@@ -12,8 +12,9 @@
 #define ZOM_MOUSE_BUTTON_RIGHT     ZOM_MOUSE_BUTTON_2
 #define ZOM_MOUSE_BUTTON_MIDDLE    ZOM_MOUSE_BUTTON_3
 
-namespace ZOM {
-	extern int glfwToZOMMouseCode(int code);
+namespace ZOM
+{
+	extern int glfwToZOMMouseCode(const int code);
 
-	extern std::string ZOM_API ZOMMouseCodeToString(int code);
+	extern std::string ZOM_API zomMouseCodeToString(const int code);
 }

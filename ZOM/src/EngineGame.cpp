@@ -1,5 +1,3 @@
 #include "EngineGame.h"
 
-namespace ZOM {
-
-}
+namespace ZOM {}

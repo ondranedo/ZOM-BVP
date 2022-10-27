@@ -6,11 +6,11 @@
 #include <GLFW/glfw3.h>
 
 namespace ZOM {
-	class OpenGLRenderContex : public RenderContext
+	class OpenGLRenderContext : public RenderContext
 	{
 	public:
-		OpenGLRenderContex();
-		~OpenGLRenderContex();
+		OpenGLRenderContext();
+		~OpenGLRenderContext();
 
 		virtual void init(void* window_ptr) override;
 		virtual void swap() const override;

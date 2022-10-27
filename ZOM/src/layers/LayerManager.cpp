@@ -2,14 +2,13 @@
 
 #include "Window/MainWindow.h"
 
-namespace ZOM {
-
+namespace ZOM
+{
 	void LayerManager::init()
 	{
 		m_Path = Config::logEventPath();
 
-		if (Config::logEvents())
-		{
+		if(Config::logEvents()) {
 			FILE* fw;
 			fopen_s(&fw, m_Path.c_str(), "w");
 			ZOM_ASSERT(fw, "Cant create event log file");
@@ -23,58 +22,53 @@ namespace ZOM {
 		deleteLayers();
 	}
 
-	void LayerManager::addLayerOnTop(Layer* heap_layer_addr)
+	void LayerManager::addLayerOnTop(Layer* heap_layer_adr)
 	{
-		m_Layers.insert(m_Layers.begin(), heap_layer_addr);
+		m_Layers.insert(m_Layers.begin(), heap_layer_adr);
 
-		ZOM_TRACE("Added layer[{}] to the front", heap_layer_addr->getName());
+		ZOM_TRACE("Added layer[{}] to the front", heap_layer_adr->getName());
 	}
 
-	void LayerManager::addLayerToTheBack(Layer* heap_layer_addr)
+	void LayerManager::addLayerToTheBack(Layer* heap_layer_adr)
 	{
-		m_Layers.push_back(heap_layer_addr);
+		m_Layers.push_back(heap_layer_adr);
 
-		ZOM_TRACE("Added layer[{}] to the back", heap_layer_addr->getName());
+		ZOM_TRACE("Added layer[{}] to the back", heap_layer_adr->getName());
 	}
 
-	void LayerManager::deleteLayers()
+	void LayerManager::deleteLayers() const
 	{
-		for (Layer* layer : m_Layers)
-			delete layer;
+		for(const Layer* layer : m_Layers) delete layer;
 
 		ZOM_TRACE("All layers deleted");
 	}
 
-	void LayerManager::updateLayers()
+	void LayerManager::updateLayers() const
 	{
 		ZOM_FUNCTION_TIMER();
 
-		for (Layer* layer : m_Layers)
-		{
+		for(Layer* layer : m_Layers) {
 			layer->onUpdate();
 		}
 	}
 
-	void LayerManager::handleEvents(EventQueue* eventQueue)
-	{	
+	void LayerManager::handleEvents(EventQueue* queue)
+	{
 		ZOM_FUNCTION_TIMER();
 
-		size_t nOfEvents = eventQueue->getEventCount();
+		const size_t n_of_events = queue->getEventCount();
 
-		if(nOfEvents > 200)
-			ZOM_WARNING( "Number of queued events is way too hight");
+		if(n_of_events > 200)
+			ZOM_WARNING("Number of queued events is way too hight");
 
-		for (size_t i = 0; i < nOfEvents; i++)
-		{
-			Event* event = eventQueue->getTopEvent();
+		for(size_t i = 0 ; i < n_of_events ; i++) {
+			Event* event = queue->getTopEvent();
 
-			for (Layer* layer : m_Layers)
-			{
+			for(Layer* layer : m_Layers) {
 				layer->onEvent(*event);
 			}
 
-			if (Config::logEvents())
-			{
+			if(Config::logEvents()) {
 				storeEventToFile(event);
 			}
 
@@ -82,27 +76,23 @@ namespace ZOM {
 		}
 	}
 
-	void LayerManager::onCreateLayers()
+	void LayerManager::onCreateLayers() const
 	{
 		ZOM_FUNCTION_TIMER();
 
-		for (Layer* layer : m_Layers)
-		{
+		for(Layer* layer : m_Layers) {
 			layer->onCreate();
 		}
 	}
 
-	void LayerManager::storeEventToFile(Event* event)
+	void LayerManager::storeEventToFile(Event* event) const
 	{
-	
 		FILE* fw;
-		fopen_s(&fw, m_Path.c_str(), "a");
+		auto err = 0;
+		err = fopen_s(&fw, m_Path.c_str(), "a");
 		ZOM_ASSERT(fw, "Can't append event to the evenrt log file");
 
-		fprintf(fw, (event->toString() + "\r\n").c_str());
-		fclose(fw);
-	
+		err = fprintf(fw, (event->toString() + "\r\n").c_str());
+		err =fclose(fw);
 	}
-
 }
-

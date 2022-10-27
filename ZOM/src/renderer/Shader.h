@@ -21,7 +21,7 @@ namespace ZOM {
 		static std::shared_ptr<Shader> createDefault();
 
 	protected:
-		VertexBufferLayout m_VBL;
+		VertexBufferLayout m_Vbl;
 		std::vector<std::pair<std::string, InShaderDataType>> m_Uniforms;
 		unsigned int m_ID = 1;
 	};

@@ -2,46 +2,46 @@
 
 #include "WWindow.h"
 
-namespace ZOM {
-	WWindow::WWindow(const WindowParam& param) : 
-		m_WindowData(WWindowData(param))
-	{ 
-		ZOM_TRACE("Windows Window \"{}\" has been created", m_WindowData.param.name);
+namespace ZOM
+{
+	WWindow::WWindow(const windowParam& param)
+		: m_WindowData(wWindowData(param))
+	{
+		ZOM_TRACE("Windows Window \"{}\" has been created", m_WindowData.m_Param.m_Name);
 	}
-	
 
-	inline std::string WWindow::name() const { return m_WindowData.param.name; }
-	inline std::pair<int,int> WWindow::dime() const { return m_WindowData.param.dimensions; }
-	inline bool WWindow::isVsync() const { return m_WindowData.isVsync; }
+
+	inline std::string WWindow::name() const { return m_WindowData.m_Param.m_Name; }
+	inline std::pair<int, int> WWindow::dime() const { return m_WindowData.m_Param.m_Dimensions; }
+	inline bool WWindow::isVSync() const { return m_WindowData.m_IsVSync; }
 
 	void* WWindow::getContextCreationAdr()
 	{
-		return (void*) m_WindowData.windowPtr;
+		return m_WindowData.m_WindowPtr;
 	}
 
-	void WWindow::setEventCallbackFn(const eventCallbackFn& fun) { m_WindowData.ecf = fun; }
+	void WWindow::setEventCallbackFn(const eventCallbackFn& fun) { m_WindowData.m_Ecf = fun; }
 
-	void WWindow::setVsync(bool state) {
-		if (state)
-		{
+	void WWindow::setVSync(const bool state)
+	{
+		if(state) {
 			glfwSwapInterval(1);
 			ZOM_CLIENT_TRACE("VSync enabled");
 		}
-		else
-		{
+		else {
 			glfwSwapInterval(0);
 			ZOM_CLIENT_TRACE("VSync disabled");
 		}
 	}
 
-	void WWindow::setWindowParam(const WindowParam& param)
+	void WWindow::setWindowParam(const windowParam& param)
 	{
-		glfwSetWindowSize(m_WindowData.windowPtr, param.dimensions.first, param.dimensions.second);
-		glfwSetWindowTitle(m_WindowData.windowPtr, param.name.c_str());
+		glfwSetWindowSize(m_WindowData.m_WindowPtr, param.m_Dimensions.first, param.m_Dimensions.second);
+		glfwSetWindowTitle(m_WindowData.m_WindowPtr, param.m_Name.c_str());
 
-		m_WindowData.param = param;
+		m_WindowData.m_Param = param;
 	}
-	
+
 	void WWindow::pollEvents()
 	{
 		glfwPollEvents();
@@ -50,12 +50,12 @@ namespace ZOM {
 	void WWindow::init()
 	{
 		glfwInit();
-		m_WindowData.windowPtr = glfwCreateWindow(m_WindowData.param.dimensions.first,
-			                                      m_WindowData.param.dimensions.second,
-			                                      m_WindowData.param.name.c_str(),
-									              nullptr, nullptr);
+		m_WindowData.m_WindowPtr = glfwCreateWindow(m_WindowData.m_Param.m_Dimensions.first,
+		                                            m_WindowData.m_Param.m_Dimensions.second,
+		                                            m_WindowData.m_Param.m_Name.c_str(),
+		                                            nullptr, nullptr);
 
-		glfwSetWindowUserPointer(m_WindowData.windowPtr, (void*)&m_WindowData);
+		glfwSetWindowUserPointer(m_WindowData.m_WindowPtr, &m_WindowData);
 
 		Renderer::contextInitialize(this);
 
@@ -71,94 +71,94 @@ namespace ZOM {
 	{
 		ZOM_TRACE("Destroying \"{}\" Windows Window", name());
 
-		glfwDestroyWindow(m_WindowData.windowPtr);
+		glfwDestroyWindow(m_WindowData.m_WindowPtr);
 
-		m_WindowData.windowPtr = nullptr;
+		m_WindowData.m_WindowPtr = nullptr;
 
 		glfwTerminate();
 	}
 
 	void WWindow::setCallBacks()
 	{
-		glfwSetWindowCloseCallback(m_WindowData.windowPtr, [](GLFWwindow* window)
-		{
-			WWindowData* data = (WWindowData*)glfwGetWindowUserPointer(window);
-			WindowCloseEvent* event = new WindowCloseEvent;
-		
-			data->ecf(event);
+		glfwSetWindowCloseCallback(m_WindowData.m_WindowPtr, [](GLFWwindow* window)->void{
+			const auto data  = static_cast<wWindowData*>(glfwGetWindowUserPointer(window));
+			const auto event = new WindowCloseEvent;
+
+			data->m_Ecf(event);
 		});
 
-		glfwSetWindowSizeCallback(m_WindowData.windowPtr, [](GLFWwindow* window,int w, int h)
-		{
-			WWindowData* data = (WWindowData*)glfwGetWindowUserPointer(window);
-			WindowResizeEvent* event = new WindowResizeEvent(w, h);
+		glfwSetWindowSizeCallback(m_WindowData.m_WindowPtr, [](GLFWwindow* window, const int w, const int h)->void{
+			const auto data  = static_cast<wWindowData*>(glfwGetWindowUserPointer(window));
+			const auto event = new WindowResizeEvent(w, h);
 
-			data->ecf(event);
+			data->m_Ecf(event);
 		});
 
-		glfwSetKeyCallback(m_WindowData.windowPtr, [](GLFWwindow* window, int key, int scancode, int action, int mods)
-		{
-			WWindowData* data = (WWindowData*)glfwGetWindowUserPointer(window);
+		glfwSetKeyCallback(m_WindowData.m_WindowPtr,
+		                   [](GLFWwindow* window, int key, int, const int action, int mods)->void{
+			                   const auto data = static_cast<wWindowData*>(glfwGetWindowUserPointer(window));
 
-			key = glfwToZOMKeyCode(key);
+			                   key = glfwToZOMKeyCode(key);
 
-			switch (action)
-			{
-			case GLFW_PRESS: {
-				KeyPressedEvent* event = new KeyPressedEvent(key, 0);
-				data->ecf(event); }
-			break;
-			case GLFW_REPEAT: {
-				KeyPressedEvent* event = new KeyPressedEvent(key, 1);
-				data->ecf(event); }
-			break;
-			case GLFW_RELEASE: {
-				KeyReleasedEvent* event = new KeyReleasedEvent(key);
-				data->ecf(event); }
-				break;
-			}
+			                   switch(action) {
+				                   case GLFW_PRESS:
+				                   {
+					                   const auto event = new KeyPressedEvent(key, 0);
+					                   data->m_Ecf(event);
+				                   }
+				                   break;
+				                   case GLFW_REPEAT:
+				                   {
+					                   const auto event = new KeyPressedEvent(key, 1);
+					                   data->m_Ecf(event);
+				                   }
+				                   break;
+				                   case GLFW_RELEASE:
+				                   {
+					                   const auto event = new KeyReleasedEvent(key);
+					                   data->m_Ecf(event);
+				                   }
+				                   break;
+			                   }
+		                   });
+
+		glfwSetCursorPosCallback(m_WindowData.m_WindowPtr, [](GLFWwindow* window, const double x, const double y)->void{
+			const auto data  = static_cast<wWindowData*>(glfwGetWindowUserPointer(window));
+			const auto event = new MouseMovedEvent(x, y);
+			data->m_Ecf(event);
 		});
 
-		glfwSetCursorPosCallback(m_WindowData.windowPtr, [](GLFWwindow* window, double x, double y)
-		{
-			WWindowData* data = (WWindowData*)glfwGetWindowUserPointer(window);
-			MouseMovedEvent* event = new MouseMovedEvent(x, y);
-			data->ecf(event);
-		});
-
-		glfwSetScrollCallback(m_WindowData.windowPtr, [](GLFWwindow* window, double x, double y)
-		{
-			WWindowData* data = (WWindowData*)glfwGetWindowUserPointer(window);
-			MouseScrollEvent* event = new MouseScrollEvent(x, y);
-			data->ecf(event);
+		glfwSetScrollCallback(m_WindowData.m_WindowPtr, [](GLFWwindow* window, const double x, const double y)->void{
+			const auto data  = static_cast<wWindowData*>(glfwGetWindowUserPointer(window));
+			const auto event = new MouseScrollEvent(x, y);
+			data->m_Ecf(event);
 		});
 
 
-		glfwSetMouseButtonCallback(m_WindowData.windowPtr, [](GLFWwindow* window, int button, int action, int mods)
-		{
-			WWindowData* data = (WWindowData*)glfwGetWindowUserPointer(window);
-			
-			button = glfwToZOMMouseCode(button);
+		glfwSetMouseButtonCallback(m_WindowData.m_WindowPtr,
+		                           [](GLFWwindow* window, int button, const int action, int mods)->void{
+			                           const auto data = static_cast<wWindowData*>(glfwGetWindowUserPointer(window));
 
-			switch (action)
-			{
-			case GLFW_PRESS:
-			{
-				MouseButtonPressedEvent* event = new MouseButtonPressedEvent(button);
-				data->ecf(event);
-			}
-			break;
-			case GLFW_RELEASE:
-			{
-				MouseButtonReleasedEvent* event = new MouseButtonReleasedEvent(button);
-				data->ecf(event);
-			}
-			break;
-			}
-		});
+			                           button = glfwToZOMMouseCode(button);
+
+			                           switch(action) {
+				                           case GLFW_PRESS:
+				                           {
+					                           const auto event = new MouseButtonPressedEvent(button);
+					                           data->m_Ecf(event);
+				                           }
+				                           break;
+				                           case GLFW_RELEASE:
+				                           {
+					                           const auto event = new MouseButtonReleasedEvent(button);
+					                           data->m_Ecf(event);
+				                           }
+				                           break;
+			                           }
+		                           });
 	}
 
-	std::unique_ptr<Window> Window::createWindow(const WindowParam& param)
+	std::unique_ptr<Window> Window::createWindow(const windowParam& param)
 	{
 		return std::make_unique<WWindow>(param);
 	}

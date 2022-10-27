@@ -1,11 +1,12 @@
 #pragma once
 
-namespace ZOM {
+namespace ZOM
+{
 	enum class ZOM_API dataType {
 		Null,
 		Int1, Int2, Int4, Int8,
 		UInt1, UInt2, UInt4, UInt8,
-		F4,F8,F16,
+		F4, F8, F16,
 		Bool
 	};
 
@@ -25,5 +26,5 @@ namespace ZOM {
 
 	using ZOMBool = bool;
 
-	extern size_t ZOM_API ZOMDataTypeSize(dataType type);
+	extern size_t ZOM_API zomDataTypeSize(const dataType type);
 }

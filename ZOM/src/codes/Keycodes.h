@@ -7,7 +7,7 @@
 #define ZOM_KEY_MINUS              45  /* - */
 #define ZOM_KEY_PERIOD             46  /* . */
 #define ZOM_KEY_SLASH              47  /* / */
-#define ZOM_KEY_0                  48 
+#define ZOM_KEY_0                  48
 #define ZOM_KEY_1                  49
 #define ZOM_KEY_2                  50
 #define ZOM_KEY_3                  51
@@ -120,9 +120,9 @@
 #define ZOM_KEY_RIGHT_SUPER        347
 #define ZOM_KEY_MENU               348
 
-namespace ZOM {
+namespace ZOM
+{
+	extern int glfwToZOMKeyCode(const int code);
 
-	extern int glfwToZOMKeyCode(int code);
-
-	extern std::string ZOM_API ZOMKeyCodeToString(int code);
+	extern std::string ZOM_API zomKeyCodeToString(const int code);
 }

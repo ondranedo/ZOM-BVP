@@ -8,7 +8,7 @@ namespace ZOM {
 	    Mat2, Mat3, Mat4, Bool
 	};
 
-	extern size_t ZOMInShaderDataTypeSize(InShaderDataType isdt);
-	extern size_t ZOMInShaderDataTypeComponentCount(InShaderDataType isdt);
-	extern InShaderDataType strToZOMInShaderDataType(const std::string& str);
+	extern size_t zomInShaderDataTypeSize(const InShaderDataType type);
+	extern size_t zomInShaderDataTypeComponentCount(const InShaderDataType type);
+	extern InShaderDataType strToZomInShaderDataType(const std::string& str);
 }

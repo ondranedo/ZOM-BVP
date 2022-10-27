@@ -5,7 +5,8 @@
 
 #include <iostream>
 
-namespace ZOM {
+namespace ZOM
+{
 	using logPtr = std::shared_ptr<spdlog::logger>;
 
 	class ZOM_API Logger {
@@ -14,56 +15,19 @@ namespace ZOM {
 		static void release();
 
 #ifndef ZOM_DISTRIBUTE
-		inline static const logPtr& getCore() { return s_Core; }
+		inline static const logPtr& getCore() { return m_SCore; }
 #else
-		inline static const logPtr& getCore()
+		static const logPtr& getCore()
 		{
-			return s_Client;
+			return m_SClient;
 		}
 #endif
-		inline static const logPtr& getClient() { return s_Client; }
+		static const logPtr& getClient() { return m_SClient; }
 
 	private:
 #ifndef ZOM_DISTRIBUTE
-		static logPtr s_Core;
+		static logPtr m_SCore;
 #endif
-		static logPtr s_Client;
+		static logPtr m_SClient;
 	};
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

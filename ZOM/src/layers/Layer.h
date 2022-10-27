@@ -2,14 +2,14 @@
 
 #include "events/EventQueue.h"
 
-namespace ZOM {
-
+namespace ZOM
+{
 	class ZOM_API Layer {
 	public:
-		Layer(std::string name = "blank")
-			:m_Name(name){}
+		Layer(const std::string& name = "blank")
+			: m_Name(name) {}
 
-		virtual ~Layer(){}
+		virtual ~Layer() {}
 
 		virtual void onUpdate() = 0;
 		virtual void onEvent(Event&) = 0;
@@ -20,4 +20,3 @@ namespace ZOM {
 		std::string m_Name;
 	};
 }
-

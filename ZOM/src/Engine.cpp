@@ -6,18 +6,18 @@
 
 extern ZOM::Game* createGame();
 
-namespace ZOM {
-
+namespace ZOM
+{
 	void Engine::init()
 	{
 		ZOM_FUNCTION_TIMER();
 		ZOM_TRACE("Engine initialization stared");
 
 		s_LayerManager.init();
-		
+
 		s_Game = createGame();
 
-		Renderer::setBeforeInitRenderingApi(RenderingAPI::OPENGL);
+		Renderer::setBeforeInitRenderingApi(renderingAPI::opengl);
 
 		ZOM_TRACE("Engine initialization ended");
 	}
@@ -46,46 +46,44 @@ namespace ZOM {
 
 		ZOM_TRACE("Starting main loop");
 
-		while (s_Running)
-			onFrame();
+		while(s_Running) onFrame();
 
 		ZOM_TRACE("Ending main loop");
 	}
-	 
-	 void Engine::addLayer(Layer* layer)
-	 {
-		 s_LayerManager.addLayerOnTop(layer);
-	 }
 
-	 void Engine::close()
-	 {
-		 ZOM_WARNING("Engine close function has been called");
+	void Engine::addLayer(Layer* layer)
+	{
+		s_LayerManager.addLayerOnTop(layer);
+	}
 
-		 s_Running = false;
-	 }
+	void Engine::close()
+	{
+		ZOM_WARNING("Engine close function has been called");
 
-	 bool Engine::isRunning()
-	 {
-		 return s_Running;
-	 }
-	 
-	 void Engine::onFrame()
-	 {
+		s_Running = false;
+	}
+
+	bool Engine::isRunning()
+	{
+		return s_Running;
+	}
+
+	void Engine::onFrame()
+	{
 		ZOM_FUNCTION_TIMER();
 
 		Renderer::clear();
-		
-		MainWindow::pollEvents();
-	 	s_LayerManager.handleEvents(&s_EventQueue);
 
-	 	s_LayerManager.updateLayers();
-		
-    	Renderer::renderLoop();
-	 }
-	
+		MainWindow::pollEvents();
+		s_LayerManager.handleEvents(&s_EventQueue);
+
+		s_LayerManager.updateLayers();
+
+		Renderer::renderLoop();
+	}
+
 	bool Engine::s_Running = false;
 	Game* Engine::s_Game;
 	EventQueue Engine::s_EventQueue;
 	LayerManager Engine::s_LayerManager;
 }
-

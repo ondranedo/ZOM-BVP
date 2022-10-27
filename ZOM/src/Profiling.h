@@ -1,15 +1,15 @@
 #pragma once
 
-namespace ZOM {
-	struct ZOM_API profileData{
-		std::string name = "blank";
-		std::string time_point = "us";
-		size_t start = 0;
-		size_t end = 0;
+namespace ZOM
+{
+	struct ZOM_API profileData {
+		std::string m_Name      = "blank";
+		std::string m_TimePoint = "us";
+		size_t m_Start          = 0;
+		size_t m_End            = 0;
 	};
 
-	class ZOM_API MeasureTime
-	{
+	class ZOM_API MeasureTime {
 	public:
 		MeasureTime(const std::string& name);
 		~MeasureTime();
@@ -30,8 +30,8 @@ namespace ZOM {
 		static void header();
 		static void footer();
 
-		static std::string m_Path;
-		static std::ofstream m_File;
-		static size_t profileCount;
+		static std::string m_SPath;
+		static std::ofstream m_SFile;
+		static size_t m_SProfileCount;
 	};
 }

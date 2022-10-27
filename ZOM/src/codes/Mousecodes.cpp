@@ -1,12 +1,12 @@
 #include "Mousecodes.h"
 
 namespace ZOM {
-	int glfwToZOMMouseCode(int code)
+	int glfwToZOMMouseCode(const int code)
 	{
 		return code;
 	}
 
-	std::string ZOMMouseCodeToString(int code)
+	std::string zomMouseCodeToString(const int code)
 	{
 		switch (code)
 		{
@@ -18,10 +18,12 @@ namespace ZOM {
 		case ZOM_MOUSE_BUTTON_6: return "MOUSE_BUTTON_6";
 		case ZOM_MOUSE_BUTTON_7: return "MOUSE_BUTTON_7";
 		case ZOM_MOUSE_BUTTON_8: return "MOUSE_BUTTON_8";
+			default:
+				break;
 		}
 
 		ZOM_ASSERT(false, "None specified mouse button");
 
-		return "Error ZOMMouseCodeToString";
+		return "Error zomMouseCodeToString";
 	}
 }

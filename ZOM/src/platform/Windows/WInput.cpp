@@ -5,15 +5,13 @@
 #include "GLFW/glfw3.h"
 #include "window/MainWindow.h"
 
-namespace ZOM {
-
-	bool WInput::isPressedImpl(int zom_key_code)
+namespace ZOM
+{
+	bool WInput::isPressedImpl(const int zom_key_code)
 	{
-		int state = glfwGetKey((GLFWwindow*)MainWindow::getContextCreationAdr(), zom_key_code);
-		if (state == GLFW_REPEAT || state == GLFW_PRESS)
-			return true;
-		else
-			return false;
+		const int state = glfwGetKey(static_cast<GLFWwindow*>(MainWindow::getContextCreationAdr()), zom_key_code);
+		if(state == GLFW_REPEAT || state == GLFW_PRESS) return true;
+		return false;
 	}
 
 	std::unique_ptr<Input> Input::create()

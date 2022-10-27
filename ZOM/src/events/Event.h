@@ -1,11 +1,12 @@
 #pragma once
 
 #define ZOM_EVENT_IMPLEMENTATION(x)\
-	static EventTypes getStaticType(){ return EventTypes::x; }\
-	EventTypes type() override { return getStaticType(); }
+	static eventTypes getStaticType(){ return eventTypes::x; }\
+	eventTypes type() override { return getStaticType(); }
 
-namespace ZOM {
-	enum class ZOM_API EventTypes {
+namespace ZOM
+{
+	enum class ZOM_API eventTypes {
 		WINDOW_RESIZED, WINDOW_CLOSE,
 		MOUSE_MOVED, MOUSE_BUTTON_PRESSED, MOUSE_BUTTON_RELEASED, MOUSE_SCROLL,
 		KEY_PRESSED, KEY_RELEASED
@@ -14,8 +15,8 @@ namespace ZOM {
 	class ZOM_API Event {
 	public:
 		virtual ~Event() {}
-		virtual EventTypes type() = 0;
-		inline bool isHandled() const { return m_Handled; }
+		virtual eventTypes type() = 0;
+		bool isHandled() const { return m_Handled; }
 		void handled() { m_Handled = true; }
 
 #ifdef ZOM_DEBUG
@@ -28,21 +29,18 @@ namespace ZOM {
 		bool m_Handled = false;
 	};
 
-	typedef std::function<void(Event*)> eventCallbackFn;
+	using eventCallbackFn = std::function<void(Event*)>;
 
 	class ZOM_API EventDispatcher {
 	public:
-		EventDispatcher(Event& event):
-			m_Event(event)
-		{}
+		EventDispatcher(Event& event): m_Event(event) {}
 
 		template<class T>
 		void dispatchEvent(const std::function<bool(T&)>& fun)
 		{
-			if (T::getStaticType() == m_Event.type())
-				if (!m_Event.isHandled())
-					if (fun((T&)m_Event))
-						m_Event.handled();
+			if(T::getStaticType() == m_Event.type())
+				if(!m_Event.isHandled())
+					if(fun(static_cast<T&>(m_Event))) m_Event.handled();
 		}
 
 	private:

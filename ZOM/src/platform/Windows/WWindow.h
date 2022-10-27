@@ -16,32 +16,32 @@
 #include "renderer/Renderer.h"
 
 namespace ZOM {
-	struct ZOM_API WWindowData {
-		GLFWwindow* windowPtr;
-		WindowParam param;
-		bool isVsync;
-		eventCallbackFn ecf;
+	struct ZOM_API wWindowData {
+		GLFWwindow* m_WindowPtr;
+		windowParam m_Param;
+		bool m_IsVSync;
+		eventCallbackFn m_Ecf;
 
-		WWindowData(const WindowParam& _param):
-			param(_param),
-			windowPtr(nullptr),
-			isVsync(true),
-			ecf([](Event*) { ZOM_ERROR("None event callback function!"); })
+		wWindowData(const windowParam& param):
+			m_WindowPtr(nullptr),
+			m_Param(param),
+			m_IsVSync(true),
+			m_Ecf([](Event*) { ZOM_ERROR("None event callback function!"); })
 		{}
 	};
 
-	class ZOM_API WWindow : public Window {
+	class ZOM_API WWindow final : public Window {
 	public:
-		WWindow(const WindowParam& param);
+		WWindow(const windowParam& param);
 
 		virtual inline std::string name() const override;
 		virtual inline std::pair<int, int> dime() const override;
-		virtual inline bool isVsync() const override;
+		virtual inline bool isVSync() const override;
 		virtual inline void* getContextCreationAdr() override;
 
 		virtual void setEventCallbackFn(const eventCallbackFn& fun) override;
-		virtual void setVsync(bool state) override;
-		virtual void setWindowParam(const WindowParam& param) override;
+		virtual void setVSync(const bool state) override;
+		virtual void setWindowParam(const windowParam& param) override;
 
 		virtual void pollEvents() override;
 
@@ -52,7 +52,7 @@ private:
 		void setCallBacks();
 
 	private:
-		WWindowData m_WindowData;
+		wWindowData m_WindowData;
 	};
 }
 

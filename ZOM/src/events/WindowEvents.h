@@ -1,16 +1,17 @@
 #pragma once
 
-namespace ZOM {
-	class ZOM_API WindowResizeEvent: public Event {
+namespace ZOM
+{
+	class ZOM_API WindowResizeEvent : public Event {
 	public:
-		WindowResizeEvent(int width, int height):
-			m_Width(width), m_Height(height){}
-		~WindowResizeEvent(){}
+		WindowResizeEvent(const int width, const int height): m_Width(width), m_Height(height) {}
 
-		std::pair<int, int> getDims() const { return { m_Width, m_Height }; }
+		virtual ~WindowResizeEvent() override = default;
+
+		std::pair<int, int> getDims() const { return {m_Width, m_Height}; }
 
 #ifdef ZOM_DEBUG
-		std::string toString() override
+		virtual std::string toString() override
 		{
 			std::string ret = "";
 			ret += "Window resized to: ";
@@ -27,11 +28,10 @@ namespace ZOM {
 
 	class ZOM_API WindowCloseEvent : public Event {
 	public:
-		WindowCloseEvent() {};
-		~WindowCloseEvent(){};
+		virtual ~WindowCloseEvent() override = default;
 
 #ifdef ZOM_DEBUG
-		std::string toString() override
+		virtual std::string toString() override
 		{
 			std::string ret = "";
 			ret += "Window closed";

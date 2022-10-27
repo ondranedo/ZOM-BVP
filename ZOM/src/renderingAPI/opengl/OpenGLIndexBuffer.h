@@ -1,17 +1,18 @@
-#pragma once 
+#pragma once
 
 #include "renderer/IndexBuffer.h"
 
-namespace ZOM {
-	class OpenGLIndexBuffer : public IndexBuffer {
+namespace ZOM
+{
+	class OpenGLIndexBuffer final : public IndexBuffer {
 	public:
-		~OpenGLIndexBuffer();
-		OpenGLIndexBuffer(unsigned int* data, size_t count);
+		virtual ~OpenGLIndexBuffer() override;
+		OpenGLIndexBuffer(const unsigned int* data, size_t count);
 
-		void bind() const override;
-		void unbind() override;
+		virtual void bind() const override;
+		virtual void unbind() override;
 
-		size_t getIndexCount() const override;
+		virtual size_t getIndexCount() const override;
 
 	};
 }

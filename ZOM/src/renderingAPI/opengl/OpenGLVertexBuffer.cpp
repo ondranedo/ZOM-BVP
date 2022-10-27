@@ -1,13 +1,13 @@
 #include "OpenGLVertexBuffer.h"
 
-namespace ZOM {
-	
+namespace ZOM
+{
 	OpenGLVertexBuffer::~OpenGLVertexBuffer()
 	{
 		ZOM_GL_CALL(glDeleteBuffers(1, &m_ID));
 	}
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(void* data, size_t size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(const void* data, const size_t size)
 	{
 		ZOM_GL_CALL(glGenBuffers(1, &m_ID));
 		ZOM_GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, m_ID));
@@ -33,5 +33,4 @@ namespace ZOM {
 	{
 		return m_VBL;
 	}
-
 }

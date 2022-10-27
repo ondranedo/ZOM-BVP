@@ -1,6 +1,6 @@
 #include "DataType.h"
 
-size_t ZOM::ZOMDataTypeSize(ZOM::dataType type)
+size_t ZOM::zomDataTypeSize(const ZOM::dataType type)
 {
 	switch (type)
 	{
@@ -19,7 +19,7 @@ size_t ZOM::ZOMDataTypeSize(ZOM::dataType type)
 		case dataType::Bool:	  return sizeof(bool);
 	}
 
-	ZOM_ERROR("Unkown data type passed in to fucntion: ZOMDataTypeSize(ZOM::dataType type)");
+	ZOM_ERROR("Unkown data type passed in to fucntion: zomDataTypeSize(ZOM::dataType type)");
 	return 0;
 }
 

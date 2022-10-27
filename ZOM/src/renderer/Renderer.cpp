@@ -15,19 +15,19 @@ namespace ZOM {
 
 		setBeforeInitRenderingApi(Config::renderingAPI());
 
-		switch (s_RendreringApi)
+		switch (m_SRenderingApi)
 		{
-		case RenderingAPI::OPENGL:
-			s_RenderContext = std::make_unique<OpenGLRenderContex>();
-			s_RenderApplication = std::make_unique<OpenGLRenderApplication>();
-			s_Created = true;
+		case renderingAPI::opengl:
+			m_SRenderContext = std::make_unique<OpenGLRenderContext>();
+			m_SRenderApplication = std::make_unique<OpenGLRenderApplication>();
+			m_SCreated = true;
 		break;
 
 		default:
 			ZOM_CRITICAL("Unkown rendering api when creating renderer");
 		}
 
-		s_ShaderMgr.setShaderPaths(Config::shaderPaths());
+		m_SShaderMgr.setShaderPaths(Config::shaderPaths());
 
 		ZOM_TRACE("Renderer initialization ended");
 	}
@@ -35,14 +35,14 @@ namespace ZOM {
 	void Renderer::release()
 	{
 		ZOM_FUNCTION_TIMER();
-		if (s_Created)
+		if (m_SCreated)
 		{
 			ZOM_TRACE("Renderer release started");
-			s_ShaderMgr.deleteAllShaders();
-			s_RenderContext.reset();
-			s_RenderApplication.reset();
+			m_SShaderMgr.deleteAllShader();
+			m_SRenderContext.reset();
+			m_SRenderApplication.reset();
 			ZOM_TRACE("Renderer release ended");
-			s_Created = false;
+			m_SCreated = false;
 		}
 		else
 		{
@@ -54,9 +54,9 @@ namespace ZOM {
 	{
 		ZOM_FUNCTION_TIMER();
 
-		if (s_Created)
+		if (m_SCreated)
 		{
-			s_ShaderMgr.compileAllShaders();
+			m_SShaderMgr.compileAllShader();
 		}
 		else
 		{
@@ -68,8 +68,8 @@ namespace ZOM {
 	{
 		ZOM_FUNCTION_TIMER();
 
-		if (s_Created)
-			s_RenderApplication->clear();
+		if (m_SCreated)
+			m_SRenderApplication->clear();
 		else
 			ZOM_ERROR("Have to initialize renderer, in order to clear");
 	}
@@ -78,34 +78,34 @@ namespace ZOM {
 	{
 		ZOM_FUNCTION_TIMER();
 
-		if (s_Created)
-			s_RenderApplication->draw(mesh);
+		if (m_SCreated)
+			m_SRenderApplication->draw(mesh);
 		else
 			ZOM_ERROR("Have to initialize renderer, in order to draw mesh");
 	}
 
-	void Renderer::setBeforeInitRenderingApi(RenderingAPI api)
+	void Renderer::setBeforeInitRenderingApi(renderingAPI api)
 	{
-		if (!s_Created)
-			s_RendreringApi = api;
+		if (!m_SCreated)
+			m_SRenderingApi = api;
 		else
 			ZOM_ERROR("Renderer already created when trying to set before init rendering api");
 	}
 
-	RenderingAPI Renderer::getAPI()
+	renderingAPI Renderer::getAPI()
 	{
-		return s_RendreringApi;
+		return m_SRenderingApi;
 	}
 
 	std::shared_ptr<Shader> Renderer::getShader(const std::string& name)
 	{
-		return s_ShaderMgr.getShader(name);
+		return m_SShaderMgr.getShader(name);
 	}
 
 	void Renderer::contextInitialize(Window* window)
 	{
-		if (s_Created)
-			s_RenderContext->init(window->getContextCreationAdr());
+		if (m_SCreated)
+			m_SRenderContext->init(window->getContextCreationAdr());
 		else
 			ZOM_ERROR("Can't intialize context, you have to initialize renderer first");
 	}
@@ -114,11 +114,11 @@ namespace ZOM {
 	{
 		ZOM_FUNCTION_TIMER();
 
-		if (s_Created)
+		if (m_SCreated)
 		{
-			// s_RenderApplication->clear();
+			// m_SRenderApplication->clear();
 
-			s_RenderContext->swap();
+			m_SRenderContext->swap();
 		}
 		else
 			ZOM_ERROR("Can't start render loop, initialize context");
@@ -134,21 +134,21 @@ namespace ZOM {
 
 	}
 
-	std::string getStrRenderingApi(RenderingAPI rapi)
+	std::string getStrRenderingApi(renderingAPI rapi)
 	{
 		
 		switch (rapi)
 		{
-			case RenderingAPI::OPENGL: return "OpenGL";
+			case renderingAPI::opengl: return "OpenGL";
 		}
 
 		ZOM_WARNING("Unsuported RendreringAPI in getStrRenderingApi");
 		return "";
 	}
 
-	bool Renderer::s_Created = false;
-	ZOM::RenderingAPI Renderer::s_RendreringApi = RenderingAPI::OPENGL;
-	std::unique_ptr<RenderContext> Renderer::s_RenderContext = nullptr;
-	std::unique_ptr<RenderApplication> Renderer::s_RenderApplication = nullptr;
-	ShaderManager Renderer::s_ShaderMgr;
+	bool Renderer::m_SCreated = false;
+	ZOM::renderingAPI Renderer::m_SRenderingApi = renderingAPI::opengl;
+	std::unique_ptr<RenderContext> Renderer::m_SRenderContext = nullptr;
+	std::unique_ptr<RenderApplication> Renderer::m_SRenderApplication = nullptr;
+	ShaderManager Renderer::m_SShaderMgr;
 }

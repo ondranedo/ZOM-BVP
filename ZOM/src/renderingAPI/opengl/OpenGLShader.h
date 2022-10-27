@@ -2,13 +2,14 @@
 
 #include "renderer/Shader.h"
 
-namespace ZOM {
-	struct OpenGLSubShadersID {
+namespace ZOM
+{
+	struct openGLSubShaderID {
 		unsigned int m_VertexID;
 		unsigned int m_FragmentID;
 	};
 
-	struct OpenGLSubShadersSources {
+	struct openGLSubShaderSources {
 		std::string m_VertexSrc;
 		std::string m_FragmentSrc;
 	};
@@ -17,52 +18,51 @@ namespace ZOM {
 	public:
 		OpenGLShader(const std::string& path);
 		OpenGLShader();
-		~OpenGLShader();
+		virtual ~OpenGLShader();
 
-		void bind() const override;
-		void unbind() const override;
+		virtual void bind() const override;
+		virtual void unbind() const override;
 
-		void release() override;
+		virtual void release() override;
 
-		bool compile() override;
+		virtual bool compile() override;
 
-		VertexBufferLayout getLayout() override;
-		void setUniform(const std::string& name, void* data) override;
-		void checkIfUniformAreSet() const override;
-		void mapUniforms() override;
+		virtual VertexBufferLayout getLayout() override;
+		virtual void setUniform(const std::string& name, void* data) override;
+		virtual void checkIfUniformAreSet() const override;
+		virtual void mapUniforms() override;
 
 	private:
 		unsigned int createShader(GLenum id, const std::string& source);
-		OpenGLSubShadersID attatchShaders(const OpenGLSubShadersSources& vertex_source);
-		bool compileShaders(const OpenGLSubShadersID& shader_ids);
+		openGLSubShaderID attachShader(const openGLSubShaderSources& sources);
+		bool compileShader(const openGLSubShaderID& shader_ids);
 		bool checkCompilation(unsigned int shader_id);
-		void deleteShaders(const OpenGLSubShadersID& shader_ids);
-		OpenGLSubShadersSources readShaderFile();
+		void deleteShader(const openGLSubShaderID& shader_ids);
+		openGLSubShaderSources readShaderFile();
 
-		void readAndAddVBL(char* buff, size_t size);
-		int readLayoutLocation(char* buff, size_t size);
-		InShaderDataType readLayoutType(char* buff, size_t size);
+		void readAndAddVbl(char* buff, size_t size);
+		int readLayoutLocation(const char* buff, size_t size) const;
+		InShaderDataType readLayoutType(const char* buff, size_t size);
 
 		void removeSpacesBefore(std::string& str);
 
 		void createBufferLayout();
-		std::string readLayoutName(char* buff, size_t size);
+		std::string readLayoutName(const char* buff, size_t size);
 
-		void readAndAddUnifrom(char* linebuff, size_t buffSize);
-		std::string readUniformName(char* linebuff, size_t buffSize);
-		InShaderDataType readUniformType(char* linebuff, size_t buffSize);
+		void readAndAddUniform(const char* line_buffer, size_t buffer_size);
+		std::string readUniformName(const char* line_buffer, size_t buffer_size);
+		InShaderDataType readUniformType(const char* line_buffer, size_t buffer_size);
 		bool isUniformStored(const std::string& name);
 		void sendToUniform(unsigned int id, InShaderDataType dt, void* data);
-
 
 
 	private:
 		std::string m_Path;
 		bool m_Created = false;
 		VertexBufferLayout m_Layout;
-		std::vector<std::tuple<int,InShaderDataType,std::string>> m_LayoutVector;
-		std::vector<std::tuple<InShaderDataType,std::string>> m_UnifromVector;
-		std::unordered_map<std::string, std::tuple<InShaderDataType, int>> m_UnifromMap;
-		std::unordered_map<std::string, bool> m_UnifrmSets;
+		std::vector<std::tuple<int, InShaderDataType, std::string>> m_LayoutVector;
+		std::vector<std::tuple<InShaderDataType, std::string>> m_UniformVector;
+		std::unordered_map<std::string, std::tuple<InShaderDataType, int>> m_UniformMap;
+		std::unordered_map<std::string, bool> m_UniformSets;
 	};
 };

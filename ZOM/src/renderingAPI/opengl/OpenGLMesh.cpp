@@ -4,30 +4,30 @@
 
 namespace ZOM {
 
-	OpenGLMesh::OpenGLMesh(const MeshCreationData& mcd)
+	OpenGLMesh::OpenGLMesh(const meshCreationData& mcd)
 	{
 		m_Data = mcd;
 
-		std::shared_ptr<VertexBuffer> vertexB = VertexBuffer::create((void*)mcd.vertex_buffer,mcd.vertex_buffer_size);
-		std::shared_ptr<IndexBuffer> indexB = IndexBuffer::create((unsigned int*)mcd.index_buffer, mcd.index_buffer_count);
+		std::shared_ptr<VertexBuffer> vertex_b = VertexBuffer::create((void*)mcd.m_VertexBuffer,mcd.m_VertexBufferSize);
+		std::shared_ptr<IndexBuffer> index_b = IndexBuffer::create((unsigned int*)mcd.m_IndexBuffer, mcd.m_IndexBufferCount);
 
-		delete mcd.index_buffer;
-		delete mcd.vertex_buffer;
+		delete mcd.m_IndexBuffer;
+		delete mcd.m_VertexBuffer;
 
 		m_VertexArray = VertexArray::create();
-		m_Shader = Renderer::getShader(mcd.shader_name);
+		m_Shader = Renderer::getShader(mcd.m_ShaderName);
 		
-		if (m_Shader->getLayout() != mcd.vertex_buffer_layout)
-			ZOM_ERROR("Mismatch of vertex buffer layout and shader layout, for shader {}", mcd.shader_name);
+		if (m_Shader->getLayout() != mcd.m_VertexBufferLayout)
+			ZOM_ERROR("Mismatch of vertex buffer layout and shader layout, for shader {}", mcd.m_ShaderName);
 	
-		vertexB->setLayout(m_Shader->getLayout());
+		vertex_b->setLayout(m_Shader->getLayout());
 
-		m_VertexArray->setIndex(indexB);
-		m_VertexArray->setVertex(vertexB);
+		m_VertexArray->setIndex(index_b);
+		m_VertexArray->setVertex(vertex_b);
 
 		m_VertexArray->unbind();
-		indexB->unbind();
-		vertexB->unbind();
+		index_b->unbind();
+		vertex_b->unbind();
 		
 	}
 

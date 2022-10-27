@@ -1,14 +1,13 @@
 #pragma once
 
-namespace ZOM {
-
-	class OpenGLRenderApplication : public RenderApplication
-	{
+namespace ZOM
+{
+	class OpenGLRenderApplication final: public RenderApplication {
 	public:
 		OpenGLRenderApplication();
-		~OpenGLRenderApplication();
-		void clear(const glm::vec4& color) override;
+		virtual ~OpenGLRenderApplication() override;
+		virtual void clear(const glm::vec4& color) override;
 
-		void draw(const std::shared_ptr<Mesh>& mesh) override;
+		virtual void draw(const std::shared_ptr<Mesh>& mesh) override;
 	};
 }

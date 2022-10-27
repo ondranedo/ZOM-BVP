@@ -11,7 +11,8 @@
 #include "layers/LayerManager.h"
 #include "EngineGame.h"
 
-namespace ZOM {
+namespace ZOM
+{
 	class ZOM_API Engine {
 	public:
 		static void init();
@@ -24,12 +25,12 @@ namespace ZOM {
 		static void addLayer(Layer* layer);
 
 	private:
-	    static void onFrame();
+		static void onFrame();
 
 	private:
-		 static bool s_Running;
-		 static Game* s_Game;
-		 static EventQueue s_EventQueue;
-		 static LayerManager s_LayerManager;
+		static bool s_Running;
+		static Game* s_Game;
+		static EventQueue s_EventQueue;
+		static LayerManager s_LayerManager;
 	};
 }

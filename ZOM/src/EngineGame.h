@@ -1,6 +1,7 @@
 #pragma once
 
-namespace ZOM {
+namespace ZOM
+{
 	class ZOM_API Game {
 	public:
 		Game() {}

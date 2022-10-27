@@ -8,11 +8,13 @@
 #include "ShaderManager.h"
 #include "Mesh.h"
 
-namespace ZOM {
-	enum class ZOM_API RenderingAPI {
-		OPENGL
+namespace ZOM
+{
+	enum class ZOM_API renderingAPI {
+		opengl
 	};
-	std::string getStrRenderingApi(RenderingAPI rapi);
+
+	std::string getStrRenderingApi(renderingAPI api);
 
 	class ZOM_API Renderer {
 	public:
@@ -20,9 +22,9 @@ namespace ZOM {
 		static void release();
 
 		static void preRunInit();
-		static void setBeforeInitRenderingApi(RenderingAPI api);
+		static void setBeforeInitRenderingApi(renderingAPI api);
 
-		static RenderingAPI getAPI();
+		static renderingAPI getAPI();
 
 
 		// Shaders
@@ -41,10 +43,10 @@ namespace ZOM {
 		static void endScene();
 
 	private:
-		static bool s_Created;
-		static RenderingAPI s_RendreringApi;
-		static std::unique_ptr<RenderContext> s_RenderContext;
-		static std::unique_ptr<RenderApplication> s_RenderApplication;
-		static ShaderManager s_ShaderMgr;
+		static bool m_SCreated;
+		static renderingAPI m_SRenderingApi;
+		static std::unique_ptr<RenderContext> m_SRenderContext;
+		static std::unique_ptr<RenderApplication> m_SRenderApplication;
+		static ShaderManager m_SShaderMgr;
 	};
 }

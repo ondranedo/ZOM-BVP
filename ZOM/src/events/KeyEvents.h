@@ -2,26 +2,27 @@
 
 #include "codes/Keycodes.h"
 
-namespace ZOM {
+namespace ZOM
+{
 	class ZOM_API KeyPressedEvent : public Event {
 	public:
-		KeyPressedEvent(int keycode, int repeatcount):
-			m_KeyCode(keycode),
-			m_RepeatCount(repeatcount){}
-		~KeyPressedEvent(){} 
+		KeyPressedEvent(const int keycode,const int repeat_count)
+			: m_KeyCode(keycode),
+			  m_RepeatCount(repeat_count) {}
+
+		virtual ~KeyPressedEvent() override = default;
 
 		int getKeyCode() const { return m_KeyCode; }
-		int getRepeatcount() const { return m_RepeatCount; }
+		int getRepeatCount() const { return m_RepeatCount; }
 
 #ifdef ZOM_DEBUG
-		std::string toString() override
+		virtual std::string toString() override
 		{
 			std::string ret = "";
 			ret += "Key ";
-			ret += ZOMKeyCodeToString(m_KeyCode);
+			ret += zomKeyCodeToString(m_KeyCode);
 			ret += " pressed ";
-			if(m_RepeatCount != 0)
-				ret += "[repeat]";
+			if(m_RepeatCount != 0) ret += "[repeat]";
 			return ret;
 		}
 #endif
@@ -34,18 +35,18 @@ namespace ZOM {
 
 	class ZOM_API KeyReleasedEvent : public Event {
 	public:
-		KeyReleasedEvent(int keycode) :
-			m_KeyCode(keycode){}
-		~KeyReleasedEvent() {}
+		KeyReleasedEvent(const int keycode) : m_KeyCode(keycode) {}
+
+		virtual ~KeyReleasedEvent() override = default;
 
 		int getKeyCode() const { return m_KeyCode; }
 
 #ifdef ZOM_DEBUG
-		std::string toString() override
+		virtual std::string toString() override
 		{
 			std::string ret = "";
 			ret += "Key ";
-			ret += ZOMKeyCodeToString(m_KeyCode);
+			ret += zomKeyCodeToString(m_KeyCode);
 			ret += " released";
 			return ret;
 		}

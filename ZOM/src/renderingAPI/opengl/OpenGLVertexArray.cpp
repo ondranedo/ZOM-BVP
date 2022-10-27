@@ -37,8 +37,8 @@ namespace ZOM {
 			ZOM_GL_CALL(glEnableVertexAttribArray((GLsizei)i));
 
 			ZOM_GL_CALL(glVertexAttribPointer((GLuint)i,
-				(GLint)ZOMInShaderDataTypeComponentCount(layoutVec[0].type),
-				(GLenum)ZOMInShaderDataTypeComponentToGLType(layoutVec[0].type),
+				(GLint)zomInShaderDataTypeComponentCount(layoutVec[0].type),
+				(GLenum)zomInShaderDataTypeComponentToGLType(layoutVec[0].type),
 				(GLboolean)GL_FALSE, 
 				(GLsizei)m_VB->getLayout().getSize(),
 				(const void*)layoutVec[0].offset));

@@ -1,10 +1,8 @@
 #include "EventQueue.h"
 
-namespace ZOM {
-
-	EventQueue::EventQueue()
-	{
-	}
+namespace ZOM
+{
+	EventQueue::EventQueue() { }
 
 	void EventQueue::addEvent(Event* heap_event_addr)
 	{
@@ -13,8 +11,7 @@ namespace ZOM {
 
 	void EventQueue::clearAll()
 	{
-		for (size_t i = 0; i < m_EventQueue.size(); i++)
-		{
+		for(size_t i = 0 ; i < m_EventQueue.size() ; i++) {
 			Event* event = getTopEvent();
 
 			delete event;
@@ -37,5 +34,4 @@ namespace ZOM {
 	{
 		return ZOM_BIND_CLASS_FUNC(EventQueue::addEvent);
 	}
-
 }

@@ -14,10 +14,10 @@ namespace ZOM {
 		auto end = std::chrono::steady_clock::now();
 
 		profileData pd;
-		pd.name = m_Name;
-		pd.time_point = "ns";
-		pd.start = std::chrono::time_point_cast<std::chrono::nanoseconds>(m_Start).time_since_epoch().count();
-		pd.end = std::chrono::time_point_cast  <std::chrono::nanoseconds>(end).time_since_epoch().count();
+		pd.m_Name = m_Name;
+		pd.m_TimePoint = "ns";
+		pd.m_Start = std::chrono::time_point_cast<std::chrono::nanoseconds>(m_Start).time_since_epoch().count();
+		pd.m_End = std::chrono::time_point_cast  <std::chrono::nanoseconds>(end).time_since_epoch().count();
 
 		ChromeProfiling::profile(pd);
 	}
@@ -28,61 +28,61 @@ namespace ZOM {
 
 	void ChromeProfiling::init()
 	{
-		m_Path = Config::profilePath();
+		m_SPath = Config::profilePath();
 		if (Config::profile())
 		{
-			m_File.open(m_Path, std::ios::out);
+			m_SFile.open(m_SPath, std::ios::out);
 			header();
 		}
 	}
 
 	void ChromeProfiling::release()
 	{
-		if (m_File.is_open())
+		if (m_SFile.is_open())
 		{
 			footer();
-			m_File.close();
+			m_SFile.close();
 		}
 	}
 
 	void ChromeProfiling::profile(const profileData& data)
 	{
-		if (m_File.is_open()) {
-			if (profileCount++ > 0)
-				m_File << ",";
+		if (m_SFile.is_open()) {
+			if (m_SProfileCount++ > 0)
+				m_SFile << ",";
 
-			m_File << "{\n";
-			m_File << "	    \"name\": \"" << data.name << "\",\n";
-			m_File << "		\"cat\" : \"function\",\n";
-			m_File << "		\"ph\"  : \"X\",\n";
-			m_File << "		\"ts\"  : " << data.start << ",\n";
-			m_File << "		\"dur\" : " << (data.end - data.start) << ",\n";
-			m_File << "		\"pid\" : 0,\n";
-			m_File << "		\"tid\" : 0,\n";
-			m_File << "		\"args\": {}\n";
-			m_File << "}\n";
-			m_File.flush();
+			m_SFile << "{\n";
+			m_SFile << "	    \"m_Name\": \"" << data.m_Name << "\",\n";
+			m_SFile << "		\"cat\" : \"function\",\n";
+			m_SFile << "		\"ph\"  : \"X\",\n";
+			m_SFile << "		\"ts\"  : " << data.m_Start << ",\n";
+			m_SFile << "		\"dur\" : " << (data.m_End - data.m_Start) << ",\n";
+			m_SFile << "		\"pid\" : 0,\n";
+			m_SFile << "		\"tid\" : 0,\n";
+			m_SFile << "		\"args\": {}\n";
+			m_SFile << "}\n";
+			m_SFile.flush();
 		}
 	}
 
 	void ChromeProfiling::header()
 	{
-		m_File << "{\n";
-		m_File << " \"traceEvents\": [\n";
-		m_File.flush();
+		m_SFile << "{\n";
+		m_SFile << " \"traceEvents\": [\n";
+		m_SFile.flush();
 	}
 
 	void ChromeProfiling::footer()
 	{
-		m_File << "],\n";
-		m_File << " \"otherData\": {}\n}";
-		m_File.flush();
+		m_SFile << "],\n";
+		m_SFile << " \"otherData\": {}\n}";
+		m_SFile.flush();
 	}
 
-	std::string ChromeProfiling::m_Path;
+	std::string ChromeProfiling::m_SPath;
 
-	std::ofstream ChromeProfiling::m_File;
+	std::ofstream ChromeProfiling::m_SFile;
 
-	size_t ChromeProfiling::profileCount = 0;
+	size_t ChromeProfiling::m_SProfileCount = 0;
 
 }

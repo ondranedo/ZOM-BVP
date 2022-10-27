@@ -10,7 +10,8 @@ public:
 
 		ZOM::Engine::addLayer(new GameLayer("Game layer"));
 	}
-	~Demo()
+
+	virtual ~Demo() override
 	{
 		ZOM_INFO("Game destroyed");
 	}

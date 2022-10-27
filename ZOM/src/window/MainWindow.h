@@ -2,8 +2,8 @@
 
 #include "Window.h"
 
-namespace ZOM {
-
+namespace ZOM
+{
 	class ZOM_API EventQueue;
 
 	class ZOM_API MainWindow {
@@ -11,7 +11,7 @@ namespace ZOM {
 		static void init();
 		static void release();
 
-		static void setBeforeInitWindowParam(const WindowParam& param);
+		static void setBeforeInitWindowParam(const windowParam& param);
 
 		static glm::vec2 getDims();
 
@@ -21,8 +21,8 @@ namespace ZOM {
 		static void* getContextCreationAdr();
 
 	private:
-		static std::unique_ptr<Window> s_Window;
-		static bool s_Created;
-		static WindowParam s_WindowParam;
+		static std::unique_ptr<Window> m_SWindow;
+		static bool m_SCreated;
+		static windowParam m_SWindowParam;
 	};
 }

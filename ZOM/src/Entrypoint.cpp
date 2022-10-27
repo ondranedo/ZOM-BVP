@@ -5,10 +5,9 @@
 
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
-#include <stdlib.h>
 
 int main(int argc, char** argv)
-{	
+{
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	ZOM::Logger::init();
 	ZOM::Config::init();

@@ -4,15 +4,15 @@
 
 void GameLayer::onUpdate()
 {
-	std::shared_ptr<ZOM::Mesh> background = ZOM::Mesh::create(ZOM::MeshCreationData::background("mandelbrot"));
+	const std::shared_ptr<ZOM::Mesh> background = ZOM::Mesh::create(ZOM::meshCreationData::background("mandelbrot"));
 
-	if (ZOM::Input::isPressed(ZOM_KEY_Q)) m_Zoom -= 0.01;
-	if (ZOM::Input::isPressed(ZOM_KEY_E)) m_Zoom += 0.01;
-	if (ZOM::Input::isPressed(ZOM_KEY_W)) m_Position.y -= 0.02 / pow(m_Zoom,5);
-	if (ZOM::Input::isPressed(ZOM_KEY_A)) m_Position.x += 0.02 / pow(m_Zoom,5);
-	if (ZOM::Input::isPressed(ZOM_KEY_S)) m_Position.y += 0.02 / pow(m_Zoom,5);
-	if (ZOM::Input::isPressed(ZOM_KEY_D)) m_Position.x -= 0.02 / pow(m_Zoom,5);
-
+	if (ZOM::Input::isPressed(ZOM_KEY_Q)) m_Zoom -= 0.01f;
+	if (ZOM::Input::isPressed(ZOM_KEY_E)) m_Zoom += 0.01f;
+	if (ZOM::Input::isPressed(ZOM_KEY_W)) m_Position.y -= 0.02f / static_cast<float>(pow(m_Zoom,5));
+	if (ZOM::Input::isPressed(ZOM_KEY_A)) m_Position.x += 0.02f / static_cast<float>(pow(m_Zoom,5));
+	if (ZOM::Input::isPressed(ZOM_KEY_S)) m_Position.y += 0.02f / static_cast<float>(pow(m_Zoom,5));
+	if (ZOM::Input::isPressed(ZOM_KEY_D)) m_Position.x -= 0.02f / static_cast<float>(pow(m_Zoom,5));
+	
 	glm::fvec2 dims = {640, 480};
 	background->setUniform("resolution", &dims);
 	background->setUniform("move_dir", &m_Position);

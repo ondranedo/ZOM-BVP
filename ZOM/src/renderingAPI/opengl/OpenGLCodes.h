@@ -1,5 +1,6 @@
-#pragma once 
+#pragma once
 
-namespace ZOM {
-	extern int ZOMInShaderDataTypeComponentToGLType(InShaderDataType isdt);
+namespace ZOM
+{
+	extern int zomInShaderDataTypeComponentToGLType(InShaderDataType isdt);
 }

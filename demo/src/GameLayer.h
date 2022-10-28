@@ -17,4 +17,5 @@ protected:
 
 	glm::fvec2 m_Position = {0.0, 0.0};
 	float m_Zoom          = 1.0f;
+	glm::fvec2 m_Pos = { 0.0, 0.0 };
 };

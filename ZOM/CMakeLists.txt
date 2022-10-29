@@ -109,6 +109,13 @@ add_library(ZOM STATIC
 "src/renderingAPI/opengl/buffers/OpenGLVertexBuffer.h"
 "src/renderingAPI/opengl/buffers/OpenGLIndexBuffer.cpp"
 "src/renderingAPI/opengl/buffers/OpenGLIndexBuffer.h"
+
+"src/renderer/scene/Camera.h" 
+"src/renderer/scene/Camera.cpp" 
+"src/renderer/scene/CameraMovement.h"
+"src/renderer/scene/OrthographicCamera.h" 
+"src/renderer/scene/OrthographicCamera.cpp"
+
 "src/renderingAPI/opengl/OpenGLMesh.cpp"
 "src/renderingAPI/opengl/OpenGLMesh.h"
 "src/renderingAPI/opengl/OpenGLRenderApplication.cpp"

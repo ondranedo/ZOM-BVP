@@ -1,6 +1,6 @@
 #pragma once
 
-#include "renderer/VertexBuffer.h"
+#include "renderer/buffers/VertexBuffer.h"
 
 namespace ZOM
 {

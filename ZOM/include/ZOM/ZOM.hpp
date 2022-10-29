@@ -31,9 +31,9 @@
 
 
 #include "./../../src/renderer/renderer.h"
-#include "./../../src/renderer/VertexBuffer.h"
-#include "./../../src/renderer/IndexBuffer.h"
-#include "./../../src/renderer/VertexBufferLayout.h"
+#include "./../../src/renderer/buffers/VertexBuffer.h"
+#include "./../../src/renderer/buffers/IndexBuffer.h"
+#include "./../../src/renderer/buffers/VertexBufferLayout.h"
 #include "./../../src/renderer/VertexArray.h"
 #include "./../../src/renderer/Shader.h"
 #include "./../../src/renderer/Mesh.h"

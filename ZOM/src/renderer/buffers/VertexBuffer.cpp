@@ -1,6 +1,4 @@
-#include "VertexBuffer.h"
-
-#include "renderingAPI/opengl/OpenGLVertexBuffer.h"
+#include "renderingAPI/opengl/buffers/OpenGLVertexBuffer.h"
 
 namespace ZOM
 {

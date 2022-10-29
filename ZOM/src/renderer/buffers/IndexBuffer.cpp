@@ -1,6 +1,6 @@
 #include "IndexBuffer.h"
 
-#include "renderingAPI/opengl/OpenGLIndexBuffer.h"
+#include "renderingAPI/opengl/buffers/OpenGLIndexBuffer.h"
 
 namespace ZOM
 {

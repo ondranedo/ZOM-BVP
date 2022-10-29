@@ -1,6 +1,6 @@
 #pragma once
 
-#include "VertexBufferLayout.h"
+#include "buffers/VertexBufferLayout.h"
 
 namespace ZOM {
 	class Shader {

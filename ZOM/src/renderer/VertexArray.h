@@ -1,7 +1,7 @@
 #pragma once
 
-#include "IndexBuffer.h"
-#include "VertexBuffer.h"
+#include "buffers/IndexBuffer.h"
+#include "buffers/VertexBuffer.h"
 
 namespace ZOM
 {

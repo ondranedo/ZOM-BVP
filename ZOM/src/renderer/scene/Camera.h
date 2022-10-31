@@ -15,7 +15,7 @@ namespace ZOM
 		//  - adding every mesh to the scene
 		//	- adding camera to the scene
 		//  - adding model projection to the mesh
-		//  - adding scene projection
+		//  - adding scene projectionw
 
 	protected:
 		glm::mat4 m_ViewProj = glm::mat4();

@@ -1,6 +1,8 @@
 # DIRS
-.vs
-.idea
-out
+/.vs/
+/.idea/
+/out/
+/cmake-build-debug/
 
 # FILES
+

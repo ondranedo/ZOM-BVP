@@ -6,7 +6,7 @@
 
 
 #include "Profiling.h"
-#define ZOM_FUNCTION_TIMER() ZOM::MeasureTime __FUNC__(__FUNCSIG__)
+#define ZOM_FUNCTION_TIMER() ZOM::MeasureTime __FUNC__(__PRETTY_FUNCTION__)
 
 // Client logger
 
